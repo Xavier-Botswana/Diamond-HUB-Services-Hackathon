@@ -1,0 +1,185 @@
+const functions = require("firebase-functions");
+const admin = require("firebase-admin");
+const app = require("express")();
+
+// Initialize Firebase Admin SDK
+const serviceAccount = require("./diamond-hub-firebase.json");
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+});
+const db = admin.firestore();
+
+// get 1 application
+app.get("/applications/:id", async (req, res) => {
+  try {
+    const appID = req.params.id;
+    const application = await db.collection("applications").doc(appID).get();
+    const data = application.data();
+    res.status(200).send(data);
+  } catch (error) {
+    res.status(500).send(`Error getting documents: ${error}`);
+  }
+});
+
+// get 1 application2
+app.get("/applications2/:id", async (req, res) => {
+  try {
+    const appID = req.params.id;
+    const application = await db.collection("applications2").doc(appID).get();
+    const data = application.data();
+    res.status(200).send(data);
+  } catch (error) {
+    res.status(500).send(`Error getting documents: ${error}`);
+  }
+});
+
+// update application
+app.put("/applications/:id", async (req, res) => {
+  try {
+    const appID = req.params.id;
+    const newData = req.body;
+    await db.collection("applications").doc(appID).update(newData);
+    res.status(200).send(`Document successfully updated with ID: ${appID}`);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send(`Error updating document: ${error}`);
+  }
+});
+
+// Sign-up function
+exports.signup = functions.https.onRequest(async (req, res) => {
+  if (req.method !== "POST") {
+    return res.status(405).send("Method Not Allowed");
+  }
+
+  const {email, password} = req.body;
+  try {
+    const user = await admin.auth().createUser({
+      email,
+      password,
+    });
+    const userRef = db.collection("users").doc(user.uid);
+    await userRef.set({
+      email: user.email,
+      uid: user.uid,
+      role: "user",
+    });
+    res.json(user);
+  } catch (error) {
+    res.status(500).json({error});
+  }
+});
+
+// Sign-in function
+exports.signin = functions.https.onRequest(async (req, res) => {
+  if (req.method !== "POST") {
+    return res.status(405).send("Method Not Allowed");
+  }
+
+  const {email, password} = req.body;
+  try {
+    const user = await admin.auth().getUserByEmail(email);
+    const token = await admin.auth().createCustomToken(user.uid);
+    console.log(password);
+    res.json({token});
+  } catch (error) {
+    res.status(500).json({error});
+  }
+});
+
+// Submit form function
+exports.submitForm1 = functions.https.onRequest(async (req, res) => {
+  if (req.method !== "POST") {
+    return res.status(405).send("Method Not Allowed");
+  }
+
+  try {
+    const formData = req.body;
+    const docRef = await db.collection("applications").add(formData);
+    // also add the document id to the data
+    await docRef.update({id: docRef.id});
+    res.status(200).send(`Document successfully written with ID: ${docRef.id}`);
+  } catch (error) {
+    res.status(500).send(`Error writing document: ${error}`);
+  }
+});
+
+// submit form 2 function
+exports.submitForm2 = functions.https.onRequest(async (req, res) => {
+  if (req.method !== "POST") {
+    return res.status(405).send("Method Not Allowed");
+  }
+
+  try {
+    const formData = req.body;
+    const docRef = await db.collection("applications2").add(formData);
+    res.status(200).send(`Document successfully written with ID: ${docRef.id}`);
+  } catch (error) {
+    res.status(500).send(`Error writing document: ${error}`);
+  }
+});
+
+// get function for applications
+exports.getApplications1 = functions.https.onRequest(async (req, res) => {
+  if (req.method !== "GET") {
+    return res.status(405).send("Method Not Allowed");
+  }
+
+  try {
+    const applications = await db.collection("applications").get();
+    const data = applications.docs.map((doc) => doc.data());
+    res.status(200).send(data);
+  } catch (error) {
+    res.status(500).send(`Error getting documents: ${error}`);
+  }
+});
+
+// get single application
+exports.get1Appication = functions.https.onRequest(app);
+
+// get function for applications2
+exports.getApplications2 = functions.https.onRequest(async (req, res) => {
+  if (req.method !== "GET") {
+    return res.status(405).send("Method Not Allowed");
+  }
+
+  try {
+    const applications = await db.collection("applications2").get();
+    const data = applications.docs.map((doc) => doc.data());
+    res.status(200).send(data);
+  } catch (error) {
+    res.status(500).send(`Error getting documents: ${error}`);
+  }
+});
+
+// put function for applications
+exports.putApplications1 = functions.https.onRequest(async (req, res) => {
+  if (req.method !== "PUT") {
+    return res.status(405).send("Method Not Allowed");
+  }
+
+  try {
+    const applications = await db.collection("applications").get();
+    const data = applications.docs.map((doc) => doc.data());
+    res.status(200).send(data);
+  } catch (error) {
+    res.status(500).send(`Error getting documents: ${error}`);
+  }
+});
+
+// put function for applications2
+exports.putApplications2 = functions.https.onRequest(async (req, res) => {
+  if (req.method !== "PUT") {
+    return res.status(405).send("Method Not Allowed");
+  }
+
+  try {
+    const applications = await db.collection("applications2").get();
+    const data = applications.docs.map((doc) => doc.data());
+    res.status(200).send(data);
+  } catch (error) {
+    res.status(500).send(`Error getting documents: ${error}`);
+  }
+});
+
+
