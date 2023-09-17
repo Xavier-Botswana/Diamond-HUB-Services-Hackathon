@@ -805,17 +805,17 @@ export function Home() {
                 <form className="mt-8 mb-2 ">
                   <div className="md:flex grid grid-cols-1  justify-between gap-4">
                     <div className="flex-1 mb-4 grid   md:grid-cols-3 gap-6">
-                      <Input size="lg" label="Name" />
-                      <Input size="lg" label="Email" />
-                      <Input type="password" size="lg" label="Password" />{" "}
-                      <Input size="lg" label="Name" />
-                      <Input size="lg" label="Email" />
-                      <Input type="password" size="lg" label="Password" />{" "}
-                      <Input size="lg" label="Name" />
-                      <Input size="lg" label="Email" />
-                      <Input type="password" size="lg" label="Password" />
-                      <Input size="lg" label="Email" />
-                      <Input type="password" size="lg" label="Password" />{" "}
+                      <Input name="name_of_applicant" size="lg" label="Name" />
+                      <Input size="lg" label="Email" name="manufacturing_license_no"/>
+                      <Input type="password" size="lg" label="Password" name="address_in_botswana"/>{" "}
+                      <Input size="lg" label="Name" name="fullnames_of_directors"/>
+                      <Input size="lg" label="Email" name="nationalities"/>
+                      <Input type="password" size="lg" label="Password" name="authorised_share_capital_and_issued_capital"/>{" "}
+                      <Input size="lg" label="Name" name="names_of_shareholders""/>
+                      <Input size="lg" label="Email" name="shareholders_nationalities"/>
+                      <Input type="password" size="lg" label="Password" name="experience_in_semi_precious_stones"/>
+                      <Input size="lg" label="Email" name="description_of_intended_operations"/>
+                      <Input type="password" size="lg" label="Password" name=""/>{" "}
                       <Input size="lg" label="Name" />
                       <Input size="lg" label="Email" />
                       <Input type="password" size="lg" label="Password" />{" "}
