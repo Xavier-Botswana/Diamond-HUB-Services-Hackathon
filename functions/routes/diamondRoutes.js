@@ -1,7 +1,17 @@
-const express = require('express');
-const { db, admin } = require('../firebaseAdmin');
+const express = require("express");
+const {db, admin} = require("../firebaseAdmin");
+const getDocument = require("../utils/getDocument");
+const routerFunction = express.Router;
+const router = routerFunction();
 
-const router = express.Router();
+router.get("/:id", async (req, res, next) => {
+  try {
+    const application = await getDocument("diamonds", req.params.id);
+    return res.json(application);
+  } catch (error) {
+    next(error);
+  }
+});
 
 router.post("/register", async (req, res, next) => {
   try {

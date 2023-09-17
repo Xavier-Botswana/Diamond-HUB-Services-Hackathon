@@ -1,7 +1,7 @@
-const express = require('express');
-const { db, admin } = require('../firebaseAdmin');
-
-const router = express.Router();
+const express = require("express");
+const {db, admin} = require("../firebaseAdmin");
+const routerFunction = express.Router;
+const router = routerFunction();
 
 router.get("/hello", (req, res) => {
   res.send("Hello from Xavier Africa Technologies Pty Ltd!");

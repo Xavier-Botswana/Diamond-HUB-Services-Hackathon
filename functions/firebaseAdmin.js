@@ -1,6 +1,6 @@
 const admin = require("firebase-admin");
 
-const serviceAccountPath = process.env.SERVICE_ACCOUNT_PATH || "./diamond-hub-firebase.json";
+const serviceAccountPath = "./diamond-hub-firebase.json";
 const serviceAccount = require(serviceAccountPath);
 
 admin.initializeApp({
@@ -9,4 +9,4 @@ admin.initializeApp({
 
 const db = admin.firestore();
 
-module.exports = { admin, db };
+module.exports = {admin, db};

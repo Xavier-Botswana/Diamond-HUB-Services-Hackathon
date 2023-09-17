@@ -137,3 +137,8 @@ app.delete("/application/:id", async (req, res) => {
 
 // export api to firebase cloud functions
 exports.api = functions.https.onRequest(app);
+
+
+// was for firebaseAdmin
+
+// const serviceAccountPath = process.env.SERVICE_ACCOUNT_PATH || "./diamond-hub-firebase.json";

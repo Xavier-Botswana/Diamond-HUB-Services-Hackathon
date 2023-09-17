@@ -1,4 +1,4 @@
-const { db } = require('../firebaseAdmin');
+const {db} = require("../firebaseAdmin");
 
 /**
  * Retrieves a document from a collection by ID.
@@ -8,15 +8,11 @@ const { db } = require('../firebaseAdmin');
  * @return {Promise<Object>} The retrieved document.
  */
 async function getDocument(collection, id) {
-  try {
-    const doc = await db.collection(collection).doc(id).get();
-    if (!doc.exists) {
-      throw new Error("Document not found");
-    }
-    return doc.data();
-  } catch (error) {
-    throw error;
+  const doc = await db.collection(collection).doc(id).get();
+  if (!doc.exists) {
+    throw new Error("Document not found");
   }
+  return doc.data();
 }
 
 module.exports = getDocument;

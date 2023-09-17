@@ -1,8 +1,8 @@
-const express = require('express');
-const { db, admin } = require('../firebaseAdmin');
-const getDocument = require('../utils/getDocument');
-
-const router = express.Router();
+const express = require("express");
+const {db, admin} = require("../firebaseAdmin");
+const getDocument = require("../utils/getDocument");
+const routerFunction = express.Router;
+const router = routerFunction();
 
 router.get("/:id", async (req, res, next) => {
   try {
