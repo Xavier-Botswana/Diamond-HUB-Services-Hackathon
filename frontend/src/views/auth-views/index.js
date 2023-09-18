@@ -10,7 +10,7 @@ export default function AppViews() {
         <Redirect to="/auth/login"/>
        </Route>  */}
       <Route exact path="/auth/login" component={Login} />
-      <Route  exact path="/auth/registration" component={Register} />
+      <Route exact path="/auth/registration" component={Register} />
     </Switch>
   );
 }

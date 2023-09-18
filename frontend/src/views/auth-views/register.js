@@ -1,8 +1,7 @@
 import { Button } from "@material-tailwind/react";
 import { Card, Input, Checkbox, Typography } from "@material-tailwind/react";
-import { Link,useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 function Register() {
-
   const history = useHistory();
 
   return (
@@ -39,15 +38,18 @@ function Register() {
             containerProps={{ className: "-ml-2.5" }}
           />
 
-          <Button className="mt-6" fullWidth>
+          <Button className="mt-6  hover:bg-[#0097c9]" fullWidth>
             Register
           </Button>
 
           <Typography color="gray" className="mt-4 text-center font-normal">
             Already have an account?{" "}
-            <span    onClick={()=>{
-               history.push('/login')
-            }} className="font-medium text-gray-900">
+            <span
+              onClick={() => {
+                history.push("/auth/login");
+              }}
+              className="font-medium text-gray-900 cursor-pointer"
+            >
               Sign In
             </span>
           </Typography>

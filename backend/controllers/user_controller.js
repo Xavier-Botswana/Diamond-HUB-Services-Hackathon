@@ -7,7 +7,7 @@ exports.get_users = catch_async(async (req, res, next) => {
 
     let config = {
         method: "get",
-        url: `${BASE_URL}/api/collections/user/api/collections/records?page=${page}&per_page=${per_page}`
+        url: `${BASE_URL}/api/collections/users/records?page=${page}&per_page=${per_page}`
     }
 
     await axios(config).then(function (response) {

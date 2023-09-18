@@ -44,9 +44,9 @@ function Login() {
 
           <Typography color="gray" className="mt-4 text-center font-normal">
             Already have an account?{" "}
-            <a href="#" className="font-medium text-gray-900">
-              Sign In
-            </a>
+            <Link to="/auth/registration" className="font-medium text-gray-900 cursor-pointer">
+              Sign up
+            </Link>
           </Typography>
         </form>
       </Card>

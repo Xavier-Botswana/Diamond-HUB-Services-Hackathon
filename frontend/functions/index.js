@@ -2,7 +2,7 @@ const functions = require("firebase-functions");
 const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
-
+const {sendEmail} = require("./node-mailer");
 const errorHandlingMiddleware = require("./middleware/errorHandlingMiddleware");
 const loggingMiddleware = require("./middleware/loggingMiddleware");
 
@@ -21,6 +21,23 @@ app.use(cors({origin: true}));
 app.use(morgan("tiny"));
 
 // Use the routes
+
+app.post("/send", async (req, res) => {
+  try {
+    const email = req.body.email;
+    const message = req.body.message;
+    const base64String = req.body.base64String;
+
+    await sendEmail(message, base64String,email);
+
+    return res.status(200);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send(error);
+  }
+});
+
+
 app.use("/application", applicationRoutes);
 app.use("/user", userRoutes);
 app.use("/diamond", diamondRoutes);
