@@ -1,9 +1,53 @@
 import { Button } from "@material-tailwind/react";
 import { Card, Input, Checkbox, Typography } from "@material-tailwind/react";
 import { BrowserRouter as Router, Link, Switch, Route } from "react-router-dom";
+import axios from "axios";
+import {useState} from "react";
+import { useHistory } from 'react-router-dom';
+
 
 
 function Login() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
+  const history = useHistory();
+
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    console.log('Email:', email);
+    console.log('Password:', password);
+
+
+    try {
+      const response = await axios.post('http://localhost:8080/api/users/auth-with-password/', {
+        identity: email,
+        password: password,
+      }, {
+        headers: {
+          'Content-Type': 'application/json',
+        },});
+        setSuccess('Login successful');
+        history.push('/app/dashboard');
+
+      console.log('Login successful', response.data);
+      // Here, you would typically save the JWT to localStorage and redirect the user to the dashboard
+    } catch (error) {
+
+      // If the response status code is 400, it means the request was malformed
+        if (error.response.status === 400) {
+            setError(error.response.data.message);
+        } else {
+            setError('Something went wrong. Please try again later.');
+        }
+
+      // console.error('Error logging in', error);
+      // setError('Error logging in. Please try again.');
+    }
+  };
   return (
     <div className="flex justify-center items-center h-screen">
       <Card color="transparent" shadow={false}>
@@ -13,11 +57,13 @@ function Login() {
         <Typography color="gray" className="mt-1 font-normal">
           Enter your details to sign in.
         </Typography>
-        <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96">
+        <form method="post" className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96" onSubmit={handleSubmit}>
           <div className="mb-4 flex flex-col gap-6">
-            <Input size="lg" label="Email" />
-            <Input type="password" size="lg" label="Password" />
+            <Input size="lg" label="Email" value={email} onChange={(e) => setEmail(e.target.value)}/>
+            <Input type="password" size="lg" label="Password" value={password} onChange={(e) => setPassword(e.target.value)}/>
           </div>
+          {error && <div className="text-red-500 mt-2">{error}</div>}
+          {success && <div className="text-green-500 mt-2">{success}</div>}
           <Checkbox
             label={
               <Typography
@@ -36,11 +82,11 @@ function Login() {
             }
             containerProps={{ className: "-ml-2.5" }}
           />
-          <Link to="/app/dashboard">
-            <Button className="mt-6 hover:bg-[#0097c9]" fullWidth >
+          {/*<Link to="/app/dashboard">*/}
+            <Button className="mt-6 hover:bg-[#0097c9]" fullWidth type="submit">
               Sign in
             </Button>
-            </Link>
+            {/*</Link>*/}
 
           <Typography color="gray" className="mt-4 text-center font-normal">
             Already have an account?{" "}
