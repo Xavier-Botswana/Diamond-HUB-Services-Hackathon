@@ -33,12 +33,12 @@ import axios from "axios";
 
 const TABLE_HEAD = ["Member", "Function", "Status", "Employed", ""];
 
-const TABLE_ROWS = [
+const TABLE = [
   {
     id: "1",
     img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-3.jpg",
     name: "John Michael",
-    email: "john@creative-tim.com",
+    email: "prochivs@gmail.com",
     job: "Manager",
     org: "Organization",
     online: true,
@@ -96,6 +96,8 @@ export default function Applications() {
   const [PDFDATA, setPdfdata] = useState(null);
   const [pdfnum, setPdfnum] = useState(null);
   const [pdfbs, setPdfbs] = useState(null);
+  const [TABLE_ROWS, setDataTable1] = useState([]);
+  const [search, setSearch] = useState("");
 
   const handleOpen = (results) => {
     setOpen((cur) => !cur);
@@ -109,164 +111,145 @@ export default function Applications() {
   };
 
   const submitApproval = async () => {
+
+
+
     try {
-      await axios
-        .put("putendpoint for application", {
-          // ...Certificate,
-        })
-        .then(async (response) => {
-          console.log(
-            `Registration number ===================================>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ${response.data.status}`
-          );
-          console.log(response);
-          let phone = data[0].phone;
-          await axios.post("/api/sms-notifications/sms", {
-            to: phone.replace(/\s+/g, ""),
-            body: `Good day ${data.firstname} your new  certificate has been created.Thank you`,
-          });
+      let categoryparam = "practice";
+      let res = [];
+      res = await fetch(
+        "https://certificates.erb.org.bw/api/files/" + categoryparam
+      );
 
-          const currentDate = new Date();
+      const data1 = await res.json();
+      const buf1 = data1.message.data;
+      var ab = new ArrayBuffer(buf1.length);
+      var view = new Uint8Array(ab);
+      for (var i = 0; i < buf1.length; ++i) {
+        view[i] = buf1[i];
+      }
+      const existingPdfBytes = ab;
 
-          let categoryparam = "practice";
-          let res = [];
-          res = await fetch(
-            "https://certificates.erb.org.bw/api/files/" + categoryparam
-          );
+      const pdfDoc = await PDFDocument.load(existingPdfBytes);
 
-          const data1 = await res.json();
-          const buf1 = data1.message.data;
-          var ab = new ArrayBuffer(buf1.length);
-          var view = new Uint8Array(ab);
-          for (var i = 0; i < buf1.length; ++i) {
-            view[i] = buf1[i];
-          }
-          const existingPdfBytes = ab;
+      if (categoryparam === "practice") {
+        const helveticaFont = await pdfDoc.embedFont(
+          StandardFonts.HelveticaBold
+        );
+        const pages = pdfDoc.getPages();
+        const firstPage = pages[0];
+        const { width, height } = firstPage.getSize();
 
-          const pdfDoc = await PDFDocument.load(existingPdfBytes);
-
-          if (categoryparam === "practice") {
-            const helveticaFont = await pdfDoc.embedFont(
-              StandardFonts.HelveticaBold
-            );
-            const pages = pdfDoc.getPages();
-            const firstPage = pages[0];
-            const { width, height } = firstPage.getSize();
-            const certificate_Number = parseInt(
-              response.data.certificateNumber.replace("ERB-PC", "")
-            );
-
-            const names = "firstname" + " " + "lastname";
-            const textWidth = helveticaFont.widthOfTextAtSize(names, 15);
-            const centerX = (width - textWidth) / 2;
-            firstPage.drawText(names, {
-              x: centerX,
-              y: height / height + 382,
-              size: 15,
-              font: helveticaFont,
-              color: rgb(0.29, 0.337, 0.408),
-            });
-
-            const practices = "practice";
-            const textWidth01 = helveticaFont.widthOfTextAtSize(practices, 11);
-            const centerX01 = (width - textWidth01) / 2;
-            firstPage.drawText(practices, {
-              x: centerX01,
-              y: height / height + 342,
-              size: 11,
-              font: helveticaFont,
-              color: rgb(0.29, 0.337, 0.408),
-            });
-
-            const disciplines = " discipline";
-            const textWidth02 = helveticaFont.widthOfTextAtSize(
-              disciplines,
-              11
-            );
-            const centerX02 = (width - textWidth02) / 2;
-            firstPage.drawText(disciplines, {
-              x: centerX02,
-              y: height / height + 307,
-              size: 11,
-              font: helveticaFont,
-              color: rgb(0.29, 0.337, 0.408),
-            });
-
-            firstPage.drawText("registrationNumber", {
-              x: width / 1.4,
-              y: height / 3 + 50,
-              size: 9,
-              font: helveticaFont,
-              color: rgb(0.29, 0.337, 0.408),
-            });
-
-            firstPage.drawText("certificateNumber", {
-              x: width / 5.5 - 9,
-              y: height / 3 + 50,
-              size: 9,
-              font: helveticaFont,
-              color: rgb(0.29, 0.337, 0.408),
-            });
-
-            firstPage.drawText(`currentDate)}`, {
-              x: width / 6.3,
-              y: height / 3 + 19,
-              size: 9,
-              font: helveticaFont,
-              color: rgb(0.29, 0.337, 0.408),
-            });
-
-            firstPage.drawText(`certificate_Number`, {
-              x: width / 4.3,
-              y: height / 4 - 109,
-              size: 9,
-              font: helveticaFont,
-              color: rgb(1, 1, 1),
-            });
-
-            firstPage.drawText(`expiryDate`, {
-              x: width / 1.51,
-              y: height / 3 + 19,
-              size: 9,
-              font: helveticaFont,
-              color: rgb(0.29, 0.337, 0.408),
-            });
-
-            // // Embed the QR code image
-            // let qCodeText = `https://certificates.erb.org.bw/certificateQr/?id=${response.data.id}`;
-            // let qCodeDataURL = await QRCode.toDataURL(qCodeText);
-            // let qCodeImage = await pdfDoc.embedPng(
-            //   Uint8Array.from(atob(qCodeDataURL.split(',')[1]), (c) => c.charCodeAt(0))
-            // );
-
-            // firstPage.drawImage(qCodeImage, {
-            //   x: width / 2 + 150,
-            //   y: height / 70,
-            //   width: 45,
-            //   height: 45,
-            //   color: rgb(0, 0, 0),
-            // });
-
-            const pdfBytes = await pdfDoc.save();
-            const base64String = await pdfDoc.saveAsBase64();
-            setPdfnum(pdfBytes);
-            setPdfbs(base64String);
-
-            axios.post("/send", {
-              from: "Botswana Diamond Hub",
-              to: data[0].email,
-              subject: "Botswana Diamond Hub",
-              text: "Your new  certificate has been created",
-              html: `<h4>Good day ${data[0].name}</h4><p>This is to inform you that your certificate has been created successfully.\n Thank you</p>`,
-              attachments: [
-                {
-                  filename: "certificate.pdf",
-                  content: base64String,
-                  encoding: "base64",
-                },
-              ],
-            });
-          }
+        const names = "firstname";
+        const textWidth = helveticaFont.widthOfTextAtSize(names, 15);
+        const centerX = (width - textWidth) / 2;
+        firstPage.drawText(names, {
+          x: centerX,
+          y: height / height + 382,
+          size: 15,
+          font: helveticaFont,
+          color: rgb(0.29, 0.337, 0.408),
         });
+
+        const practices = "practice";
+        const textWidth01 = helveticaFont.widthOfTextAtSize(practices, 11);
+        const centerX01 = (width - textWidth01) / 2;
+        firstPage.drawText(practices, {
+          x: centerX01,
+          y: height / height + 342,
+          size: 11,
+          font: helveticaFont,
+          color: rgb(0.29, 0.337, 0.408),
+        });
+
+        const disciplines = " discipline";
+        const textWidth02 = helveticaFont.widthOfTextAtSize(disciplines, 11);
+        const centerX02 = (width - textWidth02) / 2;
+        firstPage.drawText(disciplines, {
+          x: centerX02,
+          y: height / height + 307,
+          size: 11,
+          font: helveticaFont,
+          color: rgb(0.29, 0.337, 0.408),
+        });
+
+        firstPage.drawText("registrationNumber", {
+          x: width / 1.4,
+          y: height / 3 + 50,
+          size: 9,
+          font: helveticaFont,
+          color: rgb(0.29, 0.337, 0.408),
+        });
+
+        firstPage.drawText("certificateNumber", {
+          x: width / 5.5 - 9,
+          y: height / 3 + 50,
+          size: 9,
+          font: helveticaFont,
+          color: rgb(0.29, 0.337, 0.408),
+        });
+
+        firstPage.drawText(`currentDate`, {
+          x: width / 6.3,
+          y: height / 3 + 19,
+          size: 9,
+          font: helveticaFont,
+          color: rgb(0.29, 0.337, 0.408),
+        });
+
+        firstPage.drawText(`certificate_Number`, {
+          x: width / 4.3,
+          y: height / 4 - 109,
+          size: 9,
+          font: helveticaFont,
+          color: rgb(1, 1, 1),
+        });
+
+        firstPage.drawText(`expiryDate`, {
+          x: width / 1.51,
+          y: height / 3 + 19,
+          size: 9,
+          font: helveticaFont,
+          color: rgb(0.29, 0.337, 0.408),
+        });
+
+        // // Embed the QR code image
+        // let qCodeText = `https://certificates.erb.org.bw/certificateQr/?id=${response.data.id}`;
+        // let qCodeDataURL = await QRCode.toDataURL(qCodeText);
+        // let qCodeImage = await pdfDoc.embedPng(
+        //   Uint8Array.from(atob(qCodeDataURL.split(',')[1]), (c) => c.charCodeAt(0))
+        // );
+
+        // firstPage.drawImage(qCodeImage, {
+        //   x: width / 2 + 150,
+        //   y: height / 70,
+        //   width: 45,
+        //   height: 45,
+        //   color: rgb(0, 0, 0),
+        // });
+
+        const pdfBytes = await pdfDoc.save();
+        const base64String = await pdfDoc.saveAsBase64();
+        setPdfnum(pdfBytes);
+        setPdfbs(base64String);
+
+        const data = {
+          email: data[0].email,
+          message: `<h4>Good day</h4><p>This is to inform you that your certificate has been created successfully.\n Thank you</p>`,
+          base64String: base64String,
+        };
+
+        axios
+          .post(
+            "http://localhost:5000/diamond-hub-e2534/us-central1/api/send",
+            data
+          ).then((response) => {
+            console.log("Response:", response.data);
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      }
     } catch (error) {
       console.log(error);
     }
@@ -274,7 +257,6 @@ export default function Applications() {
 
   const sendDecline = async () => {
     try {
-      
     } catch (error) {
       console.log(error);
     }
@@ -294,9 +276,10 @@ export default function Applications() {
       try {
         // Replace with your actual axios API call
         // const response = await axios.get("https://api.example.com/data");
-        let response = TABLE_ROWS;
+        let response = TABLE;
         const results = response.filter((row) => row.id === ID);
         setData(results);
+        setDataTable1(TABLE);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -307,15 +290,50 @@ export default function Applications() {
         await fetchData();
       }
     };
+    fetchDataIfNeeded();
+  }, [ID]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // Replace with your actual axios API call
+        // const response = await axios.get("https://api.example.com/data");
+        let response = TABLE;
+        const results = response.filter((row) => {
+          return (
+            row.id === search ||
+            row.name.includes(search) ||
+            row.licenseNo === search
+          );
+        });
+        setDataTable1(results);
+        console.log(results);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    const fetchDataIfNeeded = async () => {
+      if (search !== "") {
+        await fetchData();
+      } else {
+        setDataTable1(TABLE);
+      }
+    };
 
     fetchDataIfNeeded();
-  }, [ID]); // Ensure useEffect runs whenever ID changes
+  }, [search]);
+
+  // Ensure useEffect runs whenever ID changes
 
   const ViewDetails = (id) => {
     setID(id);
     setOpen(true);
   };
 
+
+
+  
   return (
     <div className="px-20 pt-[125px]">
       <Card className="h-full w-full  mt-10 mb-20">
@@ -376,6 +394,10 @@ export default function Applications() {
               <Input
                 label="Search"
                 icon={<MagnifyingGlassIcon className="h-5 w-5" />}
+                onChange={(e) => {
+                  setSearch(e.target.value);
+                  console.log(e.target.value);
+                }}
               />
             </div>
           </div>
@@ -726,11 +748,11 @@ export default function Applications() {
         )}
         <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
           <Typography variant="small" color="blue-gray" className="font-normal">
-            Page 1 of 10
+            Page 1 of {TABLE_ROWS.length}
           </Typography>
           <div className="flex gap-2">
             <Button variant="outlined" size="sm">
-              Previous1
+              Previous
             </Button>
             <Button variant="outlined" size="sm">
               Next

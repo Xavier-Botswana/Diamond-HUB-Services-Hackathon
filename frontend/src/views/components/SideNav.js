@@ -94,7 +94,7 @@ export default function SideNav() {
                   <div className="flex items-center gap-4">
                     <PiIdentificationCardThin size={22} />
                     <Typography className="font-small font-semibold">
-                      <span>Licenses</span>
+                      <span>Licenses/Certificates</span>
                     </Typography>
                   </div>
                 </li>{" "}
