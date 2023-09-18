@@ -36,11 +36,11 @@ exports.update_application = catch_async(async (req, res, next) => {
 });
 
 exports.get_applications = catch_async(async (req, res, next) => {
-    const {page, per_page} = req.query.page;
+    // const {page, per_page} = req.query.page;
 
     let config ={
         method: "get",
-        url: `${BASE_URL}/api/collections/kimberly_process_certificates_applications/records?page=${page}&per_page=${per_page}`
+        url: `${BASE_URL}/api/collections/kimberly_process_certificates_applications/records`
     };
 
 

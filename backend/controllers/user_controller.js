@@ -3,11 +3,11 @@ const axios = require("axios");
 const {BASE_URL} = require("../utils/base_endpoints");
 
 exports.get_users = catch_async(async (req, res, next) => {
-    const {page, per_page} = req.query.page;
+    // const {page, per_page} = req.query.page;
 
     let config = {
         method: "get",
-        url: `${BASE_URL}/api/collections/users/records?page=${page}&per_page=${per_page}`
+        url: `${BASE_URL}/api/collections/users/records`
     }
 
     await axios(config).then(function (response) {
