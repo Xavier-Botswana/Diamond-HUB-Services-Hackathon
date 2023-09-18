@@ -20,10 +20,12 @@ import {
   CardHeader,
   CardBody,
   CardFooter,
-  Tab, Select,
+  Tab,
+  Select,
   Option,
   TabPanel,
 } from "@material-tailwind/react";
+
 import axios from "axios";
 import {
   BellIcon,
@@ -33,6 +35,14 @@ import {
   CreditCardIcon,
   LockClosedIcon,
 } from "@heroicons/react/24/solid";
+import { PDFDocument, rgb, StandardFonts } from "pdf-lib";
+
+import { Viewer, Worker, SpecialZoomLevel } from "@react-pdf-viewer/core";
+import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout";
+
+import "@react-pdf-viewer/core/lib/styles/index.css";
+import "@react-pdf-viewer/default-layout/lib/styles/index.css";
+
 import { PiWarningThin } from "react-icons/pi";
 import { Link } from "react-router-dom";
 import { useCountries } from "use-react-countries";
@@ -45,19 +55,19 @@ export function Home() {
   const [type, setType] = React.useState("card");
   const [cardNumber, setCardNumber] = React.useState("");
   const [cardExpires, setCardExpires] = React.useState("");
-  
-  
-  
+  const [PDFDATA, setPdfdata] = useState(null);
+  const [pdfnum, setPdfnum] = useState(null);
+  const [pdfbs, setPdfbs] = useState(null);
   function formatCardNumber(value: string) {
     const val = value.replace(/\s+/g, "").replace(/[^0-9]/gi, "");
     const matches = val.match(/\d{4,16}/g);
     const match = (matches && matches[0]) || "";
     const parts = [];
-   
+
     for (let i = 0, len = match.length; i < len; i += 4) {
       parts.push(match.substring(i, i + 4));
     }
-   
+
     if (parts.length) {
       return parts.join(" ");
     } else {
@@ -105,7 +115,7 @@ export function Home() {
         className="p-1 font-normal"
       >
         <a href="#" className="flex items-center">
-        About
+          Pages
         </a>
       </Typography>
       <Typography
@@ -125,7 +135,7 @@ export function Home() {
         className="p-1 font-normal"
       >
         <a href="#" className="flex items-center">
-         FAQs
+          Blocks
         </a>
       </Typography>
       <Typography
@@ -135,11 +145,112 @@ export function Home() {
         className="p-1 font-normal"
       >
         <a href="#" className="flex items-center">
-         Contacts
+          Docs
         </a>
       </Typography>
     </ul>
   );
+
+  async function modifyPdf() {
+    try {
+      let categoryparam = "practice";
+      let res = [];
+      res = await fetch(
+        "https://certificates.erb.org.bw/api/files/" + categoryparam
+      );
+
+      const data = await res.json();
+      const buf1 = data.message.data;
+      var ab = new ArrayBuffer(buf1.length);
+      var view = new Uint8Array(ab);
+      for (var i = 0; i < buf1.length; ++i) {
+        view[i] = buf1[i];
+      }
+      const existingPdfBytes = ab;
+
+      const pdfDoc = await PDFDocument.load(existingPdfBytes);
+
+      if (categoryparam === "practice") {
+        const certificateNumber = "ERB-PC ";
+        const certificate_Number = 3456;
+
+        const helveticaFont = await pdfDoc.embedFont(
+          StandardFonts.HelveticaBold
+        );
+        const pages = pdfDoc.getPages();
+        const firstPage = pages[0];
+        const { width, height } = firstPage.getSize();
+
+        const names = "firstname" + " " + "lastname";
+        const textWidth = helveticaFont.widthOfTextAtSize(names, 15);
+        const centerX = (width - textWidth) / 2;
+        firstPage.drawText(names, {
+          x: centerX,
+          y: height / height + 382,
+          size: 15,
+          font: helveticaFont,
+          color: rgb(0.29, 0.337, 0.408),
+        });
+
+        const practices = "practiceOption";
+        const textWidth01 = helveticaFont.widthOfTextAtSize(practices, 11);
+        const centerX01 = (width - textWidth01) / 2;
+        firstPage.drawText(practices, {
+          x: centerX01,
+          y: height / height + 342,
+          size: 11,
+          font: helveticaFont,
+          color: rgb(0.29, 0.337, 0.408),
+        });
+
+        const disciplines = "disciplineOption";
+        const textWidth02 = helveticaFont.widthOfTextAtSize(disciplines, 11);
+        const centerX02 = (width - textWidth02) / 2;
+        firstPage.drawText(disciplines, {
+          x: centerX02,
+          y: height / height + 307,
+          size: 11,
+          font: helveticaFont,
+          color: rgb(0.29, 0.337, 0.408),
+        });
+
+        firstPage.drawText("xxxx", {
+          x: width / 1.4,
+          y: height / 3 + 50,
+          size: 9,
+          font: helveticaFont,
+          color: rgb(0.29, 0.337, 0.408),
+        });
+
+        firstPage.drawText(certificateNumber, {
+          x: width / 5.5 - 9,
+          y: height / 3 + 50,
+          size: 9,
+          font: helveticaFont,
+          color: rgb(0.29, 0.337, 0.408),
+        });
+
+        firstPage.drawText(`${certificate_Number}`, {
+          x: width / 4.3,
+          y: height / 4 - 109,
+          size: 9,
+          font: helveticaFont,
+          color: rgb(1, 1, 1),
+        });
+
+        const pdfBytes = await pdfDoc.save();
+        const base64String = await pdfDoc.saveAsBase64();
+        setPdfnum(pdfBytes);
+        setPdfdata(pdfBytes);
+        setPdfbs(base64String);
+        setOpen(true);
+
+        console.log(pdfBytes);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <div className="">
@@ -207,7 +318,32 @@ export function Home() {
         </MobileNav>
       </Navbar>
 
-      <div className="mx-auto container px-10 md:px-0 py-12">
+      <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.16.105/build/pdf.worker.js">
+        <div className="w-screen h-screen">
+          <Typography variant="subtitle1" sx={{ flexGrow: 1 }}>
+            Preview Certificate
+          </Typography>
+          <Button onClick={modifyPdf}>Cancel</Button>
+
+          {PDFDATA ? (
+            <Viewer fileUrl={PDFDATA} defaultScale={SpecialZoomLevel.PageFit} />
+          ) : (
+            "<LinearProgress />"
+          )}
+        </div>
+      </Worker>
+
+      {/* <BlogNewPostPreview
+        values={values}
+        pdfnum={pdfnum}
+        isOpen={open}
+        isValid={isValid}
+        isSubmitting={isSubmitting}
+        onClose={handleClosePreview}
+        onSubmit={handleSubmit(onSubmit)}
+      /> */}
+
+      {/* <div className="mx-auto container px-10 md:px-0 py-12">
         <Typography variant="h4" className="mb-2 text-[#0097c9] font-medium">
           Licensing and Permits
         </Typography>
@@ -215,9 +351,7 @@ export function Home() {
           Can you help me out? you will get a lot of free exposure doing this
           can my website be in english?. There is too much white space do less
           with more, so that will be a conversation piece can you rework to make
-          the pizza look more delicious other agencies charge much lesser can
-          you make the blue bluer?. I think we need to start from scratch can my
-          website be in english?, yet make it sexy i&apos;ll pay you in a week
+         
         </Typography>
       </div>
 
@@ -356,7 +490,7 @@ export function Home() {
 
               <TabPanel key={"2"} value={"2"}>
                 <form className="mt-8 mb-2 ">
-                  <div className="flex justify-between gap-4">
+                  <div className="md:flex grid grid-cols-1  justify-between gap-4">
                     <div className="flex-1 mb-4 grid   md:grid-cols-3 gap-6">
                       <Input size="lg" label="Name" />
                       <Input size="lg" label="Email" />
@@ -373,7 +507,9 @@ export function Home() {
                       <Input size="lg" label="Email" />
                       <Input type="password" size="lg" label="Password" />{" "}
                       <Input size="lg" label="Name" />
-                      <Button className="mt-6 hover:bg-[#0097c9]" fullWidth>
+                      <Button onClick={()=>{
+                     handleOpen()
+                      }} className="mt-6 hover:bg-[#0097c9]" fullWidth>
                         Apply
                       </Button>
                     </div>
@@ -383,19 +519,23 @@ export function Home() {
                         <TimelineItem className="h-28">
                           <TimelineConnector className="!w-[78px]" />
                           <TimelineHeader className="relative rounded-xl border border-blue-gray-50 bg-white py-3 pl-4 pr-8 shadow-lg shadow-blue-gray-900/5">
-                            <TimelineIcon className="p-3" variant="ghost">
-                              <BellIcon className="h-5 w-5" />
+                            <TimelineIcon
+                              className="p-3"
+                              variant="ghost"
+                              color={fields ? "green" : "red"}
+                            >
+                              <PiWarningThin className="h-5 w-5" />
                             </TimelineIcon>
                             <div className="flex flex-col gap-1">
                               <Typography variant="h6" color="blue-gray">
-                                Design changes
+                                Please fill all fields
                               </Typography>
                               <Typography
                                 variant="small"
                                 color="gray"
                                 className="font-normal"
                               >
-                                22 DEC 7:20 PM
+                                22 SEP 7:20 PM
                               </Typography>
                             </div>
                           </TimelineHeader>
@@ -406,20 +546,20 @@ export function Home() {
                             <TimelineIcon
                               className="p-3"
                               variant="ghost"
-                              color="red"
+                              color={files.length !== 0 ? "green" : "red"}
                             >
-                              <ArchiveBoxIcon className="h-5 w-5" />
+                              <PiWarningThin className="h-5 w-5" />{" "}
                             </TimelineIcon>
                             <div className="flex flex-col gap-1">
                               <Typography variant="h6" color="blue-gray">
-                                New order #1832412
+                                Please attach files
                               </Typography>
                               <Typography
                                 variant="small"
                                 color="gray"
                                 className="font-normal"
                               >
-                                21 DEC 11 PM
+                                21 SEP 11 PM
                               </Typography>
                             </div>
                           </TimelineHeader>
@@ -429,13 +569,17 @@ export function Home() {
                             <TimelineIcon
                               className="p-3"
                               variant="ghost"
-                              color="green"
+                              color={
+                                fields && files.length === 0 ? "green" : "red"
+                              }
                             >
-                              <CurrencyDollarIcon className="h-5 w-5" />
+                              <PiWarningThin className="h-5 w-5" />{" "}
                             </TimelineIcon>
                             <div className="flex flex-col gap-1">
                               <Typography variant="h6" color="blue-gray">
-                                Payment completed for order #4395133
+                                {!fields
+                                  ? "Provide all neccesary Details"
+                                  : "You can Submit"}
                               </Typography>
                               <Typography
                                 variant="small"
@@ -455,7 +599,7 @@ export function Home() {
 
               <TabPanel key={"3"} value={"3"}>
                 <form className="mt-8 mb-2 ">
-                  <div className="flex justify-between gap-4">
+                  <div className="md:flex grid grid-cols-1  justify-between gap-4">
                     <div className="flex-1 mb-4 grid   md:grid-cols-3 gap-6">
                       <Input size="lg" label="Name" />
                       <Input size="lg" label="Email" />
@@ -472,7 +616,9 @@ export function Home() {
                       <Input size="lg" label="Email" />
                       <Input type="password" size="lg" label="Password" />{" "}
                       <Input size="lg" label="Name" />
-                      <Button className="mt-6 hover:bg-[#0097c9]" fullWidth>
+                      <Button onClick={()=>{
+                     handleOpen()
+                      }} className="mt-6 hover:bg-[#0097c9]" fullWidth>
                         Apply
                       </Button>
                     </div>
@@ -482,19 +628,23 @@ export function Home() {
                         <TimelineItem className="h-28">
                           <TimelineConnector className="!w-[78px]" />
                           <TimelineHeader className="relative rounded-xl border border-blue-gray-50 bg-white py-3 pl-4 pr-8 shadow-lg shadow-blue-gray-900/5">
-                            <TimelineIcon className="p-3" variant="ghost">
-                              <BellIcon className="h-5 w-5" />
+                            <TimelineIcon
+                              className="p-3"
+                              variant="ghost"
+                              color={fields ? "green" : "red"}
+                            >
+                              <PiWarningThin className="h-5 w-5" />
                             </TimelineIcon>
                             <div className="flex flex-col gap-1">
                               <Typography variant="h6" color="blue-gray">
-                                $2400, Design changes
+                                Please fill all fields
                               </Typography>
                               <Typography
                                 variant="small"
                                 color="gray"
                                 className="font-normal"
                               >
-                                22 DEC 7:20 PM
+                                22 SEP 7:20 PM
                               </Typography>
                             </div>
                           </TimelineHeader>
@@ -505,20 +655,20 @@ export function Home() {
                             <TimelineIcon
                               className="p-3"
                               variant="ghost"
-                              color="red"
+                              color={files.length !== 0 ? "green" : "red"}
                             >
-                              <ArchiveBoxIcon className="h-5 w-5" />
+                              <PiWarningThin className="h-5 w-5" />{" "}
                             </TimelineIcon>
                             <div className="flex flex-col gap-1">
                               <Typography variant="h6" color="blue-gray">
-                                New order #1832412
+                                Please attach files
                               </Typography>
                               <Typography
                                 variant="small"
                                 color="gray"
                                 className="font-normal"
                               >
-                                21 DEC 11 PM
+                                21 SEP 11 PM
                               </Typography>
                             </div>
                           </TimelineHeader>
@@ -528,13 +678,17 @@ export function Home() {
                             <TimelineIcon
                               className="p-3"
                               variant="ghost"
-                              color="green"
+                              color={
+                                fields && files.length === 0 ? "green" : "red"
+                              }
                             >
-                              <CurrencyDollarIcon className="h-5 w-5" />
+                              <PiWarningThin className="h-5 w-5" />{" "}
                             </TimelineIcon>
                             <div className="flex flex-col gap-1">
                               <Typography variant="h6" color="blue-gray">
-                                Payment completed for order #4395133
+                                {!fields
+                                  ? "Provide all neccesary Details"
+                                  : "You can Submit"}
                               </Typography>
                               <Typography
                                 variant="small"
@@ -554,7 +708,9 @@ export function Home() {
             </TabsBody>
           </Tabs>
         </Card>
-        <Dialog
+      </div>
+
+      <Dialog
         size="xs"
         open={open}
         handler={handleOpen}
@@ -562,16 +718,14 @@ export function Home() {
       >
         <Card className="w-full max-w-[24rem]">
       <CardHeader
-        color="gray"
+        
         floated={false}
         shadow={false}
-        className="m-0 grid place-items-center rounded-b-none py-8 px-4 text-center"
+        className="m-0 grid place-items-center bg-[#3c95d2] rounded-b-none py-8 px-4 text-center"
       >
-        <div className="mb-4 rounded-full border border-white/10 bg-white/10 p-6 text-white">
-          <BanknotesIcon className="h-10 w-10" />
-        </div>
+       
         <Typography variant="h4" color="white">
-         Process
+         Process Payment
         </Typography>
       </CardHeader>
       <CardBody>
@@ -645,9 +799,7 @@ export function Home() {
                   </div>
                   <Input label="Holder Name" />
                 </div>
-                <Button size="lg" className="hover:bg-[#3c95d2]" onClick={()=>{
-                  setOpen(false)
-                }}>Pay Now</Button>
+                <Button size="lg" className="hover:bg-[#3c95d2]">Pay Now</Button>
                 <Typography
                   variant="small"
                   color="gray"
@@ -713,10 +865,7 @@ export function Home() {
         </Tabs>
       </CardBody>
     </Card>
-      </Dialog>
-      </div>
-
-   
+      </Dialog> */}
     </div>
   );
 }

@@ -17,11 +17,10 @@ import {
   Chip,
   Tabs,
   Dialog,
-  Checkbox,
+
   TabsHeader,
   Tab,
-  TabsBody,
-  TabPanel,
+
   Avatar,
   IconButton,
   Tooltip,
@@ -883,19 +882,7 @@ export default function Payments() {
             <Button className="bg-[#c02323]" onClick={handleOpen} fullWidth>
               Decline Payment
             </Button>
-            {/* <Typography variant="small" className="mt-6 flex justify-center">
-              Don&apos;t have an account?
-              <Typography
-                as="a"
-                href="#signup"
-                variant="small"
-                color="blue"
-                className="ml-1 font-bold"
-                onClick={handleOpen}
-              >
-                Sign up
-              </Typography>
-            </Typography> */}
+           
           </CardFooter>
         </Card>
       </Dialog>
