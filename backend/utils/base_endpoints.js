@@ -1,0 +1,1 @@
+exports.BASE_URL = "https://diamond-db.testlive.space";
