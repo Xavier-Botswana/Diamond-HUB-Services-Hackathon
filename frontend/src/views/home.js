@@ -20,7 +20,8 @@ import {
   CardHeader,
   CardBody,
   CardFooter,
-  Tab, Select,
+  Tab,
+  Select,
   Option,
   TabPanel,
 } from "@material-tailwind/react";
@@ -46,19 +47,17 @@ export function Home() {
   const [type, setType] = React.useState("card");
   const [cardNumber, setCardNumber] = React.useState("");
   const [cardExpires, setCardExpires] = React.useState("");
-  
-  
-  
+
   function formatCardNumber(value: string) {
     const val = value.replace(/\s+/g, "").replace(/[^0-9]/gi, "");
     const matches = val.match(/\d{4,16}/g);
     const match = (matches && matches[0]) || "";
     const parts = [];
-   
+
     for (let i = 0, len = match.length; i < len; i += 4) {
       parts.push(match.substring(i, i + 4));
     }
-   
+
     if (parts.length) {
       return parts.join(" ");
     } else {
@@ -106,7 +105,7 @@ export function Home() {
         className="p-1 font-normal"
       >
         <a href="#" className="flex items-center">
-        About
+          About
         </a>
       </Typography>
       <Typography
@@ -126,7 +125,7 @@ export function Home() {
         className="p-1 font-normal"
       >
         <a href="#" className="flex items-center">
-         FAQs
+          FAQs
         </a>
       </Typography>
       <Typography
@@ -136,7 +135,7 @@ export function Home() {
         className="p-1 font-normal"
       >
         <a href="#" className="flex items-center">
-         Contacts
+          Contacts
         </a>
       </Typography>
     </ul>
@@ -250,26 +249,98 @@ export function Home() {
                 <form className="mt-8 mb-2 ">
                   <div className="md:flex grid grid-cols-1  justify-between gap-4">
                     <div className="flex-1 mb-4 grid   md:grid-cols-3 gap-6">
-                      <Input name="name_of_applicant" size="lg" label="Applicant Name" />
-                      <Input size="lg" label="License No" name="manufacturing_license_no"/>
-                      <Input size="lg" label="Address" name="address_in_botswana"/>{" "}
-                      <Input size="lg" label="Director Fullnames" name="fullnames_of_directors"/>
-                      <Input size="lg" label="Director Nationalities" name="director_nationalities"/>
-                      <Input size="lg" label="Share Capital" name="authorised_share_capital_and_issued_capital"/>{" "}
-                      <Input size="lg" label="Shareholder Names" name="names_of_shareholders"/>
-                      <Input size="lg" label="Shareholders Nationality" name="shareholders_nationalities"/>
-                      <Input size="lg" label="Experience" name="experience_in_semi_precious_stones"/>
-                      <Input size="lg" label="Intended Operations" name="description_of_intended_operations"/>
-                      <Input size="lg" label="Particulars Of Plant" name="particulars_of_plant"/>{" "}
-                      <Input size="lg" label="Number to be Employed" name="number_to_be_employed"/>
-                      <Input size="lg" label="Types & Quantities" name="types_and_quantities" />
-                      <Input size="lg" label="Source Of Stones" name="source_of_stones" />{" "}
-                      <Input size="lg" label="Location of Operations" name="location_of_ops" />
-                      <Input size="lg" label="Market of Products" name="market_of_products" />{" "}
-                       <Input size="lg" label="Signature" name="applicant_signature" />
-                      <Button onClick={()=>{
-                     handleOpen()
-                      }} className="mt-6 hover:bg-[#0097c9]" fullWidth>
+                      <Input
+                        name="name_of_applicant"
+                        size="lg"
+                        label="Applicant Name"
+                      />
+                      <Input
+                        size="lg"
+                        label="License No"
+                        name="manufacturing_license_no"
+                      />
+                      <Input
+                        size="lg"
+                        label="Address"
+                        name="address_in_botswana"
+                      />{" "}
+                      <Input
+                        size="lg"
+                        label="Director Fullnames"
+                        name="fullnames_of_directors"
+                      />
+                      <Input
+                        size="lg"
+                        label="Director Nationalities"
+                        name="director_nationalities"
+                      />
+                      <Input
+                        size="lg"
+                        label="Share Capital"
+                        name="authorised_share_capital_and_issued_capital"
+                      />{" "}
+                      <Input
+                        size="lg"
+                        label="Shareholder Names"
+                        name="names_of_shareholders"
+                      />
+                      <Input
+                        size="lg"
+                        label="Shareholders Nationality"
+                        name="shareholders_nationalities"
+                      />
+                      <Input
+                        size="lg"
+                        label="Experience"
+                        name="experience_in_semi_precious_stones"
+                      />
+                      <Input
+                        size="lg"
+                        label="Intended Operations"
+                        name="description_of_intended_operations"
+                      />
+                      <Input
+                        size="lg"
+                        label="Particulars Of Plant"
+                        name="particulars_of_plant"
+                      />{" "}
+                      <Input
+                        size="lg"
+                        label="Number to be Employed"
+                        name="number_to_be_employed"
+                      />
+                      <Input
+                        size="lg"
+                        label="Types & Quantities"
+                        name="types_and_quantities"
+                      />
+                      <Input
+                        size="lg"
+                        label="Source Of Stones"
+                        name="source_of_stones"
+                      />{" "}
+                      <Input
+                        size="lg"
+                        label="Location of Operations"
+                        name="location_of_ops"
+                      />
+                      <Input
+                        size="lg"
+                        label="Market of Products"
+                        name="market_of_products"
+                      />{" "}
+                      <Input
+                        size="lg"
+                        label="Signature"
+                        name="applicant_signature"
+                      />
+                      <Button
+                        onClick={() => {
+                          handleOpen();
+                        }}
+                        className="mt-6 hover:bg-[#0097c9]"
+                        fullWidth
+                      >
                         Apply
                       </Button>
                     </div>
@@ -361,20 +432,60 @@ export function Home() {
                 <form className="mt-8 mb-2 ">
                   <div className="flex justify-between gap-4">
                     <div className="flex-1 mb-4 grid   md:grid-cols-3 gap-6">
-                      <Input size="lg" label="Country Of Origin" name="country_of_origin"/>
-                      <Input size="lg" label="Name Of Exporter" name="name_of_exporter"/>
-                      <Input size="lg" label="Goods Exported To" name="goods_exported" />{" "}
-                      <Input size="lg" label="Reason For Exporting" name="exporting_reason"/>
-                      <Input size="lg" label="Wieght Of Goods" name="weight_of_goods" />
-                      <Input size="lg" label="Value of Goods" name="value_of_goods" />{" "}
-                      <Input size="lg" label="Goods to be" name="goods_to_be_returned" />
-                      <Input size="lg" label="Returned" name="returned_goods"/>
-                      <Input size="lg" label="Not Returned" name="not_returned" />
+                      <Input
+                        size="lg"
+                        label="Country Of Origin"
+                        name="country_of_origin"
+                      />
+                      <Input
+                        size="lg"
+                        label="Name Of Exporter"
+                        name="name_of_exporter"
+                      />
+                      <Input
+                        size="lg"
+                        label="Goods Exported To"
+                        name="goods_exported"
+                      />{" "}
+                      <Input
+                        size="lg"
+                        label="Reason For Exporting"
+                        name="exporting_reason"
+                      />
+                      <Input
+                        size="lg"
+                        label="Wieght Of Goods"
+                        name="weight_of_goods"
+                      />
+                      <Input
+                        size="lg"
+                        label="Value of Goods"
+                        name="value_of_goods"
+                      />{" "}
+                      <Input
+                        size="lg"
+                        label="Goods to be"
+                        name="goods_to_be_returned"
+                      />
+                      <Input size="lg" label="Returned" name="returned_goods" />
+                      <Input
+                        size="lg"
+                        label="Not Returned"
+                        name="not_returned"
+                      />
                       <Input size="lg" label="Date" name="date" />
-                      <Input type="Signature" size="lg" label="Signature" />{" "}
-                      <Button onClick={()=>{
-                     handleOpen()
-                      }} className="mt-6 hover:bg-[#0097c9]" fullWidth>
+                      <Input
+                        type="Signature"
+                        size="lg"
+                        label="Signature"
+                      />{" "}
+                      <Button
+                        onClick={() => {
+                          handleOpen();
+                        }}
+                        className="mt-6 hover:bg-[#0097c9]"
+                        fullWidth
+                      >
                         Apply
                       </Button>
                     </div>
@@ -555,37 +666,33 @@ export function Home() {
             </TabsBody>
           </Tabs>
         </Card>
-        <Dialog
-        size="xs"
-        open={open}
-        handler={handleOpen}
-        className="bg-transparent shadow-none overflow-auto"
-      >
-        <Card className="w-full max-w-[24rem]">
-      <CardHeader
-        color="gray"
-        floated={false}
-        shadow={false}
-        className="m-0 grid place-items-center rounded-b-none py-8 px-4 text-center"
-      >
-        <div className="mb-4 rounded-full border border-white/10 bg-white/10 p-6 text-white">
-          <BanknotesIcon className="h-10 w-10" />
-        </div>
-        <Typography variant="h4" color="white">
-         Payments via PayPal
-        </Typography>
-      </CardHeader>
-      <CardBody>
-      
-                <PaypalButton />
-               
-    
-      </CardBody>
-    </Card>
-      </Dialog>
-      </div>
 
-   
+        <Dialog
+          size="xs"
+          open={open}
+          handler={handleOpen}
+          className="bg-transparent shadow-none overflow-auto"
+        >
+          <Card className="w-full max-w-[24rem]">
+            <CardHeader
+              color="gray"
+              floated={false}
+              shadow={false}
+              className="m-0 grid place-items-center rounded-b-none py-8 px-4 text-center"
+            >
+              <div className="mb-4 rounded-full border border-white/10 bg-white/10 p-6 text-white">
+                <BanknotesIcon className="h-10 w-10" />
+              </div>
+              <Typography variant="h4" color="white">
+                Payments via PayPal
+              </Typography>
+            </CardHeader>
+            <CardBody className="shadow-none overflow-auto h-[200px]">
+              <PaypalButton />
+            </CardBody>
+          </Card>
+        </Dialog>
+      </div>
     </div>
   );
 }

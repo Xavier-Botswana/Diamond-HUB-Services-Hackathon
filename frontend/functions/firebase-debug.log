@@ -59,3 +59,10 @@
 [warn] !  functions: Your requested "node" version "18" doesn't match your global version "16". Using node@16 from host. 
 [debug] [2023-09-18T15:18:32.090Z] Could not find functions.yaml. Must use http discovery
 [debug] [2023-09-18T15:18:32.098Z] Found firebase-functions binary at 'C:\Users\Withus Pro Chivs\Desktop\Diamond-HUB-Services-Hackathon\frontend\functions\node_modules\.bin\firebase-functions'
+[info] Serving at port 8209
+
+[debug] [2023-09-18T15:18:40.073Z] Got response from /__/functions.yaml {"endpoints":{"api":{"platform":"gcfv1","availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"httpsTrigger":{},"entryPoint":"api"}},"specVersion":"v1alpha1","requiredAPIs":[]}
+[info] shutdown requested via /__/quitquitquit
+
+[info] +  functions: Loaded functions definitions from source: api. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: api."}}
+[info] +  functions[us-central1-api]: http function initialized (http://localhost:5000/diamond-hub-e2534/us-central1/api). {"metadata":{"emulator":{"name":"functions"},"message":"\u001b[1mhttp\u001b[22m function initialized (http://localhost:5000/diamond-hub-e2534/us-central1/api)."}}
