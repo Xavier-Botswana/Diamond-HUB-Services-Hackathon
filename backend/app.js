@@ -7,6 +7,7 @@ const diamond_export_import_applications_router = require("./routes/diamond_expo
 const diamond_cutting_license_application_router = require("./routes/diamond_cutting_license_routes");
 const kimberly_process_certificates_applications_router = require("./routes/kimberly_process_certificates_applications_routes");
 const company_router = require("./routes/companies_routes");
+const log_router = require("./routes/logs_routes");
 const app_error = require("./utils/app_error");
 
 //express application configs
@@ -18,6 +19,7 @@ app.use(cors());
 //endpoints
 app.use("/api/users", user_router);
 app.use("/api/companies", company_router);
+app.use("/api/logs", log_router);
 app.use("/api/precious-stones-dealer-license-applications", precious_stones_dealer_applications_router);
 app.use("/api/diamond-export-import-permit-applications", diamond_export_import_applications_router);
 app.use("/api/diamond-cutting-license-applications", diamond_cutting_license_application_router);
