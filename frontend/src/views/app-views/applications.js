@@ -275,8 +275,9 @@ export default function Applications() {
     const fetchData = async () => {
       try {
         // Replace with your actual axios API call
-        // const response = await axios.get("https://api.example.com/data");
+        const response1 = await axios.get("http://127.0.0.1:8080/api/diamond-cutting-license-applications/");
         let response = TABLE;
+        console.log(response1.data)
         const results = response.filter((row) => row.id === ID);
         setData(results);
         setDataTable1(TABLE);

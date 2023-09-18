@@ -94,10 +94,10 @@ import {
             <div className="mb-8 flex items-center justify-between gap-8">
               <div>
                 <Typography variant="h5" color="blue-gray">
-                Company Documents
+                System Reports/Logs
                 </Typography>
                 <Typography color="gray" className="mt-1 font-normal">
-                  See information about all registered Companies
+                  See information about all system activity
                 </Typography>
               </div>
               <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
