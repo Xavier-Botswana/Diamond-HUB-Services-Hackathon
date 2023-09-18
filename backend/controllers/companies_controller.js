@@ -3,10 +3,10 @@ const axios = require("axios");
 const {BASE_URL} = require("../utils/base_endpoints");
 
 
-exports.create_application = catch_async(async (req,res, next) => {
+exports.create_company = catch_async(async (req,res, next) => {
     const config = {
         method: "post",
-        url: `${BASE_URL}/api/collections/diamond_export_import_applications/records`,
+        url: `${BASE_URL}/api/collections/companies/records`,
         headers: {
             "Content-Type": "application/json",
         },
@@ -18,12 +18,12 @@ exports.create_application = catch_async(async (req,res, next) => {
     });
 });
 
-exports.update_application = catch_async(async (req, res, next) => {
-    const application_id = req.params.id;
+exports.update_company = catch_async(async (req, res, next) => {
+    const company_id = req.params.id;
 
     const config = {
         method: "patch",
-        url: `${BASE_URL}/api/collections/diamond_export_import_applications/records/${application_id}`,
+        url: `${BASE_URL}/api/collections/companies/records/${company_id}`,
         headers: {
             "Content-Type": "application/json",
         },
@@ -35,12 +35,12 @@ exports.update_application = catch_async(async (req, res, next) => {
     });
 });
 
-exports.get_applications = catch_async(async (req, res, next) => {
+exports.get_companies = catch_async(async (req, res, next) => {
     // const {page, per_page} = req.query.page;
-
+    // url: `${BASE_URL}/api/collections/companies/records?page=${page}&per_page=${per_page}`
     let config ={
         method: "get",
-        url: `${BASE_URL}/api/collections/diamond_export_import_applications/records`
+        url: `${BASE_URL}/api/collections/companies/records`
     };
 
 
@@ -49,11 +49,11 @@ exports.get_applications = catch_async(async (req, res, next) => {
     });
 });
 
-exports.get_application_by_id = catch_async(async (req, res, next) => {
-    const application_id = req.params.id;
+exports.get_company_by_id = catch_async(async (req, res, next) => {
+    const company_id = req.params.id;
     const config = {
         method: "get",
-        url: `${BASE_URL}/api/collections/diamond_export_import_applications/records/${application_id}`,
+        url: `${BASE_URL}/api/collections/companies/records/${company_id}`,
     };
 
     await axios(config).then(function (response) {
@@ -61,12 +61,12 @@ exports.get_application_by_id = catch_async(async (req, res, next) => {
     });
 });
 
-exports.delete_application = catch_async(async (req, res, next) => {
-    const application_id = req.params.id;
+exports.delete_company = catch_async(async (req, res, next) => {
+    const company_id = req.params.id;
 
     const config = {
         method: "delete",
-        url: `${BASE_URL}/api/collections/diamond_export_import_applications/records/${application_id}`,
+        url: `${BASE_URL}/api/collections/companies/records/${company_id}`,
     };
 
     await axios(config).then(function (response) {

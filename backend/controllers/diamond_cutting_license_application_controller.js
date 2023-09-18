@@ -36,11 +36,11 @@ exports.update_application = catch_async(async (req, res, next) => {
 });
 
 exports.get_applications = catch_async(async (req, res, next) => {
-    const {page, per_page} = req.query.page;
-
+    // const {page, per_page} = req.query.page;
+    // url: `${BASE_URL}/api/collections/diamond_cutting_license_application/records?page=${page}&per_page=${per_page}`
     let config ={
         method: "get",
-        url: `${BASE_URL}/api/collections/diamond_cutting_license_application/records?page=${page}&per_page=${per_page}`
+        url: `${BASE_URL}/api/collections/diamond_cutting_license_application/records`
     };
 
 

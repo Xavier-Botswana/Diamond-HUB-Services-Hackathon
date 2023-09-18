@@ -6,7 +6,7 @@ const {BASE_URL} = require("../utils/base_endpoints");
 exports.create_application = catch_async(async (req,res, next) => {
     const config = {
         method: "post",
-        url: `${BASE_URL}/api/collections/diamond_export_import_applications/records`,
+        url: `${BASE_URL}/api/collections/kimberly_process_certificates_applications/records`,
         headers: {
             "Content-Type": "application/json",
         },
@@ -23,7 +23,7 @@ exports.update_application = catch_async(async (req, res, next) => {
 
     const config = {
         method: "patch",
-        url: `${BASE_URL}/api/collections/diamond_export_import_applications/records/${application_id}`,
+        url: `${BASE_URL}/api/collections/kimberly_process_certificates_applications/records/${application_id}`,
         headers: {
             "Content-Type": "application/json",
         },
@@ -40,7 +40,7 @@ exports.get_applications = catch_async(async (req, res, next) => {
 
     let config ={
         method: "get",
-        url: `${BASE_URL}/api/collections/diamond_export_import_applications/records`
+        url: `${BASE_URL}/api/collections/kimberly_process_certificates_applications/records`
     };
 
 
@@ -53,7 +53,7 @@ exports.get_application_by_id = catch_async(async (req, res, next) => {
     const application_id = req.params.id;
     const config = {
         method: "get",
-        url: `${BASE_URL}/api/collections/diamond_export_import_applications/records/${application_id}`,
+        url: `${BASE_URL}/api/collections/kimberly_process_certificates_applications/records/${application_id}`,
     };
 
     await axios(config).then(function (response) {
@@ -66,7 +66,7 @@ exports.delete_application = catch_async(async (req, res, next) => {
 
     const config = {
         method: "delete",
-        url: `${BASE_URL}/api/collections/diamond_export_import_applications/records/${application_id}`,
+        url: `${BASE_URL}/api/collections/kimberly_process_certificates_applications/records/${application_id}`,
     };
 
     await axios(config).then(function (response) {
