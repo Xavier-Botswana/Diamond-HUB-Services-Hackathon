@@ -39,7 +39,7 @@ export default function SideNav() {
     });
   };
 
-  
+
   return (
     <>
       <Section className=" border-r-[1px] bg-[#ffffff]  border-r-[#dbdbdb]  flex flex-col w-full gap-5 text-[#ffffff]">
@@ -140,7 +140,7 @@ export default function SideNav() {
           <Link to={`${APP_PREFIX_PATH}/logout`} className="btn">
             <div className="flex pl-8 mx-4 bg-[#f2f2f2] p-2 hover:bg-[#ffffff]  mb-2 rounded-lg items-center">
               <SiSimpleanalytics size={20} />
-              <span className="logout text-[14px]">Analytic Reports</span>
+              <span className="logout text-[14px]">System Logs</span>
             </div>
           </Link>
 
