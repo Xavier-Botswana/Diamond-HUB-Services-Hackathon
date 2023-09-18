@@ -9,7 +9,12 @@ import { IoDocumentTextOutline } from "react-icons/io";
 import { SiSimpleanalytics } from "react-icons/si";
 import { HiOutlineDocumentText } from "react-icons/hi";
 import { BiHomeAlt } from "react-icons/bi";
-import { PiCreditCardThin,PiFilesThin,PiIdentificationCardThin,PiFoldersThin } from "react-icons/pi";
+import {
+  PiCreditCardThin,
+  PiFilesThin,
+  PiIdentificationCardThin,
+  PiFoldersThin,
+} from "react-icons/pi";
 import { AiOutlinePoweroff } from "react-icons/ai";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { VscChromeClose } from "react-icons/vsc";
@@ -34,6 +39,7 @@ export default function SideNav() {
     });
   };
 
+  
   return (
     <>
       <Section className=" border-r-[1px] bg-[#ffffff]  border-r-[#dbdbdb]  flex flex-col w-full gap-5 text-[#ffffff]">
@@ -94,7 +100,7 @@ export default function SideNav() {
                   <div className="flex items-center gap-4">
                     <PiIdentificationCardThin size={22} />
                     <Typography className="font-small font-semibold">
-                      <span>Licenses/Certificates</span>
+                      <span>Licenses &Certificates</span>
                     </Typography>
                   </div>
                 </li>{" "}
@@ -107,7 +113,7 @@ export default function SideNav() {
                   <div className="flex items-center gap-4">
                     <PiFilesThin size={22} />
                     <Typography className="font-small font-semibold">
-                      <span>Companies KYC</span>
+                      <span>Companies & Clients</span>
                     </Typography>
                   </div>
                 </li>{" "}

@@ -101,9 +101,7 @@ export default function CompanyKYC() {
               </Typography>
             </div>
             <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
-              <Button variant="outlined" size="sm">
-                view all
-              </Button>
+            
               <Button className="flex items-center gap-3" size="sm">
                 <UserPlusIcon strokeWidth={2} className="h-4 w-4" /> Add member
               </Button>

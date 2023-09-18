@@ -36,56 +36,105 @@ import {
 } from "@heroicons/react/24/solid";
 import { PiWarningThin } from "react-icons/pi";
 import { Link } from "react-router-dom";
-import { useCountries } from "use-react-countries";
 import PaypalButton from "./components/paypalButton";
 export function Home() {
   const [openNav, setOpenNav] = useState(false);
   const [fields, setFields] = useState(false);
   const [files, setFiles] = useState([]);
   const [open, setOpen] = React.useState(false);
-  const { countries } = useCountries();
-  const [type, setType] = React.useState("card");
-  const [cardNumber, setCardNumber] = React.useState("");
-  const [cardExpires, setCardExpires] = React.useState("");
+  const [form1, setForm1] = useState({
+    applicant_name: "",
+    license_no: "",
+    address: "",
+    director_fullnames: "",
+    director_nationalities: "",
+    share_capital: "",
+    shareholder_names: "",
+    shareholders_nationality: "",
+    experience: "",
+    intended_operations: "",
+    particulars_of_plant: "",
+    number_to_employed: "",
+    types_and_quantities: "",
+    source_of_stones: "",
+    location_of_operations: "",
+    market_of_products: "",
+  });
+  const [form2, setForm2] = useState({
+    applicant_name: "",
+    license_no: "",
+    address: "",
+    director_fullnames: "",
+    director_nationalities: "",
+    share_capital: "",
+    shareholder_names: "",
+    shareholders_nationality: "",
+    experience: "",
+    intended_operations: "",
+    particulars_of_plant: "",
+    number_to_employed: "",
+    types_and_quantities: "",
+    source_of_stones: "",
+    location_of_operations: "",
+    market_of_products: "",
+  });
 
-  function formatCardNumber(value: string) {
-    const val = value.replace(/\s+/g, "").replace(/[^0-9]/gi, "");
-    const matches = val.match(/\d{4,16}/g);
-    const match = (matches && matches[0]) || "";
-    const parts = [];
+  const [form3, setForm3] = useState({
+    applicant_name: "",
+    license_no: "",
+    address: "",
+    director_fullnames: "",
+    director_nationalities: "",
+    share_capital: "",
+    shareholder_names: "",
+    shareholders_nationality: "",
+    experience: "",
+    intended_operations: "",
+    particulars_of_plant: "",
+    number_to_employed: "",
+    types_and_quantities: "",
+    source_of_stones: "",
+    location_of_operations: "",
+    market_of_products: "",
+  });
 
-    for (let i = 0, len = match.length; i < len; i += 4) {
-      parts.push(match.substring(i, i + 4));
-    }
+  const handleForm1 = (e) => {
+    setForm1({ ...form1, [e.target.name]: e.target.value });
+  };
+  const handleForm2 = (e) => {
+    setForm2({ ...form2, [e.target.name]: e.target.value });
+  };
+  const handleForm3 = (e) => {
+    setForm3({ ...form3, [e.target.name]: e.target.value });
+  };
 
-    if (parts.length) {
-      return parts.join(" ");
-    } else {
-      return value;
-    }
-  }
-  function formatExpires(value: string) {
-    return value
-      .replace(/[^0-9]/g, "")
-      .replace(/^([2-9])$/g, "0$1")
-      .replace(/^(1{1})([3-9]{1})$/g, "0$1/$2")
-      .replace(/^0{1,}/g, "0")
-      .replace(/^([0-1]{1}[0-9]{1})([0-9]{1,2}).*/g, "$1/$2");
-  }
   const handleOpen = () => setOpen((cur) => !cur);
+
+  const submitForm = async () => {
+    axios
+      .post("http://127.0.0.1:8080/api/precious-stones-dealer-licenses", form1)
+      .then((response) => {
+        alert("done");
+      });
+  };
 
   const data = [
     {
-      label: "Preciouse Stone Dealers License",
+      label: "Semi-Preciouse Stones Dealers Licence",
       value: "1",
     },
     {
-      label: "Diamond Cutting Factories",
+      label: "Export of Rough Diamonds Permit",
       value: "2",
     },
 
     {
-      label: "Reports",
+      label: "Diamond Cutting Licence",
+      value: "4",
+    },
+
+    {
+      label: "Kimberly Process Certificate",
       value: "3",
     },
   ];
@@ -140,6 +189,8 @@ export function Home() {
       </Typography>
     </ul>
   );
+
+  const submitForm1 = () => {};
 
   return (
     <div className="">
@@ -250,90 +301,118 @@ export function Home() {
                   <div className="md:flex grid grid-cols-1  justify-between gap-4">
                     <div className="flex-1 mb-4 grid   md:grid-cols-3 gap-6">
                       <Input
-                        name="name_of_applicant"
+                        name="applicant_name"
                         size="lg"
+                        onChange={handleForm1}
+                        value={form1.applicant_name}
                         label="Applicant Name"
                       />
                       <Input
                         size="lg"
                         label="License No"
-                        name="manufacturing_license_no"
+                        name="license_no"
+                        onChange={handleForm1}
+                        value={form1.license_no}
                       />
                       <Input
                         size="lg"
                         label="Address"
-                        name="address_in_botswana"
+                        name="address"
+                        onChange={handleForm1}
+                        value={form1.address}
                       />
                       <Input
                         size="lg"
                         label="Director Fullnames"
-                        name="fullnames_of_directors"
+                        name="directors_fullnames"
+                        onChange={handleForm1}
+                        value={form1.director_fullnames}
                       />
                       <Input
                         size="lg"
                         label="Director Nationalities"
                         name="director_nationalities"
+                        onChange={handleForm1}
+                        value={form1.director_nationalities}
                       />
                       <Input
                         size="lg"
                         label="Share Capital"
-                        name="authorised_share_capital_and_issued_capital"
-                      />{" "}
+                        name="share_capital"
+                        onChange={handleForm1}
+                        value={form1.share_capital}
+                      />
                       <Input
                         size="lg"
                         label="Shareholder Names"
                         name="names_of_shareholders"
+                        onChange={handleForm1}
+                        value={form1.shareholder_names}
                       />
                       <Input
                         size="lg"
                         label="Shareholders Nationality"
                         name="shareholders_nationalities"
+                        onChange={handleForm1}
+                        value={form1.shareholders_nationality}
                       />
                       <Input
                         size="lg"
                         label="Experience"
-                        name="experience_in_semi_precious_stones"
+                        name="experience"
+                        onChange={handleForm1}
+                        value={form1.experience}
                       />
                       <Input
                         size="lg"
                         label="Intended Operations"
                         name="description_of_intended_operations"
+                        onChange={handleForm1}
+                        value={form1.intended_operations}
                       />
                       <Input
                         size="lg"
                         label="Particulars Of Plant"
                         name="particulars_of_plant"
+                        onChange={handleForm1}
+                        value={form1.particulars_of_plant}
                       />
                       <Input
                         size="lg"
                         label="Number to be Employed"
-                        name="number_to_be_employed"
+                        name="number_to_employed"
+                        onChange={handleForm1}
+                        value={form1.number_to_employed}
                       />
                       <Input
                         size="lg"
                         label="Types & Quantities"
                         name="types_and_quantities"
+                        onChange={handleForm1}
+                        value={form1.types_and_quantities}
                       />
                       <Input
                         size="lg"
                         label="Source Of Stones"
                         name="source_of_stones"
+                        onChange={handleForm1}
+                        value={form1.source_of_stones}
                       />
                       <Input
                         size="lg"
                         label="Location of Operations"
                         name="location_of_ops"
+                        onChange={handleForm1}
+                        value={form1.location_of_operations}
                       />
                       <Input
                         size="lg"
                         label="Market of Products"
                         name="market_of_products"
+                        onChange={handleForm1}
+                        value={form1.market_of_products}
                       />
-                      <Input
-                        size="lg"
-                        label="Signature"
-                        name="applicant_signature"
-                      />
+
                       <Input
                         size="lg"
                         label="Signature"
@@ -341,7 +420,7 @@ export function Home() {
                       />
                       <Button
                         onClick={() => {
-                          handleOpen();
+                          submitForm()
                         }}
                         className="mt-6 hover:bg-[#0097c9]"
                         fullWidth
@@ -568,6 +647,202 @@ export function Home() {
               </TabPanel>
 
               <TabPanel key={"3"} value={"3"}>
+                <form className="mt-8 mb-2 ">
+                  <div className="flex justify-between gap-4">
+                    <div className="flex-1 mb-4 grid   md:grid-cols-3 gap-6">
+                      <Input size="lg" label="Name" />
+                      <Input size="lg" label="Email" />
+                      <Input type="password" size="lg" label="Password" />{" "}
+                      <Input size="lg" label="Name" />
+                      <Input size="lg" label="Email" />
+                      <Input type="password" size="lg" label="Password" />{" "}
+                      <Input size="lg" label="Name" />
+                      <Input size="lg" label="Email" />
+                      <Input type="password" size="lg" label="Password" />
+                      <Input size="lg" label="Email" />
+                      <Input type="password" size="lg" label="Password" />{" "}
+                      <Input size="lg" label="Name" />
+                      <Input size="lg" label="Email" />
+                      <Input type="password" size="lg" label="Password" />{" "}
+                      <Input size="lg" label="Name" />
+                      <Button className="mt-6 hover:bg-[#0097c9]" fullWidth>
+                        Apply
+                      </Button>
+                    </div>
+
+                    <div className="w-[25rem]">
+                      <Timeline>
+                        <TimelineItem className="h-28">
+                          <TimelineConnector className="!w-[78px]" />
+                          <TimelineHeader className="relative rounded-xl border border-blue-gray-50 bg-white py-3 pl-4 pr-8 shadow-lg shadow-blue-gray-900/5">
+                            <TimelineIcon className="p-3" variant="ghost">
+                              <BellIcon className="h-5 w-5" />
+                            </TimelineIcon>
+                            <div className="flex flex-col gap-1">
+                              <Typography variant="h6" color="blue-gray">
+                                $2400, Design changes
+                              </Typography>
+                              <Typography
+                                variant="small"
+                                color="gray"
+                                className="font-normal"
+                              >
+                                22 DEC 7:20 PM
+                              </Typography>
+                            </div>
+                          </TimelineHeader>
+                        </TimelineItem>
+                        <TimelineItem className="h-28">
+                          <TimelineConnector className="!w-[78px]" />
+                          <TimelineHeader className="relative rounded-xl border border-blue-gray-50 bg-white py-3 pl-4 pr-8 shadow-lg shadow-blue-gray-900/5">
+                            <TimelineIcon
+                              className="p-3"
+                              variant="ghost"
+                              color="red"
+                            >
+                              <ArchiveBoxIcon className="h-5 w-5" />
+                            </TimelineIcon>
+                            <div className="flex flex-col gap-1">
+                              <Typography variant="h6" color="blue-gray">
+                                New order #1832412
+                              </Typography>
+                              <Typography
+                                variant="small"
+                                color="gray"
+                                className="font-normal"
+                              >
+                                21 DEC 11 PM
+                              </Typography>
+                            </div>
+                          </TimelineHeader>
+                        </TimelineItem>
+                        <TimelineItem className="h-28">
+                          <TimelineHeader className="relative rounded-xl border border-blue-gray-50 bg-white py-3 pl-4 pr-8 shadow-lg shadow-blue-gray-900/5">
+                            <TimelineIcon
+                              className="p-3"
+                              variant="ghost"
+                              color="green"
+                            >
+                              <CurrencyDollarIcon className="h-5 w-5" />
+                            </TimelineIcon>
+                            <div className="flex flex-col gap-1">
+                              <Typography variant="h6" color="blue-gray">
+                                Payment completed for order #4395133
+                              </Typography>
+                              <Typography
+                                variant="small"
+                                color="gray"
+                                className="font-normal"
+                              >
+                                20 DEC 2:20 AM
+                              </Typography>
+                            </div>
+                          </TimelineHeader>
+                        </TimelineItem>
+                      </Timeline>
+                    </div>
+                  </div>
+                </form>
+              </TabPanel>
+              <TabPanel key={"4"} value={"4"}>
+                <form className="mt-8 mb-2 ">
+                  <div className="flex justify-between gap-4">
+                    <div className="flex-1 mb-4 grid   md:grid-cols-3 gap-6">
+                      <Input size="lg" label="Name" />
+                      <Input size="lg" label="Email" />
+                      <Input type="password" size="lg" label="Password" />{" "}
+                      <Input size="lg" label="Name" />
+                      <Input size="lg" label="Email" />
+                      <Input type="password" size="lg" label="Password" />{" "}
+                      <Input size="lg" label="Name" />
+                      <Input size="lg" label="Email" />
+                      <Input type="password" size="lg" label="Password" />
+                      <Input size="lg" label="Email" />
+                      <Input type="password" size="lg" label="Password" />{" "}
+                      <Input size="lg" label="Name" />
+                      <Input size="lg" label="Email" />
+                      <Input type="password" size="lg" label="Password" />{" "}
+                      <Input size="lg" label="Name" />
+                      <Button className="mt-6 hover:bg-[#0097c9]" fullWidth>
+                        Apply
+                      </Button>
+                    </div>
+
+                    <div className="w-[25rem]">
+                      <Timeline>
+                        <TimelineItem className="h-28">
+                          <TimelineConnector className="!w-[78px]" />
+                          <TimelineHeader className="relative rounded-xl border border-blue-gray-50 bg-white py-3 pl-4 pr-8 shadow-lg shadow-blue-gray-900/5">
+                            <TimelineIcon className="p-3" variant="ghost">
+                              <BellIcon className="h-5 w-5" />
+                            </TimelineIcon>
+                            <div className="flex flex-col gap-1">
+                              <Typography variant="h6" color="blue-gray">
+                                $2400, Design changes
+                              </Typography>
+                              <Typography
+                                variant="small"
+                                color="gray"
+                                className="font-normal"
+                              >
+                                22 DEC 7:20 PM
+                              </Typography>
+                            </div>
+                          </TimelineHeader>
+                        </TimelineItem>
+                        <TimelineItem className="h-28">
+                          <TimelineConnector className="!w-[78px]" />
+                          <TimelineHeader className="relative rounded-xl border border-blue-gray-50 bg-white py-3 pl-4 pr-8 shadow-lg shadow-blue-gray-900/5">
+                            <TimelineIcon
+                              className="p-3"
+                              variant="ghost"
+                              color="red"
+                            >
+                              <ArchiveBoxIcon className="h-5 w-5" />
+                            </TimelineIcon>
+                            <div className="flex flex-col gap-1">
+                              <Typography variant="h6" color="blue-gray">
+                                New order #1832412
+                              </Typography>
+                              <Typography
+                                variant="small"
+                                color="gray"
+                                className="font-normal"
+                              >
+                                21 DEC 11 PM
+                              </Typography>
+                            </div>
+                          </TimelineHeader>
+                        </TimelineItem>
+                        <TimelineItem className="h-28">
+                          <TimelineHeader className="relative rounded-xl border border-blue-gray-50 bg-white py-3 pl-4 pr-8 shadow-lg shadow-blue-gray-900/5">
+                            <TimelineIcon
+                              className="p-3"
+                              variant="ghost"
+                              color="green"
+                            >
+                              <CurrencyDollarIcon className="h-5 w-5" />
+                            </TimelineIcon>
+                            <div className="flex flex-col gap-1">
+                              <Typography variant="h6" color="blue-gray">
+                                Payment completed for order #4395133
+                              </Typography>
+                              <Typography
+                                variant="small"
+                                color="gray"
+                                className="font-normal"
+                              >
+                                20 DEC 2:20 AM
+                              </Typography>
+                            </div>
+                          </TimelineHeader>
+                        </TimelineItem>
+                      </Timeline>
+                    </div>
+                  </div>
+                </form>
+              </TabPanel>
+              <TabPanel key={"5"} value={"5"}>
                 <form className="mt-8 mb-2 ">
                   <div className="flex justify-between gap-4">
                     <div className="flex-1 mb-4 grid   md:grid-cols-3 gap-6">
