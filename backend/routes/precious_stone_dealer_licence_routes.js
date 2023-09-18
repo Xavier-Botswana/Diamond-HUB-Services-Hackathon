@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const application_controller = require("../controllers/applications_controller");
+const application_controller = require("../controllers/precious_stone_dealer_applications_controller");
 
 router.post('/', application_controller.create_application);
 
