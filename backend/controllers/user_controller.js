@@ -1,6 +1,6 @@
 const catch_async = require("../utils/catch_async");
 const axios = require("axios");
-const BASE_URL = require("../utils/base_endpoints");
+const {BASE_URL} = require("../utils/base_endpoints");
 
 exports.get_users = catch_async(async (req, res, next) => {
     const {page, per_page} = req.query.page;
@@ -62,9 +62,6 @@ exports.authenticate_user = catch_async(async (req,res,next) => {
 
 
 exports.create_user = catch_async(async (req,res, next) => {
-
-    console.log("This is from the create user endpoint =====>", BASE_URL );
-
     const config = {
         method: "post",
         url: `${BASE_URL}/api/collections/users/records`,
