@@ -85,7 +85,7 @@ export function Home() {
     },
 
     {
-      label: "Other",
+      label: "Reports",
       value: "3",
     },
   ];
