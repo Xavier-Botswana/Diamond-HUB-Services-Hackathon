@@ -41,6 +41,8 @@ exports.delete_user = catch_async(async (req, res, next) => {
 });
 
 exports.authenticate_user = catch_async(async (req,res,next) => {
+    console.log(req.body);
+
     const data = JSON.stringify({
         identity: req.body.identity,
         password: req.body.password,
@@ -55,9 +57,17 @@ exports.authenticate_user = catch_async(async (req,res,next) => {
         data: data,
     };
 
-    await axios(config).then(function (response) {
-        res.status(200).json(response.data);
-    });
+    try {
+        await axios(config).then(function (response) {
+            res.status(200).json(response.data);
+        });
+    } catch (e) {
+        res.status(400).json(e.response.data);
+        console.log(e.response.data);
+    }
+    // await axios(config).then(function (response) {
+    //     res.status(200).json(response.data);
+    // });
 });
 
 
