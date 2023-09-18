@@ -1,0 +1,61 @@
+[debug] [2023-09-18T15:18:27.829Z] ----------------------------------------------------------------------
+[debug] [2023-09-18T15:18:27.831Z] Command:       C:\Program Files\nodejs\node.exe C:\Program Files\nodejs\node_modules\firebase-tools\lib\bin\firebase.js serve --only functions
+[debug] [2023-09-18T15:18:27.832Z] CLI Version:   12.5.2
+[debug] [2023-09-18T15:18:27.832Z] Platform:      win32
+[debug] [2023-09-18T15:18:27.832Z] Node Version:  v16.19.0
+[debug] [2023-09-18T15:18:27.833Z] Time:          Mon Sep 18 2023 17:18:27 GMT+0200 (South Africa Standard Time)
+[debug] [2023-09-18T15:18:27.833Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2023-09-18T15:18:27.909Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2023-09-18T15:18:27.909Z] > authorizing via signed-in user (techteam@xavierafrica.com)
+[debug] [2023-09-18T15:18:27.910Z] [iam] checking project diamond-hub-e2534 for permissions ["firebase.projects.get"]
+[debug] [2023-09-18T15:18:27.912Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/diamond-hub-e2534:testIamPermissions [none]
+[debug] [2023-09-18T15:18:27.912Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/diamond-hub-e2534:testIamPermissions x-goog-quota-user=projects/diamond-hub-e2534
+[debug] [2023-09-18T15:18:27.912Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/diamond-hub-e2534:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2023-09-18T15:18:29.812Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/diamond-hub-e2534:testIamPermissions 200
+[debug] [2023-09-18T15:18:29.813Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/diamond-hub-e2534:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2023-09-18T15:18:29.814Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/diamond-hub-e2534 [none]
+[debug] [2023-09-18T15:18:30.415Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/diamond-hub-e2534 200
+[debug] [2023-09-18T15:18:30.415Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/diamond-hub-e2534 {"projectId":"diamond-hub-e2534","projectNumber":"975774608570","displayName":"diamond hub","name":"projects/diamond-hub-e2534","resources":{"hostingSite":"diamond-hub-e2534"},"state":"ACTIVE","etag":"1_49f617b3-8040-4bb6-9a44-b5783fb79644"}
+[debug] [2023-09-18T15:18:30.419Z] defaultcredentials: writing to file C:\Users\Withus Pro Chivs\AppData\Roaming\firebase\techteam_xavierafrica_com_application_default_credentials.json
+[debug] [2023-09-18T15:18:30.420Z] Setting GAC to C:\Users\Withus Pro Chivs\AppData\Roaming\firebase\techteam_xavierafrica_com_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to C:\\Users\\Withus Pro Chivs\\AppData\\Roaming\\firebase\\techteam_xavierafrica_com_application_default_credentials.json"}}
+[debug] [2023-09-18T15:18:30.420Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/diamond-hub-e2534/adminSdkConfig [none]
+[debug] [2023-09-18T15:18:31.050Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/diamond-hub-e2534/adminSdkConfig 200
+[debug] [2023-09-18T15:18:31.050Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/diamond-hub-e2534/adminSdkConfig {"projectId":"diamond-hub-e2534","storageBucket":"diamond-hub-e2534.appspot.com"}
+[info] i  functions: Watching "C:\Users\Withus Pro Chivs\Desktop\Diamond-HUB-Services-Hackathon\frontend\functions" for Cloud Functions... {"metadata":{"emulator":{"name":"functions"},"message":"Watching \"C:\\Users\\Withus Pro Chivs\\Desktop\\Diamond-HUB-Services-Hackathon\\frontend\\functions\" for Cloud Functions..."}}
+[debug] [2023-09-18T15:18:31.071Z] Validating nodejs source
+[debug] [2023-09-18T15:18:32.087Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "lint": "eslint .",
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "18"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "firebase-admin": "^11.8.0",
+    "firebase-functions": "^4.3.1",
+    "morgan": "^1.10.0",
+    "node-mailer": "^0.1.1"
+  },
+  "devDependencies": {
+    "eslint": "^8.15.0",
+    "eslint-config-google": "^0.14.0",
+    "firebase-functions-test": "^3.1.0"
+  },
+  "private": true
+}
+[debug] [2023-09-18T15:18:32.087Z] Building nodejs source
+[debug] [2023-09-18T15:18:32.088Z] Failed to find version of module node: reached end of search path C:\Users\Withus Pro Chivs\Desktop\Diamond-HUB-Services-Hackathon\frontend\functions\node_modules
+[warn] !  functions: Your requested "node" version "18" doesn't match your global version "16". Using node@16 from host. 
+[debug] [2023-09-18T15:18:32.090Z] Could not find functions.yaml. Must use http discovery
+[debug] [2023-09-18T15:18:32.098Z] Found firebase-functions binary at 'C:\Users\Withus Pro Chivs\Desktop\Diamond-HUB-Services-Hackathon\frontend\functions\node_modules\.bin\firebase-functions'
