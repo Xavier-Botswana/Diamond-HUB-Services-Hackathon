@@ -85,7 +85,7 @@ export function Home() {
     },
 
     {
-      label: "Vue",
+      label: "Other",
       value: "3",
     },
   ];
@@ -249,21 +249,23 @@ export function Home() {
                 <form className="mt-8 mb-2 ">
                   <div className="md:flex grid grid-cols-1  justify-between gap-4">
                     <div className="flex-1 mb-4 grid   md:grid-cols-3 gap-6">
-                      <Input size="lg" label="Name" />
-                      <Input size="lg" label="Email" />
-                      <Input type="password" size="lg" label="Password" />{" "}
-                      <Input size="lg" label="Name" />
-                      <Input size="lg" label="Email" />
-                      <Input type="password" size="lg" label="Password" />{" "}
-                      <Input size="lg" label="Name" />
-                      <Input size="lg" label="Email" />
-                      <Input type="password" size="lg" label="Password" />
-                      <Input size="lg" label="Email" />
-                      <Input type="password" size="lg" label="Password" />{" "}
-                      <Input size="lg" label="Name" />
-                      <Input size="lg" label="Email" />
-                      <Input type="password" size="lg" label="Password" />{" "}
-                      <Input size="lg" label="Name" />
+                      <Input name="name_of_applicant" size="lg" label="Applicant Name" />
+                      <Input size="lg" label="License No" name="manufacturing_license_no"/>
+                      <Input size="lg" label="Address" name="address_in_botswana"/>{" "}
+                      <Input size="lg" label="Director Fullnames" name="fullnames_of_directors"/>
+                      <Input size="lg" label="Director Nationalities" name="director_nationalities"/>
+                      <Input size="lg" label="Share Capital" name="authorised_share_capital_and_issued_capital"/>{" "}
+                      <Input size="lg" label="Shareholder Names" name="names_of_shareholders"/>
+                      <Input size="lg" label="Shareholders Nationality" name="shareholders_nationalities"/>
+                      <Input size="lg" label="Experience" name="experience_in_semi_precious_stones"/>
+                      <Input size="lg" label="Intended Operations" name="description_of_intended_operations"/>
+                      <Input size="lg" label="Particulars Of Plant" name="particulars_of_plant"/>{" "}
+                      <Input size="lg" label="Number to be Employed" name="number_to_be_employed"/>
+                      <Input size="lg" label="Types & Quantities" name="types_and_quantities" />
+                      <Input size="lg" label="Source Of Stones" name="source_of_stones" />{" "}
+                      <Input size="lg" label="Location of Operations" name="location_of_ops" />
+                      <Input size="lg" label="Market of Products" name="market_of_products" />{" "}
+                       <Input size="lg" label="Signature" name="applicant_signature" />
                       <Button onClick={()=>{
                      handleOpen()
                       }} className="mt-6 hover:bg-[#0097c9]" fullWidth>
@@ -358,22 +360,20 @@ export function Home() {
                 <form className="mt-8 mb-2 ">
                   <div className="flex justify-between gap-4">
                     <div className="flex-1 mb-4 grid   md:grid-cols-3 gap-6">
-                      <Input size="lg" label="Name" />
-                      <Input size="lg" label="Email" />
-                      <Input type="password" size="lg" label="Password" />{" "}
-                      <Input size="lg" label="Name" />
-                      <Input size="lg" label="Email" />
-                      <Input type="password" size="lg" label="Password" />{" "}
-                      <Input size="lg" label="Name" />
-                      <Input size="lg" label="Email" />
-                      <Input type="password" size="lg" label="Password" />
-                      <Input size="lg" label="Email" />
-                      <Input type="password" size="lg" label="Password" />{" "}
-                      <Input size="lg" label="Name" />
-                      <Input size="lg" label="Email" />
-                      <Input type="password" size="lg" label="Password" />{" "}
-                      <Input size="lg" label="Name" />
-                      <Button className="mt-6 hover:bg-[#0097c9]" fullWidth>
+                      <Input size="lg" label="Country Of Origin" name="country_of_origin"/>
+                      <Input size="lg" label="Name Of Exporter" name="name_of_exporter"/>
+                      <Input size="lg" label="Goods Exported To" name="goods_exported" />{" "}
+                      <Input size="lg" label="Reason For Exporting" name="exporting_reason"/>
+                      <Input size="lg" label="Wieght Of Goods" name="weight_of_goods" />
+                      <Input size="lg" label="Value of Goods" name="value_of_goods" />{" "}
+                      <Input size="lg" label="Goods to be" name="goods_to_be_returned" />
+                      <Input size="lg" label="Returned" name="returned_goods"/>
+                      <Input size="lg" label="Not Returned" name="not_returned" />
+                      <Input size="lg" label="Date" name="date" />
+                      <Input type="Signature" size="lg" label="Signature" />{" "}
+                      <Button onClick={()=>{
+                     handleOpen()
+                      }} className="mt-6 hover:bg-[#0097c9]" fullWidth>
                         Apply
                       </Button>
                     </div>

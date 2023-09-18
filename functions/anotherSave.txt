@@ -1,0 +1,144 @@
+const functions = require("firebase-functions");
+const admin = require("firebase-admin");
+const express = require("express");
+const cors = require("cors");
+const app = express();
+
+// Initialize Firebase Admin SDK
+const serviceAccount = require("./diamond-hub-firebase.json");
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+});
+const db = admin.firestore();
+
+// Automatically allow cross-origin requests
+app.use(cors({origin: true}));
+
+// Add middleware to authenticate requests
+// app.use(myMiddleware);
+
+// build multiple CRUD interfaces:
+// app.get('/:id', (req, res) => res.send(Widgets.getById(req.params.id)));
+// app.post('/', (req, res) => res.send(Widgets.create()));
+// app.put('/:id', (req, res) => res.send(Widgets.update(req.params.id)));
+// app.delete('/:id', (req, res) => res.send(Widgets.delete(req.params.id)));
+
+
+// hello
+app.get("/hello", (req, res) => {
+  res.send("Hello from Xavier Africa Technologies Pty Ltd!");
+});
+
+// login
+app.post("/login", async (req, res) => {
+  try {
+    const user = await admin.auth().getUserByEmail(req.body.email);
+    const token = await admin.auth().createCustomToken(user.uid);
+    return res.json({token});
+  } catch (error) {
+    return res.status(500).json({error});
+  }
+});
+
+// signup
+app.post("/signup", async (req, res) => {
+  try {
+    const user = await admin.auth().createUser({
+      email: req.body.email,
+      password: req.body.password,
+    });
+    const userRef = db.collection("users").doc(user.uid);
+    await userRef.set({
+      ...req.body,
+      // email: user.email,
+      uid: user.uid,
+      role: "user",
+    });
+    return res.json(user);
+  } catch (error) {
+    return res.status(500).json({error});
+  }
+});
+
+// get application by id
+app.get("/application/:id", async (req, res) => {
+  try {
+    const application = await db
+        .collection("applications")
+        .doc(req.params.id)
+        .get();
+    if (!application.exists) {
+      return res.status(404).json({error: "Application not found"});
+    }
+    return res.json(application.data());
+  } catch (error) {
+    return res.status(500).json({error: error.code});
+  }
+});
+
+// get all applications
+app.get("/applications", async (req, res) => {
+  try {
+    const snapshot = await db.collection("applications").get();
+    const applications = [];
+    snapshot.forEach((doc) => {
+      applications.push({
+        id: doc.id,
+        ...doc.data(),
+      });
+    });
+    return res.json(applications);
+  } catch (error) {
+    return res.status(500).json({error: error.code});
+  }
+});
+
+// create application include id
+
+app.post("/application", async (req, res) => {
+  try {
+    const newApplication = {
+      ...req.body,
+      createdAt: admin.firestore.Timestamp.fromDate(new Date()),
+    };
+    const application = await db
+        .collection("applications")
+        .add(newApplication);
+    await application.update({id: application.id});
+    return res.json({
+      message: `Application ${application.id} created successfully`,
+    });
+  } catch (error) {
+    return res.status(500).json({error: error.code});
+  }
+});
+
+// update application
+app.put("/application/:id", async (req, res) => {
+  try {
+    const document = db.collection("applications").doc(req.params.id);
+    await document.update(req.body);
+    return res.json({message: "Application updated successfully"});
+  } catch (error) {
+    return res.status(500).json({error: error.code});
+  }
+});
+
+// delete application
+app.delete("/application/:id", async (req, res) => {
+  try {
+    const document = db.collection("applications").doc(req.params.id);
+    await document.delete();
+    return res.json({message: "Application deleted successfully"});
+  } catch (error) {
+    return res.status(500).json({error: error.code});
+  }
+});
+
+// export api to firebase cloud functions
+exports.api = functions.https.onRequest(app);
+
+
+// was for firebaseAdmin
+
+// const serviceAccountPath = process.env.SERVICE_ACCOUNT_PATH || "./diamond-hub-firebase.json";

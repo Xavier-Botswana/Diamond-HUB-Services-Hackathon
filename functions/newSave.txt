@@ -1,0 +1,146 @@
+const functions = require("firebase-functions");
+const express = require("express");
+const cors = require("cors");
+const {admin, db} = require("./firebaseAdmin");
+const app = express();
+
+// Automatically allow cross-origin requests
+app.use(cors({origin: true}));
+
+// Middleware for error handling
+app.use((error, req, res, next) => {
+  res.status(500).json({error: error.message});
+});
+
+// Logging middleware (you can use 'tiny' or 'combined' or other formats)
+const morgan = require("morgan");
+app.use(morgan("tiny"));
+
+// Utility function to get a document from a collection
+
+/**
+ * Retrieves a document from a collection by ID.
+ * @param {string} collection - The name of the collection.
+ * @param {string} id - The ID of the document to retrieve.
+ * @throws {Error} If the document is not found.
+ * @return {Promise<Object>} The retrieved document.
+ */
+async function getDocument(collection, id) {
+  const doc = await db.collection(collection).doc(id).get();
+  if (!doc.exists) {
+    throw new Error("Document not found");
+  }
+  return doc.data();
+}
+
+
+// Hello endpoint
+app.get("/hello", (req, res) => {
+  res.send("Hello from Xavier Africa Technologies Pty Ltd!");
+});
+
+// Login endpoint
+app.post("/login", async (req, res, next) => {
+  try {
+    if (!req.body.email) {
+      return res.status(400).json({error: "Email is required"});
+    }
+    const user = await admin.auth().getUserByEmail(req.body.email);
+    const token = await admin.auth().createCustomToken(user.uid);
+    return res.json({token});
+  } catch (error) {
+    next(error);
+  }
+});
+
+// Signup endpoint
+app.post("/signup", async (req, res, next) => {
+  try {
+    if (!req.body.email || !req.body.password) {
+      return res.status(400).json({error: "Email and password are required"});
+    }
+    const user = await admin.auth().createUser({
+      email: req.body.email,
+      password: req.body.password,
+    });
+    const userRef = db.collection("users").doc(user.uid);
+    await userRef.set({
+      ...req.body,
+      uid: user.uid,
+      role: "user",
+    });
+    return res.json(user);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// Get application by ID endpoint
+app.get("/application/:id", async (req, res, next) => {
+  try {
+    const application = await getDocument("applications", req.params.id);
+    return res.json(application);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// Get all applications endpoint
+app.get("/applications", async (req, res, next) => {
+  try {
+    const snapshot = await db.collection("applications").get();
+    const applications = [];
+    snapshot.forEach((doc) => {
+      applications.push({
+        id: doc.id,
+        ...doc.data(),
+      });
+    });
+    return res.json(applications);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// Create application endpoint
+app.post("/application", async (req, res, next) => {
+  try {
+    const newApplication = {
+      ...req.body,
+      createdAt: admin.firestore.Timestamp.fromDate(new Date()),
+    };
+    const application = await db.collection("applications").add(newApplication);
+    await application.update({id: application.id});
+    return res.status(201).json({
+      message: `Application ${application.id} created successfully`,
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
+// Update application endpoint
+app.put("/application/:id", async (req, res, next) => {
+  try {
+    const document = db.collection("applications").doc(req.params.id);
+    await document.update(req.body);
+    return res.json({message: "Application updated successfully"});
+  } catch (error) {
+    next(error);
+  }
+});
+
+// Delete application endpoint
+app.delete("/application/:id", async (req, res, next) => {
+  try {
+    const document = db.collection("applications").doc(req.params.id);
+    await document.delete();
+    return res.json({message: "Application deleted successfully"});
+  } catch (error) {
+    next(error);
+  }
+});
+
+
+// Export API to Firebase Cloud Functions
+exports.api = functions.https.onRequest(app);
