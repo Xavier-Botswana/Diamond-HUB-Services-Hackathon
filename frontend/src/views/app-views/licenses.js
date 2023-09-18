@@ -31,7 +31,10 @@ import {
 } from "@material-tailwind/react";
 import axios from "axios";
 
-const TABLE_HEAD = ["Member", "Function", "Status", "Employed", ""];
+const TABLE_HEAD  =  ["Full Names", "Function", "Status", "Employed", ""];
+const TABLE_HEAD1 =  ["Member", "Function", "Status", "Employed", ""];
+const TABLE_HEAD2 =  ["Member", "Function", "Status", "Employed", ""];
+const TABLE_HEAD3 =  ["Member", "Function", "Status", "Employed", ""];
 
 const TABLE = [
   {
@@ -89,13 +92,10 @@ const TABLE = [
 
 
 
-export default function Licenses() {
+export default function Applications() {
   const [tab, setTab] = useState("1");
   const [open, setOpen] = useState(false);
   const [openDec, setOpenDec] = useState(false);
- 
- 
- 
   const [openApp, setOpenApp] = useState(false);
   const [ID, setID] = useState("1");
   const [data, setData] = useState({});
@@ -117,9 +117,6 @@ export default function Licenses() {
   };
 
   const submitApproval = async () => {
-
-
-
     try {
       let categoryparam = "practice";
       let res = [];
@@ -240,7 +237,7 @@ export default function Licenses() {
         setPdfbs(base64String);
 
         const data = {
-          email: data[0].email,
+          email: `{data[0].email}`,
           message: `<h4>Good day</h4><p>This is to inform you that your certificate has been created successfully.\n Thank you</p>`,
           base64String: base64String,
         };
@@ -249,7 +246,8 @@ export default function Licenses() {
           .post(
             "http://localhost:5000/diamond-hub-e2534/us-central1/api/send",
             data
-          ).then((response) => {
+          )
+          .then((response) => {
             console.log("Response:", response.data);
           })
           .catch((error) => {
@@ -337,9 +335,6 @@ export default function Licenses() {
     setOpen(true);
   };
 
-
-
-  
   return (
     <div className="px-20 pt-[125px]">
       <Card className="h-full w-full  mt-10 mb-20">
@@ -347,54 +342,68 @@ export default function Licenses() {
           <div className="mb-8 flex items-center justify-between gap-8">
             <div>
               <Typography variant="h5" color="blue-gray">
-              Licenses /Certificates
+              Licence / Certificate
               </Typography>
               <Typography color="gray" className="mt-1 font-normal">
-                See information about all applications
+                See information about all licence and certificates
               </Typography>
             </div>
             <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
               {/* <Button variant="outlined" size="sm">
                 view all
               </Button> */}
-              <Button className="flex items-center gap-3" size="sm">
+              {/* <Button className="flex items-center gap-3" size="sm">
                 <UserPlusIcon strokeWidth={2} className="h-4 w-4" /> Download
-              </Button>
+              </Button> */}
             </div>
           </div>
           <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
             <Tabs value="1" className="w-full md:w-max">
-              <Tabs value="1" className="w-full md:w-max">
-                <TabsHeader>
-                  <Tab
-                    key={1}
-                    value="1"
-                    onClick={() => {
-                      setTab("1");
-                    }}
-                  >
-                    All
-                  </Tab>
-                  <Tab
-                    key={2}
-                    value="2"
-                    onClick={() => {
-                      setTab("2");
-                    }}
-                  >
-                   Dealers
-                  </Tab>
-                  <Tab
-                    key={3}
-                    value="3"
-                    onClick={() => {
-                      setTab("3");
-                    }}
-                  >
-                    
-                  </Tab>
-                </TabsHeader>
-              </Tabs>
+              <TabsHeader>
+                <Tab
+                  className="md:w-fit"
+                  key={1}
+                  value="1"
+                  onClick={() => {
+                    setTab("1");
+                  }}
+                >
+                  All
+                </Tab>
+
+                <Tab
+                  className="w-[400px]"
+                  key={2}
+                  value="2"
+                  onClick={() => {
+                    setTab("2");
+                  }}
+                >
+                  Diamond Cutting Licence
+                </Tab>
+
+                <Tab
+                  className="w-[400px]"
+                  key={3}
+                  value="3"
+                  onClick={() => {
+                    setTab("3");
+                  }}
+                >
+                  Kimberly Process Certificate
+                </Tab>
+
+                <Tab
+                  className="md:w-[300px]"
+                  key={4}
+                  value="4"
+                  onClick={() => {
+                    setTab("4");
+                  }}
+                >
+                  Stones Dealers Licence
+                </Tab>
+              </TabsHeader>
             </Tabs>
             <div className="w-full md:w-72">
               <Input
@@ -408,7 +417,7 @@ export default function Licenses() {
             </div>
           </div>
         </CardHeader>
-        {tab === "1" ? (
+        {   tab === "1" ? (
           <CardBody className="overflow-scroll px-0">
             <table className="mt-4 w-full min-w-max table-auto text-left">
               <thead>
@@ -752,6 +761,8 @@ export default function Licenses() {
             </table>
           </CardBody>
         )}
+
+
         <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
           <Typography variant="small" color="blue-gray" className="font-normal">
             Page 1 of {TABLE_ROWS.length}

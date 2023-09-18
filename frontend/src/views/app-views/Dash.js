@@ -99,7 +99,7 @@ export default function SortableTable() {
         <Card className="mt-6 w-80">
           <CardBody>
             <Typography variant="h5" color="#bfbfbf" className="mb-2">
-              {" "}
+             
               Generated Certificates
             </Typography>
             <div className="w-full">

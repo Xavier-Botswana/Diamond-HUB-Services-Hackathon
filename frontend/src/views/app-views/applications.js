@@ -31,7 +31,9 @@ import {
 } from "@material-tailwind/react";
 import axios from "axios";
 
-const TABLE_HEAD = ["Member", "Function", "Status", "Employed", ""];
+const TABLE_HEAD1  =  ["Full name", "Nationality", "Occupation", "Status", ""];
+const TABLE_HEAD =  ["Member", "Function", "Status", "Employed", ""];
+const TABLE_HEAD3 =  ["Member", "Function", "Status", "Employed", ""];
 
 const TABLE = [
   {
@@ -111,9 +113,6 @@ export default function Applications() {
   };
 
   const submitApproval = async () => {
-
-
-
     try {
       let categoryparam = "practice";
       let res = [];
@@ -234,7 +233,7 @@ export default function Applications() {
         setPdfbs(base64String);
 
         const data = {
-          email: data[0].email,
+          email: `{data[0].email}`,
           message: `<h4>Good day</h4><p>This is to inform you that your certificate has been created successfully.\n Thank you</p>`,
           base64String: base64String,
         };
@@ -243,7 +242,8 @@ export default function Applications() {
           .post(
             "http://localhost:5000/diamond-hub-e2534/us-central1/api/send",
             data
-          ).then((response) => {
+          )
+          .then((response) => {
             console.log("Response:", response.data);
           })
           .catch((error) => {
@@ -331,9 +331,6 @@ export default function Applications() {
     setOpen(true);
   };
 
-
-
-  
   return (
     <div className="px-20 pt-[125px]">
       <Card className="h-full w-full  mt-10 mb-20">
@@ -351,44 +348,58 @@ export default function Applications() {
               {/* <Button variant="outlined" size="sm">
                 view all
               </Button> */}
-              <Button className="flex items-center gap-3" size="sm">
+              {/* <Button className="flex items-center gap-3" size="sm">
                 <UserPlusIcon strokeWidth={2} className="h-4 w-4" /> Download
-              </Button>
+              </Button> */}
             </div>
           </div>
           <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
             <Tabs value="1" className="w-full md:w-max">
-              <Tabs value="1" className="w-full md:w-max">
-                <TabsHeader>
-                  <Tab
-                    key={1}
-                    value="1"
-                    onClick={() => {
-                      setTab("1");
-                    }}
-                  >
-                    All
-                  </Tab>
-                  <Tab
-                    key={2}
-                    value="2"
-                    onClick={() => {
-                      setTab("2");
-                    }}
-                  >
-                    Pending
-                  </Tab>
-                  <Tab
-                    key={3}
-                    value="3"
-                    onClick={() => {
-                      setTab("3");
-                    }}
-                  >
-                    Approved
-                  </Tab>
-                </TabsHeader>
-              </Tabs>
+              <TabsHeader>
+                <Tab
+                  className="md:w-fit"
+                  key={1}
+                  value="1"
+                  onClick={() => {
+                    setTab("1");
+                  }}
+                >
+                  All
+                </Tab>
+
+                <Tab
+                  className="w-[400px]"
+                  key={2}
+                  value="2"
+                  onClick={() => {
+                    setTab("2");
+                  }}
+                >
+                  Diamond Cutting Licence
+                </Tab>
+
+                <Tab
+                  className="w-[400px]"
+                  key={3}
+                  value="3"
+                  onClick={() => {
+                    setTab("3");
+                  }}
+                >
+                  Kimberly Process Certificate
+                </Tab>
+
+                <Tab
+                  className="md:w-[300px]"
+                  key={4}
+                  value="4"
+                  onClick={() => {
+                    setTab("4");
+                  }}
+                >
+                  Stones Dealers Licence
+                </Tab>
+              </TabsHeader>
             </Tabs>
             <div className="w-full md:w-72">
               <Input
@@ -402,12 +413,12 @@ export default function Applications() {
             </div>
           </div>
         </CardHeader>
-        {tab === "1" ? (
+        {   tab === "1" ? (
           <CardBody className="overflow-scroll px-0">
             <table className="mt-4 w-full min-w-max table-auto text-left">
               <thead>
                 <tr>
-                  {TABLE_HEAD.map((head, index) => (
+                  {TABLE_HEAD1.map((head, index) => (
                     <th
                       key={head}
                       className="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50"
@@ -440,6 +451,8 @@ export default function Applications() {
                     return (
                       <tr key={name}>
                         <td className={classes}>
+                         
+                         
                           <div className="flex items-center gap-3">
                             <Avatar src={img} alt={name} size="sm" />
                             <div className="flex flex-col">
@@ -459,7 +472,12 @@ export default function Applications() {
                               </Typography>
                             </div>
                           </div>
+
+
                         </td>
+
+
+
                         <td className={classes}>
                           <div className="flex flex-col">
                             <Typography
@@ -479,16 +497,6 @@ export default function Applications() {
                           </div>
                         </td>
                         <td className={classes}>
-                          <div className="w-max">
-                            <Chip
-                              variant="ghost"
-                              size="sm"
-                              value={online ? "online" : "offline"}
-                              color={online ? "green" : "blue-gray"}
-                            />
-                          </div>
-                        </td>
-                        <td className={classes}>
                           <Typography
                             variant="small"
                             color="blue-gray"
@@ -496,6 +504,17 @@ export default function Applications() {
                           >
                             {date}
                           </Typography>
+                        </td>
+
+                        <td className={classes}>
+                          <div className="w-max">
+                            <Chip
+                              variant="ghost"
+                              size="sm"
+                              value={!online ? "Pending" : "Approved"}
+                              color={!online ? "red" : "green"}
+                            />
+                          </div>
                         </td>
                         <td className={classes}>
                           <Tooltip content="View">
@@ -746,6 +765,8 @@ export default function Applications() {
             </table>
           </CardBody>
         )}
+
+
         <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
           <Typography variant="small" color="blue-gray" className="font-normal">
             Page 1 of {TABLE_ROWS.length}
