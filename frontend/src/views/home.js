@@ -559,7 +559,7 @@ export function Home() {
         size="xs"
         open={open}
         handler={handleOpen}
-        className="bg-transparent shadow-none"
+        className="bg-transparent shadow-none overflow-auto"
       >
         <Card className="w-full max-w-[24rem]">
       <CardHeader
@@ -572,141 +572,14 @@ export function Home() {
           <BanknotesIcon className="h-10 w-10" />
         </div>
         <Typography variant="h4" color="white">
-         Process
+         Payments via PayPal
         </Typography>
       </CardHeader>
       <CardBody>
-        <Tabs value={type} className="overflow-visible">
-          <TabsHeader className="relative z-0 ">
-            <Tab value="card" onClick={() => setType("card")}>
-              Pay with Card
-            </Tab>
-            <Tab value="paypal" onClick={() => setType("paypal")}>
-              Pay with PayPal
-            </Tab>
-          </TabsHeader>
-          <TabsBody
-            className="!overflow-x-hidden !overflow-y-visible"
-            animate={{
-              initial: {
-                x: type === "card" ? 400 : -400,
-              },
-              mount: {
-                x: 0,
-              },
-              unmount: {
-                x: type === "card" ? 400 : -400,
-              },
-            }}
-          >
-            <TabPanel value="card" className="p-0">
-              <form className="mt-12 flex flex-col gap-4">
-                <div>
-                  <Typography
-                    variant="small"
-                    color="blue-gray"
-                    className="mb-4 font-medium"
-                  >
-                    Personal Details
-                  </Typography>
-                  <Input type="email" label="Email Address" />
-                </div>
- 
-                <div className="my-6">
-                  <Typography
-                    variant="small"
-                    color="blue-gray"
-                    className="mb-4 font-medium"
-                  >
-                    Card Details
-                  </Typography>
- 
-                  <Input
-                    label="Card Number"
-                    maxLength={19}
-                    value={formatCardNumber(cardNumber)}
-                    onChange={(event) => setCardNumber(event.target.value)}
-                    icon={
-                      <CreditCardIcon className="h-5 w-5 text-blue-gray-300" />
-                    }
-                  />
-                  <div className="my-4 flex items-center gap-4">
-                    <Input
-                      label="Expires"
-                      maxLength={5}
-                      value={formatExpires(cardExpires)}
-                      onChange={(event) => setCardExpires(event.target.value)}
-                      containerProps={{ className: "min-w-[72px]" }}
-                    />
-                    <Input
-                      label="CVC"
-                      maxLength={4}
-                      containerProps={{ className: "min-w-[72px]" }}
-                    />
-                  </div>
-                  <Input label="Holder Name" />
-                </div>
-                <Button size="lg" className="hover:bg-[#3c95d2]" onClick={()=>{
-                  setOpen(false)
-                }}>Pay Now</Button>
-                <Typography
-                  variant="small"
-                  color="gray"
-                  className="mt-2 flex items-center justify-center gap-2 font-normal opacity-60"
-                >
-                  <LockClosedIcon className="-mt-0.5 h-4 w-4" /> Payments are
-                  secure and encrypted
-                </Typography>
-              </form>
-            </TabPanel>
-            <TabPanel value="paypal" className="p-0">
-              <form className="mt-12 flex flex-col gap-4">
-                <div>
-                  <Typography
-                    variant="small"
-                    color="blue-gray"
-                    className="mb-4 font-medium"
-                  >
-                    Personal Details
-                  </Typography>
-                  <Input type="email" label="Email Address" />
-                </div>
- 
-                <div className="my-6">
-                  <Typography
-                    variant="small"
-                    color="blue-gray"
-                    className="mb-4 font-medium"
-                  >
-                    Billing Address
-                  </Typography>
- 
-                  <Select label="Country" menuProps={{ className: "h-48" }}>
-                    {countries.map(({ name }: any) => (
-                      <Option key={name} value={name}>
-                        {name}
-                      </Option>
-                    ))}
-                  </Select>
-                  <Input
-                    label="Postal Code"
-                    containerProps={{ className: "mt-4" }}
-                  />
-                </div>
-               
+      
                 <PaypalButton />
-                <Typography
-                  variant="small"
-                  color="gray"
-                  className="mt-2 flex items-center justify-center gap-2 font-normal opacity-60"
-                >
-                  <LockClosedIcon className="-mt-0.5 h-4 w-4" /> Payments are
-                  secure and encrypted
-                </Typography>
-              </form>
-            </TabPanel>
-          </TabsBody>
-        </Tabs>
+               
+    
       </CardBody>
     </Card>
       </Dialog>
