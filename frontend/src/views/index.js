@@ -15,7 +15,7 @@ export default function Views() {
       <Route exact path="/">
         <Redirect to="/auth/login" />
       </Route>
-      <Route path="/auth/login">
+      <Route path="/auth">
         <AuthLayout />
       </Route>
       <Route path="/app">
