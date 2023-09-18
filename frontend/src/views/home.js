@@ -263,7 +263,7 @@ export function Home() {
                         size="lg"
                         label="Address"
                         name="address_in_botswana"
-                      />{" "}
+                      />
                       <Input
                         size="lg"
                         label="Director Fullnames"
@@ -303,7 +303,7 @@ export function Home() {
                         size="lg"
                         label="Particulars Of Plant"
                         name="particulars_of_plant"
-                      />{" "}
+                      />
                       <Input
                         size="lg"
                         label="Number to be Employed"
@@ -318,7 +318,7 @@ export function Home() {
                         size="lg"
                         label="Source Of Stones"
                         name="source_of_stones"
-                      />{" "}
+                      />
                       <Input
                         size="lg"
                         label="Location of Operations"
@@ -328,7 +328,12 @@ export function Home() {
                         size="lg"
                         label="Market of Products"
                         name="market_of_products"
-                      />{" "}
+                      />
+                      <Input
+                        size="lg"
+                        label="Signature"
+                        name="applicant_signature"
+                      />
                       <Input
                         size="lg"
                         label="Signature"
@@ -474,11 +479,8 @@ export function Home() {
                         name="not_returned"
                       />
                       <Input size="lg" label="Date" name="date" />
-                      <Input
-                        type="Signature"
-                        size="lg"
-                        label="Signature"
-                      />{" "}
+                      <Input type="Signature" size="lg" label="Signature" />
+                      <Input type="Signature" size="lg" label="Signature" />
                       <Button
                         onClick={() => {
                           handleOpen();
@@ -687,7 +689,7 @@ export function Home() {
                 Payments via PayPal
               </Typography>
             </CardHeader>
-            <CardBody className="shadow-none overflow-auto h-[200px]">
+            <CardBody className="shadow-none overflow-auto h-[400px]">
               <PaypalButton />
             </CardBody>
           </Card>
