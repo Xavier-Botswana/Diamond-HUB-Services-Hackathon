@@ -144,8 +144,7 @@ export default function Applications() {
 
   const submitApproval = async () => {
     try {
-      // axios.put()
-
+      
       let categoryparam = "practice";
       let res = [];
       res = await fetch(
@@ -311,7 +310,7 @@ export default function Applications() {
           "http://127.0.0.1:8080/api/diamond-cutting-license-applications/"
         );
         let response = response1.data.items;
-        response = response.filter((row) => row.status === true);
+        response = response.filter((row) => row.status === false);
         const results = response.filter((row) => row.id === ID);
         if (results.length !== 0) {
           setData(results);
@@ -323,7 +322,7 @@ export default function Applications() {
           "http://127.0.0.1:8080/api/kimberly-process-certificates-applications"
         );
         let responsekim = response2.data.items;
-        responsekim = responsekim.filter((row) => row.status === true);
+        responsekim = responsekim.filter((row) => row.status === false);
 
         const resultskim = responsekim.filter((row) => row.id === ID);
         if (resultskim.length !== 0) {
@@ -336,7 +335,7 @@ export default function Applications() {
           "http://127.0.0.1:8080/api/precious-stones-dealer-license-applications/"
         );
         let responsePre = response3.data.items;
-        responsePre = responsePre.filter((row) => row.status === true);
+        responsePre = responsePre.filter((row) => row.status === false);
         const resultsPre = responsePre.filter((row) => row.id === ID);
         if (resultsPre.length !== 0) {
           setData(resultsPre);

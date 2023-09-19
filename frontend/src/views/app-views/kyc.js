@@ -32,24 +32,6 @@ import {
 import axios from "axios";
 
 const TABLE_HEAD1 = ["Full name", "Nationality", "Occupation", "Status", ""];
-const TABLE_HEAD2 = [
-  "Full name",
-  "Country_of_origin",
-  "Number_of_parcels",
-  "Name_of_exporter",
-  "address_of_importers",
-  "Status",
-  "",
-];
-const TABLE_HEAD3 = [
-  "Full name",
-  "Address",
-  // "Directors Names",
-  "Location of Operations",
-  "Stones Source",
-  "Status",
-  "",
-];
 
 const TABLE = [
   {
@@ -107,192 +89,45 @@ const TABLE = [
 export default function CompanyKYC() {
   const [tab, setTab] = useState("1");
   const [open, setOpen] = useState(false);
-  const [open2, setOpen2] = useState(false);
-  const [open3, setOpen3] = useState(false);
 
-  const [openDec, setOpenDec] = useState(false);
-  const [openApp, setOpenApp] = useState(false);
   const [ID, setID] = useState("1");
   const [data, setData] = useState({});
-  const [PDFDATA, setPdfdata] = useState(null);
-  const [pdfnum, setPdfnum] = useState(null);
-  const [pdfbs, setPdfbs] = useState(null);
   const [TABLE_ROWS, setDataTable] = useState([]);
+  const [company, setCompany] = useState({
+    name: "",
+    physical_address: "",
+    number_of_employees: "",
+    email_address: "",
+    phone: "",
+    directors_names:"",
+  });
 
   const [search, setSearch] = useState("");
 
   const handleOpen = (results) => {
     setOpen((cur) => !cur);
   };
-
-  const handleOpenDec = (results) => {
-    setOpenDec((cur) => !cur);
+  const handleForm = (e) => {
+    setCompany({ ...company, [e.target.name]: e.target.value });
   };
 
-  const handleOpenApp = (results) => {
-    setOpenApp((cur) => !cur);
-  };
-
-  const submitApproval = async () => {
+  const submitCompany = async () => {
     try {
-      // axios.put()
-
-      let categoryparam = "practice";
-      let res = [];
-      res = await fetch(
-        "https://certificates.erb.org.bw/api/files/" + categoryparam
-      );
-
-      const data1 = await res.json();
-      const buf1 = data1.message.data;
-      var ab = new ArrayBuffer(buf1.length);
-      var view = new Uint8Array(ab);
-      for (var i = 0; i < buf1.length; ++i) {
-        view[i] = buf1[i];
-      }
-      const existingPdfBytes = ab;
-
-      const pdfDoc = await PDFDocument.load(existingPdfBytes);
-
-      if (categoryparam === "practice") {
-        const helveticaFont = await pdfDoc.embedFont(
-          StandardFonts.HelveticaBold
-        );
-        const pages = pdfDoc.getPages();
-        const firstPage = pages[0];
-        const { width, height } = firstPage.getSize();
-
-        const names = "firstname";
-        const textWidth = helveticaFont.widthOfTextAtSize(names, 15);
-        const centerX = (width - textWidth) / 2;
-        firstPage.drawText(names, {
-          x: centerX,
-          y: height / height + 382,
-          size: 15,
-          font: helveticaFont,
-          color: rgb(0.29, 0.337, 0.408),
+      axios
+        .post("http://127.0.0.1:8080/api/companies", company)
+        .then((response) => {
+          console.log("Response:", response.data);
+          alert("done")
+        })
+        .catch((error) => {
+          console.error("Error:", error);
         });
-
-        const practices = "practice";
-        const textWidth01 = helveticaFont.widthOfTextAtSize(practices, 11);
-        const centerX01 = (width - textWidth01) / 2;
-        firstPage.drawText(practices, {
-          x: centerX01,
-          y: height / height + 342,
-          size: 11,
-          font: helveticaFont,
-          color: rgb(0.29, 0.337, 0.408),
-        });
-
-        const disciplines = " discipline";
-        const textWidth02 = helveticaFont.widthOfTextAtSize(disciplines, 11);
-        const centerX02 = (width - textWidth02) / 2;
-        firstPage.drawText(disciplines, {
-          x: centerX02,
-          y: height / height + 307,
-          size: 11,
-          font: helveticaFont,
-          color: rgb(0.29, 0.337, 0.408),
-        });
-
-        firstPage.drawText("registrationNumber", {
-          x: width / 1.4,
-          y: height / 3 + 50,
-          size: 9,
-          font: helveticaFont,
-          color: rgb(0.29, 0.337, 0.408),
-        });
-
-        firstPage.drawText("certificateNumber", {
-          x: width / 5.5 - 9,
-          y: height / 3 + 50,
-          size: 9,
-          font: helveticaFont,
-          color: rgb(0.29, 0.337, 0.408),
-        });
-
-        firstPage.drawText(`currentDate`, {
-          x: width / 6.3,
-          y: height / 3 + 19,
-          size: 9,
-          font: helveticaFont,
-          color: rgb(0.29, 0.337, 0.408),
-        });
-
-        firstPage.drawText(`certificate_Number`, {
-          x: width / 4.3,
-          y: height / 4 - 109,
-          size: 9,
-          font: helveticaFont,
-          color: rgb(1, 1, 1),
-        });
-
-        firstPage.drawText(`expiryDate`, {
-          x: width / 1.51,
-          y: height / 3 + 19,
-          size: 9,
-          font: helveticaFont,
-          color: rgb(0.29, 0.337, 0.408),
-        });
-
-        // // Embed the QR code image
-        // let qCodeText = `https://certificates.erb.org.bw/certificateQr/?id=${response.data.id}`;
-        // let qCodeDataURL = await QRCode.toDataURL(qCodeText);
-        // let qCodeImage = await pdfDoc.embedPng(
-        //   Uint8Array.from(atob(qCodeDataURL.split(',')[1]), (c) => c.charCodeAt(0))
-        // );
-
-        // firstPage.drawImage(qCodeImage, {
-        //   x: width / 2 + 150,
-        //   y: height / 70,
-        //   width: 45,
-        //   height: 45,
-        //   color: rgb(0, 0, 0),
-        // });
-
-        const pdfBytes = await pdfDoc.save();
-        const base64String = await pdfDoc.saveAsBase64();
-        setPdfnum(pdfBytes);
-        setPdfbs(base64String);
-
-        const data = {
-          email: `{data[0].email}`,
-          message: `<h4>Good day</h4><p>This is to inform you that your certificate has been created successfully.\n Thank you</p>`,
-          base64String: base64String,
-        };
-
-        axios
-          .post(
-            "http://localhost:5000/diamond-hub-e2534/us-central1/api/send",
-            data
-          )
-          .then((response) => {
-            console.log("Response:", response.data);
-          })
-          .catch((error) => {
-            console.error("Error:", error);
-          });
-      }
     } catch (error) {
       console.log(error);
     }
   };
 
-  const sendDecline = async () => {
-    try {
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const Approve = () => {
-    setOpenApp(true);
-    handleOpen();
-  };
-  const Decline = () => {
-    setOpenDec(true);
-    handleOpen();
-  };
+ 
 
   useEffect(() => {
     const fetchData = async () => {
@@ -373,11 +208,14 @@ export default function CompanyKYC() {
               </Typography>
             </div>
             <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
-              
-                <Button className="flex items-center gap-3" size="sm">
-                  <UserPlusIcon strokeWidth={2} className="h-4 w-4" /> Add Client
-                </Button>
-              </div>
+              <Button
+                className="flex items-center gap-3"
+                size="sm"
+                onClick={handleOpen}
+              >
+                <UserPlusIcon strokeWidth={2} className="h-4 w-4" /> Add Client
+              </Button>
+            </div>
           </div>
           <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
             <div className="w-full md:w-72">
@@ -528,7 +366,6 @@ export default function CompanyKYC() {
         </CardFooter>
       </Card>
 
-     
       <Dialog
         size="md"
         open={open}
@@ -539,24 +376,21 @@ export default function CompanyKYC() {
           <CardHeader
             variant="gradient"
             // color="blue"
-            className="mb-4  grid h-28 place-items-center bg-[#45518d]"
+            className="mb-4  grid  h-20 place-items-center bg-[#bfbfc0]"
           >
-            <Typography variant="h3" color="white">
-              Application Details
+            <Typography variant="h4" color="white">
+              Company / Client Details
             </Typography>
           </CardHeader>
           <CardBody className="grid grid-cols-3 gap-4">
             <div>
-              <label>Applicante Name</label>
+              <label>Client Name</label>
               <Input
-                label="Email"
+                label="Name"
                 size="lg"
-                disabled
-                value={
-                  data && data[0] && data[0].full_name
-                    ? data[0].full_name
-                    : "Pending"
-                }
+                name="name"
+                onChange={handleForm}
+                value={company.name}
               />
             </div>
             <div>
@@ -564,119 +398,78 @@ export default function CompanyKYC() {
               <Input
                 label="Location"
                 size="lg"
-                disabled
-                value={
-                  data && data[0] && data[0].residential_address
-                    ? data[0].residential_address
-                    : "Pending"
-                }
+                name="physical_address"
+                onChange={handleForm}
+                value={company.physical_address}
               />
             </div>
             <div>
-              <label>Occupation</label>
+              <label>Email Address</label>
               <Input
-                label="Occupation"
+                label="email"
                 size="lg"
-                disabled
-                value={
-                  data && data[0] && data[0].occupation
-                    ? data[0].occupation
-                    : "Pending"
-                }
+                name="email_address"
+                onChange={handleForm}
+                value={company.email_address}
               />
             </div>
             <div>
-              <label>Cutters to be Employed</label>
+              <label>Directors FullNames</label>
               <Input
-                label="Number to be Employed Cutters"
+                label="Directors FullNames"
                 size="lg"
-                disabled
-                value={
-                  data && data[0] && data[0].number_to_be_employed_cutters
-                    ? data[0].number_to_be_employed_cutters
-                    : "Pending"
-                }
+                name="directors_names"
+                onChange={handleForm}
+                value={company.directors_names}
               />
             </div>
             <div>
-              <label>Polishers to be Employed</label>
+              <label>Number of Employees</label>
               <Input
-                label="Number to be employed polishers"
+                label="Number to be employees"
                 size="lg"
-                disabled
-                value={
-                  data && data[0] && data[0].number_to_be_employed_polishers
-                    ? data[0].number_to_be_employed_polishers
-                    : "Pending"
-                }
+                name="number_of_employees"
+                onChange={handleForm}
+                value={company.number_of_employees}
               />
             </div>
-            <div>
-              <label>Sawyers to be Employed</label>
-              <Input
-                label="Number_to_be_employed_sawyers"
-                size="lg"
-                disabled
-                value={
-                  data && data[0] && data[0].number_to_be_employed_sawyers
-                    ? data[0].number_to_be_employed_sawyers
-                    : "7"
-                }
-              />
-            </div>
-
+           
             <div>
               <label>Nationality</label>
               <Input
-                label="Number_to_be_employed_sawyers"
+                label="Nationality"
                 size="lg"
-                disabled
-                value={
-                  data && data[0] && data[0].nationality
-                    ? data[0].nationality
-                    : "7"
-                }
+                name="nationality"
+                onChange={handleForm}
+                value={company.nationality}
               />
             </div>
 
-            <div>
-              <label>License Applied For</label>
-              <Input
-                label="Number_to_be_employed_sawyers"
-                size="lg"
-                disabled
-                value={
-                  data && data[0] && data[0].license_applied_for
-                    ? data[0].license_applied_for
-                    : "7"
-                }
-              />
-            </div>
+           
 
             <div>
-              <label>Applicant Email</label>
+              <label>Phone</label>
               <Input
-                label="Number_to_be_employed_sawyers"
+                label="Phone"
                 size="lg"
-                disabled
-                value={data && data[0] && data[0].email ? data[0].email : "7"}
-              />
+                name="phone"
+                onChange={handleForm}
+                value={company.phone}              />
             </div>
           </CardBody>
           <CardFooter className="pt-0 grid grid-cols-2 gap-2">
-            <Button className="bg-[#005e25]" onClick={Approve} fullWidth>
-              Approve Application
+            <Button
+              className=" w-[209px]"
+              variant="blue-gray"
+              onClick={submitCompany}
+              fullWidth
+            >
+              Create
             </Button>{" "}
-            <Button className="bg-[#c02323]" onClick={Decline} fullWidth>
-              Decline Application
-            </Button>
           </CardFooter>
         </Card>
       </Dialog>
-
       
-
-   
     </div>
   );
 }
