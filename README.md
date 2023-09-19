@@ -121,7 +121,8 @@ During information and data collection processes, the researchers found people s
 The stack used to build this project:
 * Nodejs(endpoints)
 * Reactjs(frontend)
-* MongoDB (opensource database)
+* PocketBase (opensource centralised database)
+* Tailwind Css
 * Postman(Testing & creating Developer Docummentation)
 
 _Please refer to the [Link](https://github.com/Xavier-Botswana/MarriageRegistration.git)_ to access the code-base
