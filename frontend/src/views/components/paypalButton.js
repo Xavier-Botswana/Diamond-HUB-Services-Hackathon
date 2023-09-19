@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import {NotificationDialog} from "./notification";
 
 function PaypalButton() {
     const [paypalReady, setPaypalReady] = useState(false);
@@ -30,9 +31,21 @@ function PaypalButton() {
                     },
                     onApprove: (data, actions) => {
                         return actions.order.capture().then((details) => {
-                            alert('Transaction completed by ' + details.payer.name.given_name);
+                            // alert('Transaction completed by ' + details.payer.name.given_name);
                             // Call your server to save the transaction
+
+                            NotificationDialog({
+                                title: "Payment Successful",
+                                message: "Thank you for your payment",
+                                confirmText: "OK",
+                                onConfirm: () => {
+                                    window.location.href = "/";
+                                }
+                            });
                         });
+                    },
+                    onDecline: (err) => {
+                        console.log(err);
                     },
                 })
                 .render('#paypal-button-container');
