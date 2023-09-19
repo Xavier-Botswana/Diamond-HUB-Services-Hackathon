@@ -102,7 +102,7 @@ The solution, this will allow for online license,permit,certificate registration
 
 
 <h4>Lessons Learnt</h4>
-During information and data collection processes, the researchers found people seek more convenience and time are a top priority for them . In addition, with Covid, more now would like to limit their movement. This has led to the need for services to be accessed online and reduce the need for physical attendance. With the increase in digitization of other services such as banking and retail, the preference for accessing and completing tasks and services online has increased the appetite for online services by the public.
+During information and data collection processes, the researchers found people seek more convenience and time are a top priority for them . This has led to the need for services to be accessed online and reduce the need for physical attendance. With the increase in digitization of other services such as banking and retail, the preference for accessing and completing tasks and services online has increased the appetite for online services by the public.
 
 </p>
  
