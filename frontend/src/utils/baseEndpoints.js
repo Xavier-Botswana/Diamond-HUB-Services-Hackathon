@@ -1,1 +1,1 @@
-exports.BASEURL = "http://localhost:8080";
+exports.BASEURL = "https://diamond-hub.testlive.space/backend";

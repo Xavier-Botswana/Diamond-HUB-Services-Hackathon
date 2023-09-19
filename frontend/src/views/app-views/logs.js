@@ -20,6 +20,12 @@ import {
     IconButton,
     Tooltip,
   } from "@material-tailwind/react";
+import {useEffect, useState} from "react";
+import axios from "axios";
+import {BASEURL} from "../../utils/baseEndpoints";
+// import {user} from "../../../functions/mail-config";
+
+
   
   const TABS = [
     {
@@ -38,55 +44,87 @@ import {
   
   const TABLE_HEAD = ["Member", "Function", "Status", "Employed", ""];
   
-  const TABLE_ROWS = [
-    {
-      img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-3.jpg",
-      name: "John Michael",
-      email: "john@creative-tim.com",
-      job: "Manager",
-      org: "Organization",
-      online: true,
-      date: "23/04/18",
-    },
-    {
-      img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-2.jpg",
-      name: "Alexa Liras",
-      email: "alexa@creative-tim.com",
-      job: "Programator",
-      org: "Developer",
-      online: false,
-      date: "23/04/18",
-    },
-    {
-      img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-1.jpg",
-      name: "Laurent Perrier",
-      email: "laurent@creative-tim.com",
-      job: "Executive",
-      org: "Projects",
-      online: false,
-      date: "19/09/17",
-    },
-    {
-      img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-4.jpg",
-      name: "Michael Levi",
-      email: "michael@creative-tim.com",
-      job: "Programator",
-      org: "Developer",
-      online: true,
-      date: "24/12/08",
-    },
-    {
-      img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-5.jpg",
-      name: "Richard Gran",
-      email: "richard@creative-tim.com",
-      job: "Manager",
-      org: "Executive",
-      online: false,
-      date: "04/10/21",
-    },
-  ];
+  // const TABLE_ROWS = [
+  //   {
+  //     img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-3.jpg",
+  //     name: "John Michael",
+  //     email: "john@creative-tim.com",
+  //     job: "Manager",
+  //     org: "Organization",
+  //     online: true,
+  //     date: "23/04/18",
+  //   },
+  //   {
+  //     img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-2.jpg",
+  //     name: "Alexa Liras",
+  //     email: "alexa@creative-tim.com",
+  //     job: "Programator",
+  //     org: "Developer",
+  //     online: false,
+  //     date: "23/04/18",
+  //   },
+  //   {
+  //     img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-1.jpg",
+  //     name: "Laurent Perrier",
+  //     email: "laurent@creative-tim.com",
+  //     job: "Executive",
+  //     org: "Projects",
+  //     online: false,
+  //     date: "19/09/17",
+  //   },
+  //   {
+  //     img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-4.jpg",
+  //     name: "Michael Levi",
+  //     email: "michael@creative-tim.com",
+  //     job: "Programator",
+  //     org: "Developer",
+  //     online: true,
+  //     date: "24/12/08",
+  //   },
+  //   {
+  //     img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-5.jpg",
+  //     name: "Richard Gran",
+  //     email: "richard@creative-tim.com",
+  //     job: "Manager",
+  //     org: "Executive",
+  //     online: false,
+  //     date: "04/10/21",
+  //   },
+  // ];
   
   export default function Logs() {
+
+    const [data, setData] = useState({});
+    const [TABLE_ROWS, setDataTable] = useState([]);
+    const [ID, setID] = useState("1");
+
+
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          // Replace with your actual axios API call
+          const logs_response = await axios.get(
+              `${BASEURL}/api/logs/`
+          );
+          console.log(logs_response);
+
+          let response = logs_response.data.items;
+          response   = response.filter((row) => row.status === true);
+          const results = response.filter((row) => row.id === ID);
+          if(results.length !== 0){setData(results)}
+          setDataTable(response);
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        }
+      };
+
+      const fetchDataIfNeeded = async () => {
+        if (ID) {
+          await fetchData();
+        }
+      };
+      fetchDataIfNeeded().then(r => {});
+    }, [ID]);
     return (
       <div className="px-20 pt-[125px]">
         <Card className="h-full w-full  mt-10 mb-20">
@@ -148,31 +186,31 @@ import {
               </thead>
               <tbody>
                 {TABLE_ROWS.map(
-                  ({ img, name, email, job, org, online, date }, index) => {
+                  ({ id, type, description, username, user_id, channel, created}, index) => {
                     const isLast = index === TABLE_ROWS.length - 1;
                     const classes = isLast
                       ? "p-4"
                       : "p-4 border-b border-blue-gray-50";
   
                     return (
-                      <tr key={name}>
+                      <tr key={id}>
                         <td className={classes}>
                           <div className="flex items-center gap-3">
-                            <Avatar src={img} alt={name} size="sm" />
+                            {/*<Avatar src={img} alt={id} size="sm" />*/}
                             <div className="flex flex-col">
                               <Typography
                                 variant="small"
                                 color="blue-gray"
                                 className="font-normal"
                               >
-                                {name}
+                                {id}
                               </Typography>
                               <Typography
                                 variant="small"
                                 color="blue-gray"
                                 className="font-normal opacity-70"
                               >
-                                {email}
+                                {type}
                               </Typography>
                             </div>
                           </div>
@@ -184,34 +222,34 @@ import {
                               color="blue-gray"
                               className="font-normal"
                             >
-                              {job}
+                              {description}
                             </Typography>
                             <Typography
                               variant="small"
                               color="blue-gray"
                               className="font-normal opacity-70"
                             >
-                              {org}
+                              {username}
                             </Typography>
                           </div>
                         </td>
-                        <td className={classes}>
-                          <div className="w-max">
-                            <Chip
-                              variant="ghost"
-                              size="sm"
-                              value={online ? "online" : "offline"}
-                              color={online ? "green" : "blue-gray"}
-                            />
-                          </div>
-                        </td>
+                        {/*<td className={classes}>*/}
+                        {/*  <div className="w-max">*/}
+                        {/*    <Chip*/}
+                        {/*      variant="ghost"*/}
+                        {/*      size="sm"*/}
+                        {/*      value={online ? "online" : "offline"}*/}
+                        {/*      color={online ? "green" : "blue-gray"}*/}
+                        {/*    />*/}
+                        {/*  </div>*/}
+                        {/*</td>*/}
                         <td className={classes}>
                           <Typography
                             variant="small"
                             color="blue-gray"
                             className="font-normal"
                           >
-                            {date}
+                            {user_id}
                           </Typography>
                         </td>
                         <td className={classes}>

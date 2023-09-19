@@ -6,7 +6,7 @@ exports.get_logs = catch_async(async (req, res, next) => {
 
     const config = {
         method: "get",
-        url: `{BASE_URL}/api/collections/logs/records`,
+        url: `${BASE_URL}/api/collections/logs/records`,
     };
 
     await axios(config).then(function (response) {

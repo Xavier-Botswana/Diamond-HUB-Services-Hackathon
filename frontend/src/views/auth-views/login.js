@@ -32,7 +32,7 @@ function Login() {
 
       const {record} = response.data;
 
-      const log_response = await axios.post('http://localhost:8080/api/logs',
+      const log_response = await axios.post(`${BASEURL}/api/logs`,
           {
             "type": "activity",
             "description": "login",

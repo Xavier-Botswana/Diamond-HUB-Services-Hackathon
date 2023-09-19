@@ -37,6 +37,7 @@ import {
 import { PiWarningThin } from "react-icons/pi";
 import { Link } from "react-router-dom";
 import PaypalButton from "./components/paypalButton";
+import {BASEURL} from "../utils/baseEndpoints";
 export function Home() {
   const [openNav, setOpenNav] = useState(false);
   const [fields, setFields] = useState(false);
@@ -124,7 +125,7 @@ export function Home() {
   const submitForm1 = async () => {
     axios
       .post(
-        "http://127.0.0.1:8080/api/precious-stones-dealer-license-applications",
+        `${BASEURL}/api/precious-stones-dealer-license-applications`,
         form1
       )
       .then((response) => {
@@ -136,7 +137,7 @@ export function Home() {
   const submitForm2 = async () => {
     axios
       .post(
-        "http://127.0.0.1:8080/api/diamond-export-import-permit-applications",
+        `${BASEURL}/api/diamond-export-import-permit-applications`,
         form2
       )
       .then((response) => {
@@ -148,7 +149,7 @@ export function Home() {
   const submitForm3 = async () => {
     axios
       .post(
-        "http://127.0.0.1:8080/api/kimberly-process-certificates-applications",
+        `${BASEURL}/api/kimberly-process-certificates-applications`,
         form3
       )
       .then((response) => {
@@ -159,7 +160,7 @@ export function Home() {
   const submitForm4 = async () => {
     axios
       .post(
-        "http://127.0.0.1:8080/api/diamond-cutting-license-applications",
+        `${BASEURL}/api/diamond-cutting-license-applications`,
         form4
       )
       .then((response) => {

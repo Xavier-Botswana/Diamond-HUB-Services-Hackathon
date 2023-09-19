@@ -30,6 +30,7 @@ import {
   Tooltip,
 } from "@material-tailwind/react";
 import axios from "axios";
+import {BASEURL} from "../../utils/baseEndpoints";
 
 const TABLE_HEAD1 = ["Full name", "Nationality", "Occupation", "Status", ""];
 const TABLE_HEAD2 = [
@@ -145,27 +146,40 @@ export default function Applications() {
   const submitApproval = async () => {
     try {
       if (data[0].type === "diamondCutting") {
-        axios.patch(
-          `http://127.0.0.1:8080/api/diamond-cutting-license-applications/${data[0].id}`,
+        await axios.patch(
+          `${BASEURL}/api/diamond-cutting-license-applications/${data[0].id}`,
           {
             status:"approved"
           }
         );
       } else if (data[0].type === "kimberly-process") {
-        axios.patch(
-          `http://127.0.0.1:8080/api/kimberly-process-certificates-applications/${data[0].id}`,
+        await axios.patch(
+          `${BASEURL}/api/kimberly-process-certificates-applications/${data[0].id}`,
           {
             status:"approved"
           }
         );
       } else if (data[0].type === "stonesDealers") {
-        axios.patch(
-          `http://127.0.0.1:8080/api/precious-stones-dealer-license-applications/${data[0].id}`,
+        await axios.patch(
+          `${BASEURL}/api/precious-stones-dealer-license-applications/${data[0].id}`,
           {
             status: "approved"
           }
         );
       }
+
+      await axios.post(`${BASEURL}/api/logs`,
+          {
+            "type": "activity",
+            "description": "actioned application",
+            "username": "john doe",
+            "user_id": "user123",
+            "channel": "system"
+          },{
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          });
 
       let categoryparam = "practice";
       let res = [];
@@ -331,7 +345,7 @@ export default function Applications() {
       try {
         // Replace with your actual axios API call
         const response1 = await axios.get(
-          "http://127.0.0.1:8080/api/diamond-cutting-license-applications/"
+          `${BASEURL}/api/diamond-cutting-license-applications/`
         );
         let response = response1.data.items;
         response = response.filter((row) => row.status === "pending");
@@ -343,7 +357,7 @@ export default function Applications() {
 
         // kimberly
         const response2 = await axios.get(
-          "http://127.0.0.1:8080/api/kimberly-process-certificates-applications"
+          `${BASEURL}/api/kimberly-process-certificates-applications`
         );
         let responsekim = response2.data.items;
         responsekim = responsekim.filter((row) => row.status === "pending");
@@ -356,7 +370,7 @@ export default function Applications() {
 
         // Stones
         const response3 = await axios.get(
-          "http://127.0.0.1:8080/api/precious-stones-dealer-license-applications/"
+          `${BASEURL}/api/precious-stones-dealer-license-applications/`
         );
         let responsePre = response3.data.items;
         responsePre = responsePre.filter((row) => row.status === "pending");
