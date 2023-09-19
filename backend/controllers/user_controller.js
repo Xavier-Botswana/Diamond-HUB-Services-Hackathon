@@ -57,17 +57,9 @@ exports.authenticate_user = catch_async(async (req,res,next) => {
         data: data,
     };
 
-    try {
-        await axios(config).then(function (response) {
-            res.status(200).json(response.data);
-        });
-    } catch (e) {
-        res.status(400).json(e.response.data);
-        console.log(e.response.data);
-    }
-    // await axios(config).then(function (response) {
-    //     res.status(200).json(response.data);
-    // });
+    await axios(config).then(function (response) {
+        res.status(200).json(response.data);
+    });
 });
 
 

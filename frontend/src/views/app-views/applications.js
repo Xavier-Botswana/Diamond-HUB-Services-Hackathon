@@ -269,6 +269,8 @@ export default function Applications() {
           base64String: base64String,
         };
 
+        //TODO add functionality that will update the license application
+        // TODO add logging functionality
         axios
           .post(
             "http://localhost:5000/diamond-hub-e2534/us-central1/api/send",

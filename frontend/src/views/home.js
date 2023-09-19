@@ -124,7 +124,8 @@ export function Home() {
         form1
       )
       .then((response) => {
-        alert("done");
+        // open payment dialog
+        handleOpen();
       });
   };
 
