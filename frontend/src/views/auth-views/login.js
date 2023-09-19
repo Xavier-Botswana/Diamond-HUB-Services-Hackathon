@@ -29,15 +29,32 @@ function Login() {
       }, {
         headers: {
           'Content-Type': 'application/json',
-        },});
+        },
+      });
+
+      const {record} = response.data;
+
+      const log_response = await axios.post('http://localhost:8080/api/logs',
+          {
+            "type": "activity",
+            "description": "login",
+            "username": record.username,
+            "user_id": record.id,
+            "channel": "system"
+          },{
+              headers: {
+                  'Content-Type': 'application/json',
+              },
+          });
+
         setSuccess('Login successful');
         history.push('/app/dashboard');
 
       console.log('Login successful', response.data);
       // Here, you would typically save the JWT to localStorage and redirect the user to the dashboard
     } catch (error) {
-
-      // If the response status code is 400, it means the request was malformed
+        console.log(error.response.data.message);
+      // // If the response status code is 400, it means the request was malformed
         if (error.response.status === 400) {
             setError(error.response.data.message);
         } else {
