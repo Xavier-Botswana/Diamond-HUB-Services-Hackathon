@@ -192,14 +192,14 @@ _Please refer to the [Link](https://github.com/Xavier-Botswana/MarriageRegistrat
 <!-- analytics-->
 <h2 id="team"> 📋: Team-Xavier Africa</h2>
 <p> 
-<table>
+<!-- <table>
   <tr>
    <td align="center"><a href="https://github.com/identicons/jasonlong.png"><img src="https://github.com/identicons/jasonlong.png" width="100px;" alt="Lolo"/><br /><sub><b>Leloba</b></sub></a><br /><a href="#eventOrganizing-lolo" title="Project Setup">📋</a> <a href="#example-lolo" title="Code">💻</a></td>
 <td align="center"><a href="https://github.com/identicons/jasonlong.png"><img src="https://github.com/identicons/jasonlong.png" width="100px;" alt="Thabang"/><br /><sub><b>Thabang</b></sub></a><br /><a href="#eventOrganizing-lolo" title="Project Setup">📋</a> <a href="#example-lolo" title="Code">💻</a></td>
 <td align="center"><a href="https://github.com/identicons/jasonlong.png"><img src="https://github.com/identicons/jasonlong.png" width="100px;" alt="Dudu"/><br /><sub><b>Duduetsang</b></sub></a><br /><a href="#eventOrganizing-thabang" title="Project Setup">📋</a> <a href="#example-Dudu" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/identicons/jasonlong.png"><img src="https://github.com/identicons/jasonlong.png" width="100px;" alt="withus"/><br /><sub><b>Withus</b></sub></a><br /><a href="#eventOrganizing-withus" title="Project Setup">📋</a> <a href="#example-withus" title="Code">💻</a></td>
   
-</table>
+</table> -->
 
  
 </p>
