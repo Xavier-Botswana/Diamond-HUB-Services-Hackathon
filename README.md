@@ -23,11 +23,11 @@
 
 <h1  id="#introduction" align="center">Diamond Hub Services Portal-Hackathon Submission</h1>
 <h3 align="center"> 
-The process of Marriage Registration is both a tedious and long process entailing a lot of administrative tasks such as filling numerous forms, countless visits to various government offices to make registration payments and long registration queues. As a result, the client often has to do the aforementioned along with their prior obligations during government office hours. 
+The Diamond Hub faces a significant challenge with its manual registration process, countless visits to various government offices to make registration payments and long registration queues. As a result, the client often has to do the aforementioned along with their prior obligations during government office hours. 
 </br>
-Moreover, government officials are tasked with their own manual administrative work such as verification of applications, payment processing and updating the marriage registration notice board. In addition, this process has been prolonged further by the current COVID-19 pandemic.
+Moreover, government officials are tasked with their own manual administrative work such as verification of applications, payment processing and updating the diamond hub reports.
 </br>
-Henceforth, the need for a solution that provides a seamless process that enables stakeholders such as clients (those who are filling for registration) and Marriage Officers to carry out their respective obligations in a timely and cost-effective manner on one platform.
+Henceforth, the need for a solution that provides a seamless process that enables stakeholders such as clients (those who are filling for registration) and Diamond Hub Officers to carry out their respective obligations in a timely and cost-effective manner on one platform.
 </h3>  
 
 </br>
