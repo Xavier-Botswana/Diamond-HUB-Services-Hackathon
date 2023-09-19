@@ -23,11 +23,11 @@
 
 <h1  id="#introduction" align="center">Diamond Hub Services Portal-Hackathon Submission</h1>
 <h3 align="center"> 
-The process of Marriage Registration is both a tedious and long process entailing a lot of administrative tasks such as filling numerous forms, countless visits to various government offices to make registration payments and long registration queues. As a result, the client often has to do the aforementioned along with their prior obligations during government office hours. 
+The Diamond Hub faces a significant challenge with its manual registration process, countless visits to various government offices to make registration payments and long registration queues. As a result, the client often has to do the aforementioned along with their prior obligations during government office hours. 
 </br>
-Moreover, government officials are tasked with their own manual administrative work such as verification of applications, payment processing and updating the marriage registration notice board. In addition, this process has been prolonged further by the current COVID-19 pandemic.
+Moreover, government officials are tasked with their own manual administrative work such as verification of applications, payment processing and updating the diamond hub reports.
 </br>
-Henceforth, the need for a solution that provides a seamless process that enables stakeholders such as clients (those who are filling for registration) and Marriage Officers to carry out their respective obligations in a timely and cost-effective manner on one platform.
+Henceforth, the need for a solution that provides a seamless process that enables stakeholders such as clients (those who are filling for registration) and Diamond Hub Officers to carry out their respective obligations in a timely and cost-effective manner on one platform.
 </h3>  
 
 </br>
@@ -54,30 +54,30 @@ The existing diamond hub system is outdated and manual, necessitating an automat
 _Web link. Please refer to the [Link] (​https://marriage-registration-1e7e8.web.app)_  and follow the instructions below 
 
 
-<h4>Getting Started As Administration</h4>
+<h4>Getting Started As an Applicant </h4>
+
+1. Go to (​https://diamond-hub.testlive.space/home) platform
+2. Navigate to the preferred Tab (Diamond Cutting,Export of Rough Diamonds, etc)
+3 Fill in the neccessary information then submit 
+4 After submission you will see a payment modal for Application fees.
+5 After payment user will await response from the hub either an issuance of permit/certificate or license via email
+
+
+
+
+<h4>Getting Started As Admin User</h4>
 
 1. Login to the platform using the following credentials
-- email: `prochivia@gmail.com`
-- password: `test123`
-2. Navigate to the preferred Tab (Dashboard, Intention to Marry, Marriage Notice)
-- Dashboard - This page shows the platform's aggregated performance metrics 
-- Intention to Marry Application - User's applications can be reviewed, processed & published in real-time on this page.
-- Marriage Notice - This where all the notices of marriage are posted for 30 days.
-
-<h4>Getting Started As User</h4>
-
-1. Login to the platform using the following credentials
-- email: `user@gmail.com`
-- password: `test123`
-2. Select anyone of the 4 services; 
-- Intention of Marriage 
-- Floated Marriage 
-- Property Instrument Registration
-- Change of Names
-3. Start filling in the appropriate information
-4. Pay the processing fees when prompted
-5. Submit your request
-6. Await application processing & publishing in the Government Gazette for 30 days
+- email: `admin@gmail.com`
+- password: `adminpass123`
+2. Select anyone of the 4 Options; 
+- Applications 
+- Companies/Clients 
+- Payments
+- Reports
+3. Start reviewing and approving aplications for license
+4. Issue permits , licenses and certificates 
+6. Applicant recieves permit,certificate via email  and also get sms notification 
 
 
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
@@ -95,14 +95,14 @@ _Web link. Please refer to the [Link] (​https://marriage-registration-1e7e8.we
   
 <p align="justify"> 
 How Others Have Solved the Problem
-In relation to South Africa, accessibility of Verification of Marriage Status forms has been made available online for filling and submission. In addition, the SMS platform is also being used to check the verification of marriage status along with phone-call enquiry. This reduces the public having to go to government offices to complete the different processes. 
+In relation to South Africa, accessibility of Verification of Licenses and certificate Status forms has been made available online for filling and submission. In addition, the QR codes  platform is also being used to check the verification of different certificate and permit status along with phone-call enquiry. This reduces the public having to go to government offices to complete the different diamond hub services. 
 
 <h4>Our Solution</h4>
-The API built within our solution, this will allow for online marriage registration through the availability of online forms, the upload of support documents, execution of online payment processing, remote management of objections and applications in real-time which will consequently ensure a faster and seamless experience for both the client and administrative officer. The solution features a modular architecture and thus can provide services on mobile applications, web applications, Facebook and WhatsApp chatbot and lastly IOT devices, making it more accessible and allowing for ease of use with both a web and mobile usage.
+The solution, this will allow for online license,permit,certificate registration through the availability of online forms, the upload of support documents, execution of online payment processing, remote management of objections and applications in real-time which will consequently ensure a faster and seamless experience for both the client and administrative officer. The solution features a modular architecture and thus can provide services on mobile applications, web applications, making it more accessible and allowing for ease of use with both a web and mobile usage.
 
 
 <h4>Lessons Learnt</h4>
-During information and data collection processes, the researchers found that the interviewees seek more convenience and time are a top priority for them as they have daily tasks to be completed, such as going to work. In addition, with Covid, more now would like to limit their movement. This has led to the need for services to be accessed online and reduce the need for physical attendance. With the increase in digitization of other services such as banking and retail, the preference for accessing and completing tasks and services online has increased the appetite for online services by the public.
+During information and data collection processes, the researchers found people seek more convenience and time are a top priority for them . This has led to the need for services to be accessed online and reduce the need for physical attendance. With the increase in digitization of other services such as banking and retail, the preference for accessing and completing tasks and services online has increased the appetite for online services by the public.
 
 </p>
  
@@ -121,7 +121,8 @@ During information and data collection processes, the researchers found that the
 The stack used to build this project:
 * Nodejs(endpoints)
 * Reactjs(frontend)
-* MongoDB (opensource database)
+* PocketBase (opensource centralised database)
+* Tailwind Css
 * Postman(Testing & creating Developer Docummentation)
 
 _Please refer to the [Link](https://github.com/Xavier-Botswana/MarriageRegistration.git)_ to access the code-base
@@ -154,7 +155,6 @@ _Please refer to the [Link](https://github.com/Xavier-Botswana/MarriageRegistrat
 _Please refer to the [Link] (​https://marriage-registration-1e7e8.web.app)_ to access the web portal. The credentials are in the <a href="#our-solution">Our Solution</a> section above.
  
  
- <!-- <a href="https://docs.google.com/presentation/d/1q1V6qgiDrBObpEXmhjADp2QHiK-3EmuLFjKhTeyLwk0/edit?usp=sharing"> ➤ Design Thinking</a> -->
 
 
  
@@ -166,7 +166,6 @@ _Please refer to the [Link] (​https://marriage-registration-1e7e8.web.app)_ to
 <!-- analytics-->
 <h2 id="doc"> 📋: Link to the code-base </h2>
 
-<!-- _Developer Documentation. Please refer to the [Link](https://documenter.getpostman.com/view/12221940/UVC3jStF)_ -->
 
 <p> 
   Code-Base
@@ -191,14 +190,14 @@ _Please refer to the [Link](https://github.com/Xavier-Botswana/MarriageRegistrat
 <!-- analytics-->
 <h2 id="team"> 📋: Team-Xavier Africa</h2>
 <p> 
-<table>
+<!-- <table>
   <tr>
    <td align="center"><a href="https://github.com/identicons/jasonlong.png"><img src="https://github.com/identicons/jasonlong.png" width="100px;" alt="Lolo"/><br /><sub><b>Leloba</b></sub></a><br /><a href="#eventOrganizing-lolo" title="Project Setup">📋</a> <a href="#example-lolo" title="Code">💻</a></td>
 <td align="center"><a href="https://github.com/identicons/jasonlong.png"><img src="https://github.com/identicons/jasonlong.png" width="100px;" alt="Thabang"/><br /><sub><b>Thabang</b></sub></a><br /><a href="#eventOrganizing-lolo" title="Project Setup">📋</a> <a href="#example-lolo" title="Code">💻</a></td>
 <td align="center"><a href="https://github.com/identicons/jasonlong.png"><img src="https://github.com/identicons/jasonlong.png" width="100px;" alt="Dudu"/><br /><sub><b>Duduetsang</b></sub></a><br /><a href="#eventOrganizing-thabang" title="Project Setup">📋</a> <a href="#example-Dudu" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/identicons/jasonlong.png"><img src="https://github.com/identicons/jasonlong.png" width="100px;" alt="withus"/><br /><sub><b>Withus</b></sub></a><br /><a href="#eventOrganizing-withus" title="Project Setup">📋</a> <a href="#example-withus" title="Code">💻</a></td>
   
-</table>
+</table> -->
 
  
 </p>
