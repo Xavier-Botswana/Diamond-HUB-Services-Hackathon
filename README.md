@@ -51,7 +51,7 @@ The existing diamond hub system is outdated and manual, necessitating an automat
 <!-- Solution -->
 <h2 id="our-solution"> :computer: Our Solution </h2>
 
-_Web link. Please refer to the [Link] (​https://marriage-registration-1e7e8.web.app)_  and follow the instructions below 
+_Web link. Please refer to the [Link] (​https://diamond-hub.testlive.space/home)_  and follow the instructions below 
 
 
 <h4>Getting Started As an Applicant </h4>
@@ -66,7 +66,7 @@ _Web link. Please refer to the [Link] (​https://marriage-registration-1e7e8.we
 
 
 <h4>Getting Started As Admin User</h4>
-
+* Go to (​https://diamond-hub.testlive.space/) platform
 1. Login to the platform using the following credentials
 - email: `admin@gmail.com`
 - password: `adminpass123`
