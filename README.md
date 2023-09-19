@@ -31,9 +31,7 @@ Henceforth, the need for a solution that provides a seamless process that enable
 </h3>  
 
 </br>
-<p align="center"> 
-  <img src="images/mr.png" alt="smbots" width="70%" height="70%">
-</p>
+
 
 
 
