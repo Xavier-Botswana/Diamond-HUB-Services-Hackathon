@@ -98,7 +98,7 @@ How Others Have Solved the Problem
 In relation to South Africa, accessibility of Verification of Licenses and certificate Status forms has been made available online for filling and submission. In addition, the QR codes  platform is also being used to check the verification of different certificate and permit status along with phone-call enquiry. This reduces the public having to go to government offices to complete the different diamond hub services. 
 
 <h4>Our Solution</h4>
-The API built within our solution, this will allow for online license,permit,certificate registration through the availability of online forms, the upload of support documents, execution of online payment processing, remote management of objections and applications in real-time which will consequently ensure a faster and seamless experience for both the client and administrative officer. The solution features a modular architecture and thus can provide services on mobile applications, web applications, making it more accessible and allowing for ease of use with both a web and mobile usage.
+The solution, this will allow for online license,permit,certificate registration through the availability of online forms, the upload of support documents, execution of online payment processing, remote management of objections and applications in real-time which will consequently ensure a faster and seamless experience for both the client and administrative officer. The solution features a modular architecture and thus can provide services on mobile applications, web applications, making it more accessible and allowing for ease of use with both a web and mobile usage.
 
 
 <h4>Lessons Learnt</h4>
@@ -155,7 +155,6 @@ _Please refer to the [Link](https://github.com/Xavier-Botswana/MarriageRegistrat
 _Please refer to the [Link] (​https://marriage-registration-1e7e8.web.app)_ to access the web portal. The credentials are in the <a href="#our-solution">Our Solution</a> section above.
  
  
- <!-- <a href="https://docs.google.com/presentation/d/1q1V6qgiDrBObpEXmhjADp2QHiK-3EmuLFjKhTeyLwk0/edit?usp=sharing"> ➤ Design Thinking</a> -->
 
 
  
@@ -167,7 +166,6 @@ _Please refer to the [Link] (​https://marriage-registration-1e7e8.web.app)_ to
 <!-- analytics-->
 <h2 id="doc"> 📋: Link to the code-base </h2>
 
-<!-- _Developer Documentation. Please refer to the [Link](https://documenter.getpostman.com/view/12221940/UVC3jStF)_ -->
 
 <p> 
   Code-Base
