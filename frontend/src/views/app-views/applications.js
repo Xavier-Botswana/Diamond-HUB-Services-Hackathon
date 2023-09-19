@@ -144,7 +144,29 @@ export default function Applications() {
 
   const submitApproval = async () => {
     try {
-      
+      if (data[0].type === "diamondCutting") {
+        axios.patch(
+          `http://127.0.0.1:8080/api/diamond-cutting-license-applications/${data[0].id}`,
+          {
+            status:"approved"
+          }
+        );
+      } else if (data[0].type === "kimberly-process") {
+        axios.patch(
+          `http://127.0.0.1:8080/api/kimberly-process-certificates-applications/${data[0].id}`,
+          {
+            status:"approved"
+          }
+        );
+      } else if (data[0].type === "stonesDealers") {
+        axios.patch(
+          `http://127.0.0.1:8080/api/precious-stones-dealer-license-applications/${data[0].id}`,
+          {
+            status: "approved"
+          }
+        );
+      }
+
       let categoryparam = "practice";
       let res = [];
       res = await fetch(
@@ -312,7 +334,7 @@ export default function Applications() {
           "http://127.0.0.1:8080/api/diamond-cutting-license-applications/"
         );
         let response = response1.data.items;
-        response = response.filter((row) => row.status === false);
+        response = response.filter((row) => row.status === "pending");
         const results = response.filter((row) => row.id === ID);
         if (results.length !== 0) {
           setData(results);
@@ -324,7 +346,7 @@ export default function Applications() {
           "http://127.0.0.1:8080/api/kimberly-process-certificates-applications"
         );
         let responsekim = response2.data.items;
-        responsekim = responsekim.filter((row) => row.status === false);
+        responsekim = responsekim.filter((row) => row.status === "pending");
 
         const resultskim = responsekim.filter((row) => row.id === ID);
         if (resultskim.length !== 0) {
@@ -337,7 +359,7 @@ export default function Applications() {
           "http://127.0.0.1:8080/api/precious-stones-dealer-license-applications/"
         );
         let responsePre = response3.data.items;
-        responsePre = responsePre.filter((row) => row.status === false);
+        responsePre = responsePre.filter((row) => row.status === "pending");
         const resultsPre = responsePre.filter((row) => row.id === ID);
         if (resultsPre.length !== 0) {
           setData(resultsPre);

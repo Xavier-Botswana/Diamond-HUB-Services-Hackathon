@@ -52,7 +52,7 @@ export function Home() {
     shareholder_names: "",
     shareholders_nationality: "",
     experience: "",
-    type:"",
+    type: "stonesDealers",
     intended_operations: "",
     particulars_of_plant: "",
     number_to_employed: "",
@@ -61,6 +61,7 @@ export function Home() {
     location_of_operations: "",
     market_of_products: "",
     email: "",
+    status: "pending",
   });
   const [form3, setForm3] = useState({
     email: "",
@@ -70,22 +71,25 @@ export function Home() {
     address_of_exporter: "",
     name_of_importer: "",
     address_of_importer: "",
-    date: "2023-01-01 10:00:00.123Z", type:"",
+    date: "2023-01-01 10:00:00.123Z",
+    type: "kimberly-process",
     place: "",
-    status: false,
+    status: "pending",
   });
 
   const [form4, setForm4] = useState({
     full_name: "",
     email: "",
+    type: "diamondCutting",
     date_of_birth: "",
     nationality: "",
     residential_address: "",
-    occupation: "", type:"",
+    occupation: "",
     license_applied_for: "",
     number_to_be_employed_cutters: 0,
     number_to_be_employed_polishers: 0,
     number_to_be_employed_sawyers: 0,
+    status: "pending",
   });
 
   const [form2, setForm2] = useState({
@@ -486,27 +490,23 @@ export function Home() {
                         <TimelineItem className="h-28">
                           <TimelineConnector className="!w-[78px]" />
                           <TimelineHeader className="relative rounded-xl border border-blue-gray-50 bg-white py-3 pl-4 pr-8 shadow-lg shadow-blue-gray-900/5">
-                           
-                          <TimelineIcon
+                            <TimelineIcon
                               className="p-3"
                               variant="ghost"
                               color={fields ? "green" : "red"}
                             >
                               <PiWarningThin className="h-5 w-5" />
                             </TimelineIcon>
-                           
-                          
+
                             <div className="flex flex-col gap-1">
                               <Typography variant="h6" color="blue-gray">
-                               Complete Registration
+                                Complete Registration
                               </Typography>
                               <Typography
                                 variant="small"
                                 color="gray"
                                 className="font-normal"
-                              >
-                               
-                              </Typography>
+                              ></Typography>
                             </div>
                           </TimelineHeader>
                         </TimelineItem>
@@ -522,26 +522,28 @@ export function Home() {
                             </TimelineIcon>
                             <div className="flex flex-col gap-1">
                               <Typography variant="h6" color="blue-gray">
-                               Make Payment
+                                Make Payment
                               </Typography>
                               <Typography
                                 variant="small"
                                 color="gray"
                                 className="font-normal"
-                              >
-                              
-                              </Typography>
+                              ></Typography>
                             </div>
                           </TimelineHeader>
                         </TimelineItem>
                         <TimelineItem className="h-28">
                           <TimelineHeader className="relative rounded-xl border border-blue-gray-50 bg-white py-3 pl-4 pr-8 shadow-lg shadow-blue-gray-900/5">
-                          <TimelineIcon className="p-3" variant="ghost" color="green">
+                            <TimelineIcon
+                              className="p-3"
+                              variant="ghost"
+                              color="green"
+                            >
                               <BellIcon className="h-5 w-5" />
                             </TimelineIcon>
                             <div className="flex flex-col gap-1">
                               <Typography variant="h6" color="blue-gray">
-                               Get Permit/License
+                                Get Permit/License
                               </Typography>
                               <Typography
                                 variant="small"
@@ -656,27 +658,23 @@ export function Home() {
                         <TimelineItem className="h-28">
                           <TimelineConnector className="!w-[78px]" />
                           <TimelineHeader className="relative rounded-xl border border-blue-gray-50 bg-white py-3 pl-4 pr-8 shadow-lg shadow-blue-gray-900/5">
-                           
-                          <TimelineIcon
+                            <TimelineIcon
                               className="p-3"
                               variant="ghost"
                               color={fields ? "green" : "red"}
                             >
                               <PiWarningThin className="h-5 w-5" />
                             </TimelineIcon>
-                           
-                          
+
                             <div className="flex flex-col gap-1">
                               <Typography variant="h6" color="blue-gray">
-                               Complete Registration
+                                Complete Registration
                               </Typography>
                               <Typography
                                 variant="small"
                                 color="gray"
                                 className="font-normal"
-                              >
-                               
-                              </Typography>
+                              ></Typography>
                             </div>
                           </TimelineHeader>
                         </TimelineItem>
@@ -692,26 +690,28 @@ export function Home() {
                             </TimelineIcon>
                             <div className="flex flex-col gap-1">
                               <Typography variant="h6" color="blue-gray">
-                               Make Payment
+                                Make Payment
                               </Typography>
                               <Typography
                                 variant="small"
                                 color="gray"
                                 className="font-normal"
-                              >
-                              
-                              </Typography>
+                              ></Typography>
                             </div>
                           </TimelineHeader>
                         </TimelineItem>
                         <TimelineItem className="h-28">
                           <TimelineHeader className="relative rounded-xl border border-blue-gray-50 bg-white py-3 pl-4 pr-8 shadow-lg shadow-blue-gray-900/5">
-                          <TimelineIcon className="p-3" variant="ghost" color="green">
+                            <TimelineIcon
+                              className="p-3"
+                              variant="ghost"
+                              color="green"
+                            >
                               <BellIcon className="h-5 w-5" />
                             </TimelineIcon>
                             <div className="flex flex-col gap-1">
                               <Typography variant="h6" color="blue-gray">
-                               Get Permit/License
+                                Get Permit/License
                               </Typography>
                               <Typography
                                 variant="small"
@@ -733,7 +733,7 @@ export function Home() {
                 <form className="mt-8 mb-2 ">
                   <div className="flex justify-between gap-4">
                     <div className="flex-1 mb-4 grid   md:grid-cols-3 gap-6">
-                    <Input
+                      <Input
                         name="email"
                         size="lg"
                         onChange={handleForm3}
@@ -813,27 +813,23 @@ export function Home() {
                         <TimelineItem className="h-28">
                           <TimelineConnector className="!w-[78px]" />
                           <TimelineHeader className="relative rounded-xl border border-blue-gray-50 bg-white py-3 pl-4 pr-8 shadow-lg shadow-blue-gray-900/5">
-                           
-                          <TimelineIcon
+                            <TimelineIcon
                               className="p-3"
                               variant="ghost"
                               color={fields ? "green" : "red"}
                             >
                               <PiWarningThin className="h-5 w-5" />
                             </TimelineIcon>
-                           
-                          
+
                             <div className="flex flex-col gap-1">
                               <Typography variant="h6" color="blue-gray">
-                               Complete Registration
+                                Complete Registration
                               </Typography>
                               <Typography
                                 variant="small"
                                 color="gray"
                                 className="font-normal"
-                              >
-                               
-                              </Typography>
+                              ></Typography>
                             </div>
                           </TimelineHeader>
                         </TimelineItem>
@@ -849,26 +845,28 @@ export function Home() {
                             </TimelineIcon>
                             <div className="flex flex-col gap-1">
                               <Typography variant="h6" color="blue-gray">
-                               Make Payment
+                                Make Payment
                               </Typography>
                               <Typography
                                 variant="small"
                                 color="gray"
                                 className="font-normal"
-                              >
-                              
-                              </Typography>
+                              ></Typography>
                             </div>
                           </TimelineHeader>
                         </TimelineItem>
                         <TimelineItem className="h-28">
                           <TimelineHeader className="relative rounded-xl border border-blue-gray-50 bg-white py-3 pl-4 pr-8 shadow-lg shadow-blue-gray-900/5">
-                          <TimelineIcon className="p-3" variant="ghost" color="green">
+                            <TimelineIcon
+                              className="p-3"
+                              variant="ghost"
+                              color="green"
+                            >
                               <BellIcon className="h-5 w-5" />
                             </TimelineIcon>
                             <div className="flex flex-col gap-1">
                               <Typography variant="h6" color="blue-gray">
-                               Get Permit/License
+                                Get Permit/License
                               </Typography>
                               <Typography
                                 variant="small"
@@ -958,28 +956,27 @@ export function Home() {
                       <Input
                         type="text"
                         size="lg"
-                       
                         onChange={handleForm4}
                         value={form4.email}
                         label="Email Address"
                         name="email"
-                      /> 
-                      
+                      />
                       <Input
-                      type="text"
-                      size="lg" 
-                      onChange={handleForm4}
-                      value={form4.email}
-                   hidden
-                      name="email"
-                    />{" "} <Input
-                    type="text"
-                    size="lg" 
-                    onChange={handleForm4}
-                    value={form4.email}
-                 hidden
-                    name="email"
-                  />{" "}
+                        type="text"
+                        size="lg"
+                        onChange={handleForm4}
+                        value={form4.email}
+                        hidden
+                        name="email"
+                      />{" "}
+                      <Input
+                        type="text"
+                        size="lg"
+                        onChange={handleForm4}
+                        value={form4.email}
+                        hidden
+                        name="email"
+                      />{" "}
                       <Button
                         className="mt-6 hover:bg-[#0097c9]"
                         fullWidth
@@ -994,27 +991,23 @@ export function Home() {
                         <TimelineItem className="h-28">
                           <TimelineConnector className="!w-[78px]" />
                           <TimelineHeader className="relative rounded-xl border border-blue-gray-50 bg-white py-3 pl-4 pr-8 shadow-lg shadow-blue-gray-900/5">
-                           
-                          <TimelineIcon
+                            <TimelineIcon
                               className="p-3"
                               variant="ghost"
                               color={fields ? "green" : "red"}
                             >
                               <PiWarningThin className="h-5 w-5" />
                             </TimelineIcon>
-                           
-                          
+
                             <div className="flex flex-col gap-1">
                               <Typography variant="h6" color="blue-gray">
-                               Complete Registration
+                                Complete Registration
                               </Typography>
                               <Typography
                                 variant="small"
                                 color="gray"
                                 className="font-normal"
-                              >
-                               
-                              </Typography>
+                              ></Typography>
                             </div>
                           </TimelineHeader>
                         </TimelineItem>
@@ -1030,26 +1023,28 @@ export function Home() {
                             </TimelineIcon>
                             <div className="flex flex-col gap-1">
                               <Typography variant="h6" color="blue-gray">
-                               Make Payment
+                                Make Payment
                               </Typography>
                               <Typography
                                 variant="small"
                                 color="gray"
                                 className="font-normal"
-                              >
-                              
-                              </Typography>
+                              ></Typography>
                             </div>
                           </TimelineHeader>
                         </TimelineItem>
                         <TimelineItem className="h-28">
                           <TimelineHeader className="relative rounded-xl border border-blue-gray-50 bg-white py-3 pl-4 pr-8 shadow-lg shadow-blue-gray-900/5">
-                          <TimelineIcon className="p-3" variant="ghost" color="green">
+                            <TimelineIcon
+                              className="p-3"
+                              variant="ghost"
+                              color="green"
+                            >
                               <BellIcon className="h-5 w-5" />
                             </TimelineIcon>
                             <div className="flex flex-col gap-1">
                               <Typography variant="h6" color="blue-gray">
-                               Get Permit/License
+                                Get Permit/License
                               </Typography>
                               <Typography
                                 variant="small"
