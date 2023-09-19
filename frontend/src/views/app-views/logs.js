@@ -22,6 +22,7 @@ import {
   } from "@material-tailwind/react";
 import {useEffect, useState} from "react";
 import axios from "axios";
+import {BASEURL} from "../../utils/baseEndpoints";
 // import {user} from "../../../functions/mail-config";
 
 
@@ -103,7 +104,7 @@ import axios from "axios";
         try {
           // Replace with your actual axios API call
           const logs_response = await axios.get(
-              "http://127.0.0.1:8080/api/logs/"
+              `${BASEURL}/api/logs/`
           );
           console.log(logs_response);
 
