@@ -310,14 +310,7 @@ export function Home() {
         <Typography variant="h4" className="mb-2 text-[#0097c9] font-medium">
           Licensing and Permits
         </Typography>
-        <Typography color="gray" className="font-normal ">
-          Can you help me out? you will get a lot of free exposure doing this
-          can my website be in english?. There is too much white space do less
-          with more, so that will be a conversation piece can you rework to make
-          the pizza look more delicious other agencies charge much lesser can
-          you make the blue bluer?. I think we need to start from scratch can my
-          website be in english?, yet make it sexy i&apos;ll pay you in a week
-        </Typography>
+        {/*<Typography color="gray" className="font-normal "></Typography>*/}
       </div>
 
       <div className="container px-10 md:px-0 mx-auto">
