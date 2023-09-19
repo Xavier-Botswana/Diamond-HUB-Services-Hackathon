@@ -147,7 +147,7 @@ export default function SideNav() {
           <Link to={`${APP_PREFIX_PATH}/logout`} className="btn">
             <div className=" flex  mx-4 bg-[#f2f2f2] border   mb-2 rounded-xl items-center pl-6 px-4 py-3 hover:bg-[#ffffff]">
               <div className="flex items-center justify-between container">
-                <span className="text-[14px] text-[#000000]">Chivs Store</span>
+                <span className="text-[14px] text-[#000000]">User</span>
 
                 <span className="text-[11px] text-white bg-gradient-to-r from-[#0d022d] via-[#525151] to-[#252525] rounded-lg px-3 py-1.5 ">
                   Professional Plan
