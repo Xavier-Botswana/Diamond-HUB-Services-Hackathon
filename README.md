@@ -14,7 +14,6 @@
     <li><a href="#our-solution"> ➤ Our Solution</a></li>
     <li><a href="#research"> ➤ Research</a></li>
     <li><a href="#stack"> ➤ Stack</a></li>
-    <li><a href="#demo"> ➤ Demo (Architecture) </a></li>
     <li><a href="#team"> ➤ Team</a></li>
     
   </ol>
@@ -32,9 +31,7 @@ Henceforth, the need for a solution that provides a seamless process that enable
 </h3>  
 
 </br>
-<p align="center"> 
-  <img src="images/mr.png" alt="smbots" width="70%" height="70%">
-</p>
+
 
 
 
@@ -47,18 +44,7 @@ Henceforth, the need for a solution that provides a seamless process that enable
 <h2 id="problem-statement"> :pencil: Problem Statement</h2>
 
 <p align="justify"> 
-The researchers interviewed 10 married couples, 5 of which got married before the pandemic and 5 who have tied the knot during the pandemic. 
-
-*	Long queues: Both Covid and Pre-Covid couples experienced long submission queues making it so that they spend more time at the District Administrators offices when they could be completing other tasks for the day. Time pre and post Covid averaged at 4 hours and 8 hours respectfully.
-* Numerous office visits: Both individuals and their witnesses make approximately three (3) trips to various government office to complete the 3 different processes.
-* Decentralization of processes: Moving from one department to another to execute various tasks as those registering have to move from the registration window to a separate window for payment.
-* Covid Regulations: Limited number of clients are allowed in offices to reduce exposure and spread. 
-
-With regards to administrative officers, these are the issues they faced:
-
-* Longer verification process – averaging at about 2 days per applicant - due to a higher number of marriage registration applications.
-* Manual processes tend to increase turn-around time by approximately 55%, especially during peak registration seasons.
-*	Due to manual processes, officer’s time is restricted to repetitive tasks rather than important executive tasks.
+The existing diamond hub system is outdated and manual, necessitating an automated replacement. Key challenges include outdated technology, inefficient processes, data security, integration, scalability, user adoption, budget constraints, and minimizing operational disruption.
 
 </p>
 

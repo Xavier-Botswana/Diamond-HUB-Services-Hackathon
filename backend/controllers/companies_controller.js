@@ -20,7 +20,6 @@ exports.create_company = catch_async(async (req,res, next) => {
 
 exports.update_company = catch_async(async (req, res, next) => {
     const company_id = req.params.id;
-
     const config = {
         method: "patch",
         url: `${BASE_URL}/api/collections/companies/records/${company_id}`,
