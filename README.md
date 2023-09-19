@@ -54,20 +54,23 @@ The existing diamond hub system is outdated and manual, necessitating an automat
 _Web link. Please refer to the [Link] (​https://marriage-registration-1e7e8.web.app)_  and follow the instructions below 
 
 
-<h4>Getting Started As User</h4>
+<h4>Getting Started As an Applicant </h4>
 
 1. Go to (​https://diamond-hub.testlive.space/home) platform
-2. Navigate to the preferred Tab (Diamond Cutting,Export of Rough Diamonds, Marriage Notice)
-- Dashboard - This page shows the platform's aggregated performance metrics 
-- Intention to Marry Application - User's applications can be reviewed, processed & published in real-time on this page.
-- Marriage Notice - This where all the notices of marriage are posted for 30 days.
+2. Navigate to the preferred Tab (Diamond Cutting,Export of Rough Diamonds, etc)
+3 Fill in the neccessary information then submit 
+4 After submission you will see a payment modal for Application fees.
+5 After payment user will await response from the hub either an issuance of permit/certificate or license via email
 
-<h4>Getting Started As User</h4>
+
+
+
+<h4>Getting Started As Admin User</h4>
 
 1. Login to the platform using the following credentials
 - email: `admin@gmail.com`
 - password: `adminpass123`
-2. Select anyone of the 4 services; 
+2. Select anyone of the 4 Options; 
 - Applications 
 - Companies/Clients 
 - Payments
