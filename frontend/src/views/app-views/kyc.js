@@ -33,58 +33,6 @@ import axios from "axios";
 
 const TABLE_HEAD1 = ["Full name", "Nationality", "Occupation", "Status", ""];
 
-const TABLE = [
-  {
-    id: "1",
-    img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-3.jpg",
-    name: "John Michael",
-    email: "prochivs@gmail.com",
-    job: "Manager",
-    org: "Organization",
-    online: true,
-    date: "23/04/18",
-  },
-  {
-    id: "12",
-    img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-2.jpg",
-    name: "Alexa Liras",
-    email: "alexa@creative-tim.com",
-    job: "Programator",
-    org: "Developer",
-    online: false,
-    date: "23/04/18",
-  },
-  {
-    id: "154",
-    img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-1.jpg",
-    name: "Laurent Perrier",
-    email: "laurent@creative-tim.com",
-    job: "Executive",
-    org: "Projects",
-    online: false,
-    date: "19/09/17",
-  },
-  {
-    id: "1524",
-    img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-4.jpg",
-    name: "Michael Levi",
-    email: "michael@creative-tim.com",
-    job: "Programator",
-    org: "Developer",
-    online: true,
-    date: "24/12/08",
-  },
-  {
-    id: "1514",
-    img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-5.jpg",
-    name: "Richard Gran",
-    email: "richard@creative-tim.com",
-    job: "Manager",
-    org: "Executive",
-    online: false,
-    date: "04/10/21",
-  },
-];
 
 export default function CompanyKYC() {
   const [tab, setTab] = useState("1");
@@ -111,7 +59,7 @@ export default function CompanyKYC() {
     setCompany({ ...company, [e.target.name]: e.target.value });
   };
 
-  const submitCompany = async () => {
+ const submitCompany = async () => {
     try {
       axios
         .post("http://127.0.0.1:8080/api/companies", company)
@@ -469,7 +417,7 @@ export default function CompanyKYC() {
           </CardFooter>
         </Card>
       </Dialog>
-      
+
     </div>
   );
 }
