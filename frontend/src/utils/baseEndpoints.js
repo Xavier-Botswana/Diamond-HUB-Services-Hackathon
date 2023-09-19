@@ -1,1 +1,1 @@
-exports.BASEURL = "http://localhost:8082";
+exports.BASEURL = "http://backend:8082";
