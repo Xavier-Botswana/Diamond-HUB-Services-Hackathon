@@ -1,6 +1,7 @@
 // const AppError = require('../utils/appError');
 
 const send_error_dev = (err, res) => {
+    // console.log(err)
     const {data} = err.response;
 
     res.status(data.code).json({
