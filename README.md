@@ -14,7 +14,6 @@
     <li><a href="#our-solution"> ➤ Our Solution</a></li>
     <li><a href="#research"> ➤ Research</a></li>
     <li><a href="#stack"> ➤ Stack</a></li>
-    <li><a href="#demo"> ➤ Demo (Architecture) </a></li>
     <li><a href="#team"> ➤ Team</a></li>
     
   </ol>
