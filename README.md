@@ -144,7 +144,7 @@ _Please refer to the [Link](https://github.com/Xavier-Botswana/Diamond-HUB-Servi
   <img src="dash.png" alt="smbots" width="70%" height="70%">
 </p>
 <p align="center"> 
-  <img src="intention.jpg" alt="smbots" width="70%" height="70%">
+  <img src="home.png" alt="smbots" width="70%" height="70%">
 </p>
 
 <p align="center"> 
