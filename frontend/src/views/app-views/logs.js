@@ -100,12 +100,7 @@ import {
                   See information about all system activity
                 </Typography>
               </div>
-              <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
-              
-                <Button className="flex items-center gap-3" size="sm">
-                  <UserPlusIcon strokeWidth={2} className="h-4 w-4" /> Add member
-                </Button>
-              </div>
+            
             </div>
             <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
               {/* <Tabs value="all" className="w-full md:w-max">
