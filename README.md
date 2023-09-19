@@ -22,7 +22,7 @@
 
 <!-- Introduction -->
 
-<h1  id="#introduction" align="center">Marriage Registration Portal-Hackathon Submission</h1>
+<h1  id="#introduction" align="center">Diamond Hub Services Portal-Hackathon Submission</h1>
 <h3 align="center"> 
 The process of Marriage Registration is both a tedious and long process entailing a lot of administrative tasks such as filling numerous forms, countless visits to various government offices to make registration payments and long registration queues. As a result, the client often has to do the aforementioned along with their prior obligations during government office hours. 
 </br>
