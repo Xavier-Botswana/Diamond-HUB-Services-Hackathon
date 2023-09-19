@@ -134,7 +134,7 @@ export default function Payments() {
 
   return (
     <div className="px-20 pt-[105px] flex flex-col">
-      <div className="h-60 mb-10">
+      {/* <div className="h-60 mb-10">
         <Carousel
           className="rounded-xl"
           navigation={({ setActiveIndex, activeIndex, length }) => (
@@ -167,8 +167,8 @@ export default function Payments() {
             className="h-full w-full object-cover"
           />
         </Carousel>
-      </div>
-      <div>
+      </div> */}
+      {/* <div>
         <Typography variant="h5" color="blue-gray">
           Hi Amogelang
         </Typography>
@@ -176,9 +176,9 @@ export default function Payments() {
           Material Tailwind is an easy to use components library for Tailwind
           CSS
         </Typography>
-      </div>
+      </div> */}
 
-      <div className="flex grid-cols-4 justify-between mb-10">
+      {/* <div className="flex grid-cols-4 justify-between mb-10">
         <Card className="mt-6 w-80">
           <CardBody>
             <Typography variant="h5" color="blue-gray" className="mb-2">
@@ -350,7 +350,7 @@ export default function Payments() {
             </div>
           </CardBody>
         </Card>
-      </div>
+      </div> */}
 
       <Card className="h-full w-full  mt-10 mb-20">
         <CardHeader floated={false} shadow={false} className="rounded-none">

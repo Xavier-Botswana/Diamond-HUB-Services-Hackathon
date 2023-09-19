@@ -1,16 +1,25 @@
+import React, { useRef, useEffect, useState } from "react";
 import {
   MagnifyingGlassIcon,
   ChevronUpDownIcon,
 } from "@heroicons/react/24/outline";
-import { PencilIcon, UserPlusIcon } from "@heroicons/react/24/solid";
+import { PDFDocument, rgb, StandardFonts } from "pdf-lib";
+import { Viewer, Worker, SpecialZoomLevel } from "@react-pdf-viewer/core";
+import "@react-pdf-viewer/core/lib/styles/index.css";
+import "@react-pdf-viewer/default-layout/lib/styles/index.css";
+
+import { UserPlusIcon } from "@heroicons/react/24/solid";
+import { PiEyeThin } from "react-icons/pi";
 import {
   Card,
   CardHeader,
   Input,
   Typography,
+  Textarea,
   Button,
   CardBody,
   Chip,
+  Dialog,
   CardFooter,
   Tabs,
   TabsHeader,
@@ -20,35 +29,41 @@ import {
   IconButton,
   Tooltip,
 } from "@material-tailwind/react";
+import axios from "axios";
 
-const TABS = [
-  {
-    label: "All",
-    value: "all",
-  },
-  {
-    label: "Pending",
-    value: "monitored",
-  },
-  {
-    label: "Approved",
-    value: "unmonitored",
-  },
+const TABLE_HEAD1 = ["Full name", "Nationality", "Occupation", "Status", ""];
+const TABLE_HEAD2 = [
+  "Full name",
+  "Country_of_origin",
+  "Number_of_parcels",
+  "Name_of_exporter",
+  "address_of_importers",
+  "Status",
+  "",
+];
+const TABLE_HEAD3 = [
+  "Full name",
+  "Address",
+  // "Directors Names",
+  "Location of Operations",
+  "Stones Source",
+  "Status",
+  "",
 ];
 
-const TABLE_HEAD = ["Member", "Function", "Status", "Employed", ""];
-
-const TABLE_ROWS = [
+const TABLE = [
   {
+    id: "1",
     img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-3.jpg",
     name: "John Michael",
-    email: "john@creative-tim.com",
+    email: "prochivs@gmail.com",
     job: "Manager",
     org: "Organization",
     online: true,
     date: "23/04/18",
   },
   {
+    id: "12",
     img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-2.jpg",
     name: "Alexa Liras",
     email: "alexa@creative-tim.com",
@@ -58,6 +73,7 @@ const TABLE_ROWS = [
     date: "23/04/18",
   },
   {
+    id: "154",
     img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-1.jpg",
     name: "Laurent Perrier",
     email: "laurent@creative-tim.com",
@@ -67,6 +83,7 @@ const TABLE_ROWS = [
     date: "19/09/17",
   },
   {
+    id: "1524",
     img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-4.jpg",
     name: "Michael Levi",
     email: "michael@creative-tim.com",
@@ -76,6 +93,7 @@ const TABLE_ROWS = [
     date: "24/12/08",
   },
   {
+    id: "1514",
     img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-5.jpg",
     name: "Richard Gran",
     email: "richard@creative-tim.com",
@@ -87,6 +105,260 @@ const TABLE_ROWS = [
 ];
 
 export default function CompanyKYC() {
+  const [tab, setTab] = useState("1");
+  const [open, setOpen] = useState(false);
+  const [open2, setOpen2] = useState(false);
+  const [open3, setOpen3] = useState(false);
+
+  const [openDec, setOpenDec] = useState(false);
+  const [openApp, setOpenApp] = useState(false);
+  const [ID, setID] = useState("1");
+  const [data, setData] = useState({});
+  const [PDFDATA, setPdfdata] = useState(null);
+  const [pdfnum, setPdfnum] = useState(null);
+  const [pdfbs, setPdfbs] = useState(null);
+  const [TABLE_ROWS, setDataTable] = useState([]);
+
+  const [search, setSearch] = useState("");
+
+  const handleOpen = (results) => {
+    setOpen((cur) => !cur);
+  };
+
+  const handleOpenDec = (results) => {
+    setOpenDec((cur) => !cur);
+  };
+
+  const handleOpenApp = (results) => {
+    setOpenApp((cur) => !cur);
+  };
+
+  const submitApproval = async () => {
+    try {
+      // axios.put()
+
+      let categoryparam = "practice";
+      let res = [];
+      res = await fetch(
+        "https://certificates.erb.org.bw/api/files/" + categoryparam
+      );
+
+      const data1 = await res.json();
+      const buf1 = data1.message.data;
+      var ab = new ArrayBuffer(buf1.length);
+      var view = new Uint8Array(ab);
+      for (var i = 0; i < buf1.length; ++i) {
+        view[i] = buf1[i];
+      }
+      const existingPdfBytes = ab;
+
+      const pdfDoc = await PDFDocument.load(existingPdfBytes);
+
+      if (categoryparam === "practice") {
+        const helveticaFont = await pdfDoc.embedFont(
+          StandardFonts.HelveticaBold
+        );
+        const pages = pdfDoc.getPages();
+        const firstPage = pages[0];
+        const { width, height } = firstPage.getSize();
+
+        const names = "firstname";
+        const textWidth = helveticaFont.widthOfTextAtSize(names, 15);
+        const centerX = (width - textWidth) / 2;
+        firstPage.drawText(names, {
+          x: centerX,
+          y: height / height + 382,
+          size: 15,
+          font: helveticaFont,
+          color: rgb(0.29, 0.337, 0.408),
+        });
+
+        const practices = "practice";
+        const textWidth01 = helveticaFont.widthOfTextAtSize(practices, 11);
+        const centerX01 = (width - textWidth01) / 2;
+        firstPage.drawText(practices, {
+          x: centerX01,
+          y: height / height + 342,
+          size: 11,
+          font: helveticaFont,
+          color: rgb(0.29, 0.337, 0.408),
+        });
+
+        const disciplines = " discipline";
+        const textWidth02 = helveticaFont.widthOfTextAtSize(disciplines, 11);
+        const centerX02 = (width - textWidth02) / 2;
+        firstPage.drawText(disciplines, {
+          x: centerX02,
+          y: height / height + 307,
+          size: 11,
+          font: helveticaFont,
+          color: rgb(0.29, 0.337, 0.408),
+        });
+
+        firstPage.drawText("registrationNumber", {
+          x: width / 1.4,
+          y: height / 3 + 50,
+          size: 9,
+          font: helveticaFont,
+          color: rgb(0.29, 0.337, 0.408),
+        });
+
+        firstPage.drawText("certificateNumber", {
+          x: width / 5.5 - 9,
+          y: height / 3 + 50,
+          size: 9,
+          font: helveticaFont,
+          color: rgb(0.29, 0.337, 0.408),
+        });
+
+        firstPage.drawText(`currentDate`, {
+          x: width / 6.3,
+          y: height / 3 + 19,
+          size: 9,
+          font: helveticaFont,
+          color: rgb(0.29, 0.337, 0.408),
+        });
+
+        firstPage.drawText(`certificate_Number`, {
+          x: width / 4.3,
+          y: height / 4 - 109,
+          size: 9,
+          font: helveticaFont,
+          color: rgb(1, 1, 1),
+        });
+
+        firstPage.drawText(`expiryDate`, {
+          x: width / 1.51,
+          y: height / 3 + 19,
+          size: 9,
+          font: helveticaFont,
+          color: rgb(0.29, 0.337, 0.408),
+        });
+
+        // // Embed the QR code image
+        // let qCodeText = `https://certificates.erb.org.bw/certificateQr/?id=${response.data.id}`;
+        // let qCodeDataURL = await QRCode.toDataURL(qCodeText);
+        // let qCodeImage = await pdfDoc.embedPng(
+        //   Uint8Array.from(atob(qCodeDataURL.split(',')[1]), (c) => c.charCodeAt(0))
+        // );
+
+        // firstPage.drawImage(qCodeImage, {
+        //   x: width / 2 + 150,
+        //   y: height / 70,
+        //   width: 45,
+        //   height: 45,
+        //   color: rgb(0, 0, 0),
+        // });
+
+        const pdfBytes = await pdfDoc.save();
+        const base64String = await pdfDoc.saveAsBase64();
+        setPdfnum(pdfBytes);
+        setPdfbs(base64String);
+
+        const data = {
+          email: `{data[0].email}`,
+          message: `<h4>Good day</h4><p>This is to inform you that your certificate has been created successfully.\n Thank you</p>`,
+          base64String: base64String,
+        };
+
+        axios
+          .post(
+            "http://localhost:5000/diamond-hub-e2534/us-central1/api/send",
+            data
+          )
+          .then((response) => {
+            console.log("Response:", response.data);
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const sendDecline = async () => {
+    try {
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const Approve = () => {
+    setOpenApp(true);
+    handleOpen();
+  };
+  const Decline = () => {
+    setOpenDec(true);
+    handleOpen();
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // Replace with your actual axios API call
+        let response = await axios.get(
+          "http://127.0.0.1:8080/api/diamond-cutting-license-applications/"
+        );
+        response = response.data.items;
+        response = response.filter((row) => row.status === true);
+        const results = response.filter((row) => row.id === ID);
+        if (results.length !== 0) {
+          setData(results);
+        }
+        setDataTable(response);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    const fetchDataIfNeeded = async () => {
+      if (ID) {
+        await fetchData();
+      }
+    };
+    fetchDataIfNeeded();
+  }, [ID]);
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       // Replace with your actual axios API call
+  //       // const response = await axios.get("https://api.example.com/data");
+  //       let response = TABLE;
+  //       const results = response.filter((row) => {
+  //         return (
+  //           row.id === search ||
+  //           row.name.includes(search) ||
+  //           row.licenseNo === search
+  //         );
+  //       });
+  //       setDataTable1(results);
+  //       console.log(results);
+  //     } catch (error) {
+  //       console.error("Error fetching data:", error);
+  //     }
+  //   };
+
+  //   const fetchDataIfNeeded = async () => {
+  //     if (search !== "") {
+  //       await fetchData();
+  //     } else {
+  //       setDataTable1(TABLE);
+  //     }
+  //   };
+
+  //   fetchDataIfNeeded();
+  // }, [search]);
+
+  // Ensure useEffect runs whenever ID changes
+
+  const ViewDetails = (id) => {
+    setID(id);
+    setOpen(true);
+  };
+
   return (
     <div className="px-20 pt-[125px]">
       <Card className="h-full w-full  mt-10 mb-20">
@@ -94,42 +366,38 @@ export default function CompanyKYC() {
           <div className="mb-8 flex items-center justify-between gap-8">
             <div>
               <Typography variant="h5" color="blue-gray">
-              Company Documents
+                Company Profiles
               </Typography>
               <Typography color="gray" className="mt-1 font-normal">
-                See information about all registered Companies
+                See information about all Permits and certificates
               </Typography>
             </div>
             <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
-            
-              <Button className="flex items-center gap-3" size="sm">
-                <UserPlusIcon strokeWidth={2} className="h-4 w-4" /> Add member
-              </Button>
-            </div>
+              
+                <Button className="flex items-center gap-3" size="sm">
+                  <UserPlusIcon strokeWidth={2} className="h-4 w-4" /> Add Client
+                </Button>
+              </div>
           </div>
           <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
-            {/* <Tabs value="all" className="w-full md:w-max">
-              <TabsHeader>
-                {TABS.map(({ label, value }) => (
-                  <Tab key={value} value={value}>
-                    &nbsp;&nbsp;{label}&nbsp;&nbsp;
-                  </Tab>
-                ))}
-              </TabsHeader>
-            </Tabs> */}
             <div className="w-full md:w-72">
               <Input
                 label="Search"
                 icon={<MagnifyingGlassIcon className="h-5 w-5" />}
+                onChange={(e) => {
+                  setSearch(e.target.value);
+                  console.log(e.target.value);
+                }}
               />
             </div>
           </div>
         </CardHeader>
+
         <CardBody className="overflow-scroll px-0">
           <table className="mt-4 w-full min-w-max table-auto text-left">
             <thead>
               <tr>
-                {TABLE_HEAD.map((head, index) => (
+                {TABLE_HEAD1.map((head, index) => (
                   <th
                     key={head}
                     className="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50"
@@ -140,7 +408,7 @@ export default function CompanyKYC() {
                       className="flex items-center justify-between gap-2 font-normal leading-none opacity-70"
                     >
                       {head}{" "}
-                      {index !== TABLE_HEAD.length - 1 && (
+                      {index !== TABLE_HEAD1.length - 1 && (
                         <ChevronUpDownIcon
                           strokeWidth={2}
                           className="h-4 w-4"
@@ -153,24 +421,35 @@ export default function CompanyKYC() {
             </thead>
             <tbody>
               {TABLE_ROWS.map(
-                ({ img, name, email, job, org, online, date }, index) => {
+                (
+                  {
+                    img,
+                    full_name,
+                    email,
+                    occupation,
+                    nationality,
+                    status,
+                    residential_address,
+                    id,
+                  },
+                  index
+                ) => {
                   const isLast = index === TABLE_ROWS.length - 1;
                   const classes = isLast
                     ? "p-4"
                     : "p-4 border-b border-blue-gray-50";
 
                   return (
-                    <tr key={name}>
+                    <tr key={full_name}>
                       <td className={classes}>
                         <div className="flex items-center gap-3">
-                          <Avatar src={img} alt={name} size="sm" />
                           <div className="flex flex-col">
                             <Typography
                               variant="small"
                               color="blue-gray"
                               className="font-normal"
                             >
-                              {name}
+                              {full_name}
                             </Typography>
                             <Typography
                               variant="small"
@@ -182,6 +461,7 @@ export default function CompanyKYC() {
                           </div>
                         </div>
                       </td>
+
                       <td className={classes}>
                         <div className="flex flex-col">
                           <Typography
@@ -189,25 +469,8 @@ export default function CompanyKYC() {
                             color="blue-gray"
                             className="font-normal"
                           >
-                            {job}
+                            {nationality}
                           </Typography>
-                          <Typography
-                            variant="small"
-                            color="blue-gray"
-                            className="font-normal opacity-70"
-                          >
-                            {org}
-                          </Typography>
-                        </div>
-                      </td>
-                      <td className={classes}>
-                        <div className="w-max">
-                          <Chip
-                            variant="ghost"
-                            size="sm"
-                            value={online ? "online" : "offline"}
-                            color={online ? "green" : "blue-gray"}
-                          />
                         </div>
                       </td>
                       <td className={classes}>
@@ -216,13 +479,29 @@ export default function CompanyKYC() {
                           color="blue-gray"
                           className="font-normal"
                         >
-                          {date}
+                          {occupation}
                         </Typography>
                       </td>
+
                       <td className={classes}>
-                        <Tooltip content="Edit User">
-                          <IconButton variant="text">
-                            <PencilIcon className="h-4 w-4" />
+                        <div className="w-max">
+                          <Chip
+                            variant="ghost"
+                            size="sm"
+                            value={!status ? "Pending" : "Approved"}
+                            color={!status ? "red" : "green"}
+                          />
+                        </div>
+                      </td>
+                      <td className={classes}>
+                        <Tooltip content="View">
+                          <IconButton
+                            onClick={() => {
+                              ViewDetails(id);
+                            }}
+                            variant="text"
+                          >
+                            <PiEyeThin className="h-4 w-4" />
                           </IconButton>
                         </Tooltip>
                       </td>
@@ -233,9 +512,10 @@ export default function CompanyKYC() {
             </tbody>
           </table>
         </CardBody>
+
         <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
           <Typography variant="small" color="blue-gray" className="font-normal">
-            Page 1 of 10
+            Page 1 of {TABLE_ROWS.length}
           </Typography>
           <div className="flex gap-2">
             <Button variant="outlined" size="sm">
@@ -247,6 +527,156 @@ export default function CompanyKYC() {
           </div>
         </CardFooter>
       </Card>
+
+     
+      <Dialog
+        size="md"
+        open={open}
+        handler={handleOpen}
+        className="bg-transparent shadow-none"
+      >
+        <Card className="mx-auto w-full">
+          <CardHeader
+            variant="gradient"
+            // color="blue"
+            className="mb-4  grid h-28 place-items-center bg-[#45518d]"
+          >
+            <Typography variant="h3" color="white">
+              Application Details
+            </Typography>
+          </CardHeader>
+          <CardBody className="grid grid-cols-3 gap-4">
+            <div>
+              <label>Applicante Name</label>
+              <Input
+                label="Email"
+                size="lg"
+                disabled
+                value={
+                  data && data[0] && data[0].full_name
+                    ? data[0].full_name
+                    : "Pending"
+                }
+              />
+            </div>
+            <div>
+              <label>Location</label>
+              <Input
+                label="Location"
+                size="lg"
+                disabled
+                value={
+                  data && data[0] && data[0].residential_address
+                    ? data[0].residential_address
+                    : "Pending"
+                }
+              />
+            </div>
+            <div>
+              <label>Occupation</label>
+              <Input
+                label="Occupation"
+                size="lg"
+                disabled
+                value={
+                  data && data[0] && data[0].occupation
+                    ? data[0].occupation
+                    : "Pending"
+                }
+              />
+            </div>
+            <div>
+              <label>Cutters to be Employed</label>
+              <Input
+                label="Number to be Employed Cutters"
+                size="lg"
+                disabled
+                value={
+                  data && data[0] && data[0].number_to_be_employed_cutters
+                    ? data[0].number_to_be_employed_cutters
+                    : "Pending"
+                }
+              />
+            </div>
+            <div>
+              <label>Polishers to be Employed</label>
+              <Input
+                label="Number to be employed polishers"
+                size="lg"
+                disabled
+                value={
+                  data && data[0] && data[0].number_to_be_employed_polishers
+                    ? data[0].number_to_be_employed_polishers
+                    : "Pending"
+                }
+              />
+            </div>
+            <div>
+              <label>Sawyers to be Employed</label>
+              <Input
+                label="Number_to_be_employed_sawyers"
+                size="lg"
+                disabled
+                value={
+                  data && data[0] && data[0].number_to_be_employed_sawyers
+                    ? data[0].number_to_be_employed_sawyers
+                    : "7"
+                }
+              />
+            </div>
+
+            <div>
+              <label>Nationality</label>
+              <Input
+                label="Number_to_be_employed_sawyers"
+                size="lg"
+                disabled
+                value={
+                  data && data[0] && data[0].nationality
+                    ? data[0].nationality
+                    : "7"
+                }
+              />
+            </div>
+
+            <div>
+              <label>License Applied For</label>
+              <Input
+                label="Number_to_be_employed_sawyers"
+                size="lg"
+                disabled
+                value={
+                  data && data[0] && data[0].license_applied_for
+                    ? data[0].license_applied_for
+                    : "7"
+                }
+              />
+            </div>
+
+            <div>
+              <label>Applicant Email</label>
+              <Input
+                label="Number_to_be_employed_sawyers"
+                size="lg"
+                disabled
+                value={data && data[0] && data[0].email ? data[0].email : "7"}
+              />
+            </div>
+          </CardBody>
+          <CardFooter className="pt-0 grid grid-cols-2 gap-2">
+            <Button className="bg-[#005e25]" onClick={Approve} fullWidth>
+              Approve Application
+            </Button>{" "}
+            <Button className="bg-[#c02323]" onClick={Decline} fullWidth>
+              Decline Application
+            </Button>
+          </CardFooter>
+        </Card>
+      </Dialog>
+
+      
+
+   
     </div>
   );
 }

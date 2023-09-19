@@ -137,7 +137,7 @@ export default function SideNav() {
         </div>
 
         <div className="links w-full gap-2.5 text-[13px] text-[#000000] ">
-          <Link to={`${APP_PREFIX_PATH}/logout`} className="btn">
+          <Link to={`${APP_PREFIX_PATH}/logs`} className="btn">
             <div className="flex pl-8 mx-4 bg-[#f2f2f2] p-2 hover:bg-[#ffffff]  mb-2 rounded-lg items-center">
               <SiSimpleanalytics size={20} />
               <span className="logout text-[14px]">System Logs</span>

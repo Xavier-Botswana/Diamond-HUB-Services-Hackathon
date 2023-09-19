@@ -5,6 +5,7 @@ import Payments from "./payments";
 import CompanyKYC from "./kyc";
 import Licenses from "./licenses";
 import SortableTable from "./Dash";
+import Logs from "./logs";
 export default function AppViews() {
   return (
     <Switch>
@@ -19,6 +20,8 @@ export default function AppViews() {
       <Route exact path="/app/payments" component={Payments} />
 
       <Route exact path="/app/companyKYC" component={CompanyKYC} />
+
+      <Route exact path="/app/logs" component={Logs} />
 
       <Route exact path="/app/licenses" component={Licenses} />
     </Switch>

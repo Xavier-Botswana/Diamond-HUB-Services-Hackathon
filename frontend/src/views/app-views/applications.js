@@ -31,9 +31,25 @@ import {
 } from "@material-tailwind/react";
 import axios from "axios";
 
-const TABLE_HEAD1  =  ["Full name", "Nationality", "Occupation", "Status", ""];
-const TABLE_HEAD =  ["Member", "Function", "Status", "Employed", ""];
-const TABLE_HEAD3 =  ["Member", "Function", "Status", "Employed", ""];
+const TABLE_HEAD1 = ["Full name", "Nationality", "Occupation", "Status", ""];
+const TABLE_HEAD2 = [
+  "Full name",
+  "Country_of_origin",
+  "Number_of_parcels",
+  "Name_of_exporter",
+  "address_of_importers",
+  "Status",
+  "",
+];
+const TABLE_HEAD3 = [
+  "Full name",
+  "Address",
+  // "Directors Names",
+  "Location of Operations",
+  "Stones Source",
+  "Status",
+  "",
+];
 
 const TABLE = [
   {
@@ -91,6 +107,9 @@ const TABLE = [
 export default function Applications() {
   const [tab, setTab] = useState("1");
   const [open, setOpen] = useState(false);
+  const [open2, setOpen2] = useState(false);
+  const [open3, setOpen3] = useState(false);
+
   const [openDec, setOpenDec] = useState(false);
   const [openApp, setOpenApp] = useState(false);
   const [ID, setID] = useState("1");
@@ -99,10 +118,21 @@ export default function Applications() {
   const [pdfnum, setPdfnum] = useState(null);
   const [pdfbs, setPdfbs] = useState(null);
   const [TABLE_ROWS, setDataTable1] = useState([]);
+  const [TABLE_ROWS2, setDataTable2] = useState([]);
+  const [TABLE_ROWS3, setDataTable3] = useState([]);
+
   const [search, setSearch] = useState("");
 
   const handleOpen = (results) => {
     setOpen((cur) => !cur);
+  };
+
+  const handleOpen2 = (results) => {
+    setOpen2((cur) => !cur);
+  };
+
+  const handleOpen3 = (results) => {
+    setOpen3((cur) => !cur);
   };
   const handleOpenDec = (results) => {
     setOpenDec((cur) => !cur);
@@ -114,6 +144,8 @@ export default function Applications() {
 
   const submitApproval = async () => {
     try {
+      // axios.put()
+
       let categoryparam = "practice";
       let res = [];
       res = await fetch(
@@ -275,12 +307,41 @@ export default function Applications() {
     const fetchData = async () => {
       try {
         // Replace with your actual axios API call
-        const response1 = await axios.get("http://127.0.0.1:8080/api/diamond-cutting-license-applications/");
-        let response = TABLE;
-        console.log(response1.data)
+        const response1 = await axios.get(
+          "http://127.0.0.1:8080/api/diamond-cutting-license-applications/"
+        );
+        let response = response1.data.items;
+        response = response.filter((row) => row.status === true);
         const results = response.filter((row) => row.id === ID);
-        setData(results);
-        setDataTable1(TABLE);
+        if (results.length !== 0) {
+          setData(results);
+        }
+        setDataTable1(response);
+
+        // kimberly
+        const response2 = await axios.get(
+          "http://127.0.0.1:8080/api/kimberly-process-certificates-applications"
+        );
+        let responsekim = response2.data.items;
+        responsekim = responsekim.filter((row) => row.status === true);
+
+        const resultskim = responsekim.filter((row) => row.id === ID);
+        if (resultskim.length !== 0) {
+          setData(resultskim);
+        }
+        setDataTable2(responsekim);
+
+        // Stones
+        const response3 = await axios.get(
+          "http://127.0.0.1:8080/api/precious-stones-dealer-license-applications/"
+        );
+        let responsePre = response3.data.items;
+        responsePre = responsePre.filter((row) => row.status === true);
+        const resultsPre = responsePre.filter((row) => row.id === ID);
+        if (resultsPre.length !== 0) {
+          setData(resultsPre);
+        }
+        setDataTable3(responsePre);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -294,42 +355,50 @@ export default function Applications() {
     fetchDataIfNeeded();
   }, [ID]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        // Replace with your actual axios API call
-        // const response = await axios.get("https://api.example.com/data");
-        let response = TABLE;
-        const results = response.filter((row) => {
-          return (
-            row.id === search ||
-            row.name.includes(search) ||
-            row.licenseNo === search
-          );
-        });
-        setDataTable1(results);
-        console.log(results);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       // Replace with your actual axios API call
+  //       // const response = await axios.get("https://api.example.com/data");
+  //       let response = TABLE;
+  //       const results = response.filter((row) => {
+  //         return (
+  //           row.id === search ||
+  //           row.name.includes(search) ||
+  //           row.licenseNo === search
+  //         );
+  //       });
+  //       setDataTable1(results);
+  //       console.log(results);
+  //     } catch (error) {
+  //       console.error("Error fetching data:", error);
+  //     }
+  //   };
 
-    const fetchDataIfNeeded = async () => {
-      if (search !== "") {
-        await fetchData();
-      } else {
-        setDataTable1(TABLE);
-      }
-    };
+  //   const fetchDataIfNeeded = async () => {
+  //     if (search !== "") {
+  //       await fetchData();
+  //     } else {
+  //       setDataTable1(TABLE);
+  //     }
+  //   };
 
-    fetchDataIfNeeded();
-  }, [search]);
+  //   fetchDataIfNeeded();
+  // }, [search]);
 
   // Ensure useEffect runs whenever ID changes
 
   const ViewDetails = (id) => {
     setID(id);
     setOpen(true);
+  };
+  const ViewDetails2 = (id) => {
+    setID(id);
+    setOpen2(true);
+  };
+  const ViewDetails3 = (id) => {
+    setID(id);
+    setOpen3(true);
   };
 
   return (
@@ -345,27 +414,20 @@ export default function Applications() {
                 See information about all applications
               </Typography>
             </div>
-            <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
-              {/* <Button variant="outlined" size="sm">
-                view all
-              </Button> */}
-              {/* <Button className="flex items-center gap-3" size="sm">
-                <UserPlusIcon strokeWidth={2} className="h-4 w-4" /> Download
-              </Button> */}
-            </div>
+            <div className="flex shrink-0 flex-col gap-2 sm:flex-row"></div>
           </div>
           <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
             <Tabs value="1" className="w-full md:w-max">
               <TabsHeader>
                 <Tab
-                  className="md:w-fit"
+                  className="w-[400px]"
                   key={1}
                   value="1"
                   onClick={() => {
                     setTab("1");
                   }}
                 >
-                  All
+                  Diamond Cutting Licence
                 </Tab>
 
                 <Tab
@@ -376,26 +438,15 @@ export default function Applications() {
                     setTab("2");
                   }}
                 >
-                  Diamond Cutting Licence
-                </Tab>
-
-                <Tab
-                  className="w-[400px]"
-                  key={3}
-                  value="3"
-                  onClick={() => {
-                    setTab("3");
-                  }}
-                >
                   Kimberly Process Certificate
                 </Tab>
 
                 <Tab
                   className="md:w-[300px]"
-                  key={4}
-                  value="4"
+                  key={3}
+                  value="3"
                   onClick={() => {
-                    setTab("4");
+                    setTab("3");
                   }}
                 >
                   Stones Dealers Licence
@@ -414,7 +465,7 @@ export default function Applications() {
             </div>
           </div>
         </CardHeader>
-        {   tab === "1" ? (
+        {tab === "1" ? (
           <CardBody className="overflow-scroll px-0">
             <table className="mt-4 w-full min-w-max table-auto text-left">
               <thead>
@@ -430,7 +481,7 @@ export default function Applications() {
                         className="flex items-center justify-between gap-2 font-normal leading-none opacity-70"
                       >
                         {head}{" "}
-                        {index !== TABLE_HEAD.length - 1 && (
+                        {index !== TABLE_HEAD1.length - 1 && (
                           <ChevronUpDownIcon
                             strokeWidth={2}
                             className="h-4 w-4"
@@ -443,26 +494,35 @@ export default function Applications() {
               </thead>
               <tbody>
                 {TABLE_ROWS.map(
-                  ({ img, name, email, job, org, online, date, id }, index) => {
+                  (
+                    {
+                      img,
+                      full_name,
+                      email,
+                      occupation,
+                      nationality,
+                      status,
+                      residential_address,
+                      id,
+                    },
+                    index
+                  ) => {
                     const isLast = index === TABLE_ROWS.length - 1;
                     const classes = isLast
                       ? "p-4"
                       : "p-4 border-b border-blue-gray-50";
 
                     return (
-                      <tr key={name}>
+                      <tr key={full_name}>
                         <td className={classes}>
-                         
-                         
                           <div className="flex items-center gap-3">
-                            <Avatar src={img} alt={name} size="sm" />
                             <div className="flex flex-col">
                               <Typography
                                 variant="small"
                                 color="blue-gray"
                                 className="font-normal"
                               >
-                                {name}
+                                {full_name}
                               </Typography>
                               <Typography
                                 variant="small"
@@ -473,11 +533,7 @@ export default function Applications() {
                               </Typography>
                             </div>
                           </div>
-
-
                         </td>
-
-
 
                         <td className={classes}>
                           <div className="flex flex-col">
@@ -486,14 +542,7 @@ export default function Applications() {
                               color="blue-gray"
                               className="font-normal"
                             >
-                              {job}
-                            </Typography>
-                            <Typography
-                              variant="small"
-                              color="blue-gray"
-                              className="font-normal opacity-70"
-                            >
-                              {org}
+                              {nationality}
                             </Typography>
                           </div>
                         </td>
@@ -503,7 +552,7 @@ export default function Applications() {
                             color="blue-gray"
                             className="font-normal"
                           >
-                            {date}
+                            {occupation}
                           </Typography>
                         </td>
 
@@ -512,8 +561,8 @@ export default function Applications() {
                             <Chip
                               variant="ghost"
                               size="sm"
-                              value={!online ? "Pending" : "Approved"}
-                              color={!online ? "red" : "green"}
+                              value={!status ? "Pending" : "Approved"}
+                              color={!status ? "red" : "green"}
                             />
                           </div>
                         </td>
@@ -541,7 +590,7 @@ export default function Applications() {
             <table className="mt-4 w-full min-w-max table-auto text-left">
               <thead>
                 <tr>
-                  {TABLE_HEAD.map((head, index) => (
+                  {TABLE_HEAD2.map((head, index) => (
                     <th
                       key={head}
                       className="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50"
@@ -552,7 +601,7 @@ export default function Applications() {
                         className="flex items-center justify-between gap-2 font-normal leading-none opacity-70"
                       >
                         {head}{" "}
-                        {index !== TABLE_HEAD.length - 1 && (
+                        {index !== TABLE_HEAD2.length - 1 && (
                           <ChevronUpDownIcon
                             strokeWidth={2}
                             className="h-4 w-4"
@@ -564,9 +613,24 @@ export default function Applications() {
                 </tr>
               </thead>
               <tbody>
-                {TABLE_ROWS.map(
-                  ({ img, name, email, job, org, online, date, id }, index) => {
-                    const isLast = index === TABLE_ROWS.length - 1;
+                {TABLE_ROWS2.map(
+                  (
+                    {
+                      img,
+                      number_of_parcels,
+                      name,
+                      email,
+                      name_of_exporter,
+                      country_of_origin,
+                      address_of_exporter,
+                      name_of_importer,
+                      status,
+                      address_of_importer,
+                      id,
+                    },
+                    index
+                  ) => {
+                    const isLast = index === TABLE_ROWS2.length - 1;
                     const classes = isLast
                       ? "p-4"
                       : "p-4 border-b border-blue-gray-50";
@@ -595,32 +659,13 @@ export default function Applications() {
                           </div>
                         </td>
                         <td className={classes}>
-                          <div className="flex flex-col">
-                            <Typography
-                              variant="small"
-                              color="blue-gray"
-                              className="font-normal"
-                            >
-                              {job}
-                            </Typography>
-                            <Typography
-                              variant="small"
-                              color="blue-gray"
-                              className="font-normal opacity-70"
-                            >
-                              {org}
-                            </Typography>
-                          </div>
-                        </td>
-                        <td className={classes}>
-                          <div className="w-max">
-                            <Chip
-                              variant="ghost"
-                              size="sm"
-                              value={online ? "online" : "offline"}
-                              color={online ? "green" : "blue-gray"}
-                            />
-                          </div>
+                          <Typography
+                            variant="small"
+                            color="blue-gray"
+                            className="font-normal"
+                          >
+                            {country_of_origin}
+                          </Typography>
                         </td>
                         <td className={classes}>
                           <Typography
@@ -628,14 +673,24 @@ export default function Applications() {
                             color="blue-gray"
                             className="font-normal"
                           >
-                            {date}
+                            {number_of_parcels}
+                          </Typography>
+                        </td>
+
+                        <td className={classes}>
+                          <Typography
+                            variant="small"
+                            color="blue-gray"
+                            className="font-normal"
+                          >
+                            {name_of_exporter}
                           </Typography>
                         </td>
                         <td className={classes}>
                           <Tooltip content="View">
                             <IconButton
                               onClick={() => {
-                                ViewDetails(id);
+                                ViewDetails2(id);
                               }}
                               variant="text"
                             >
@@ -650,12 +705,12 @@ export default function Applications() {
               </tbody>
             </table>
           </CardBody>
-        ) : (
+        ) : tab === "3" ? (
           <CardBody className="overflow-scroll px-0">
             <table className="mt-4 w-full min-w-max table-auto text-left">
               <thead>
                 <tr>
-                  {TABLE_HEAD.map((head, index) => (
+                  {TABLE_HEAD3.map((head, index) => (
                     <th
                       key={head}
                       className="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50"
@@ -666,7 +721,7 @@ export default function Applications() {
                         className="flex items-center justify-between gap-2 font-normal leading-none opacity-70"
                       >
                         {head}{" "}
-                        {index !== TABLE_HEAD.length - 1 && (
+                        {index !== TABLE_HEAD3.length - 1 && (
                           <ChevronUpDownIcon
                             strokeWidth={2}
                             className="h-4 w-4"
@@ -678,25 +733,38 @@ export default function Applications() {
                 </tr>
               </thead>
               <tbody>
-                {TABLE_ROWS.map(
-                  ({ img, name, email, job, org, online, date, id }, index) => {
-                    const isLast = index === TABLE_ROWS.length - 1;
+                {TABLE_ROWS3.map(
+                  (
+                    {
+                      source_of_stones,
+                      applicant_name,
+                      number_to_employed,
+                      email,
+                      address,
+                      location_of_operations,
+                      director_fullnames,
+                      status,
+                      date,
+                      id,
+                    },
+                    index
+                  ) => {
+                    const isLast = index === TABLE_ROWS3.length - 1;
                     const classes = isLast
                       ? "p-4"
                       : "p-4 border-b border-blue-gray-50";
 
                     return (
-                      <tr key={name}>
+                      <tr key={applicant_name}>
                         <td className={classes}>
                           <div className="flex items-center gap-3">
-                            <Avatar src={img} alt={name} size="sm" />
                             <div className="flex flex-col">
                               <Typography
                                 variant="small"
                                 color="blue-gray"
                                 className="font-normal"
                               >
-                                {name}
+                                {applicant_name}
                               </Typography>
                               <Typography
                                 variant="small"
@@ -709,47 +777,50 @@ export default function Applications() {
                           </div>
                         </td>
                         <td className={classes}>
-                          <div className="flex flex-col">
-                            <Typography
-                              variant="small"
-                              color="blue-gray"
-                              className="font-normal"
-                            >
-                              {job}
-                            </Typography>
-                            <Typography
-                              variant="small"
-                              color="blue-gray"
-                              className="font-normal opacity-70"
-                            >
-                              {org}
-                            </Typography>
-                          </div>
+                          <Typography
+                            variant="small"
+                            color="blue-gray"
+                            className="font-normal"
+                          >
+                            {address}
+                          </Typography>
                         </td>
-                        <td className={classes}>
-                          <div className="w-max">
-                            <Chip
-                              variant="ghost"
-                              size="sm"
-                              value={online ? "online" : "offline"}
-                              color={online ? "green" : "blue-gray"}
-                            />
-                          </div>
-                        </td>
+
                         <td className={classes}>
                           <Typography
                             variant="small"
                             color="blue-gray"
                             className="font-normal"
                           >
-                            {date}
+                            {location_of_operations}
                           </Typography>
                         </td>
+
+                        <td className={classes}>
+                          <Typography
+                            variant="small"
+                            color="blue-gray"
+                            className="font-normal opacity-70"
+                          >
+                            {source_of_stones}
+                          </Typography>
+                        </td>
+                        <td className={classes}>
+                          <div className="w-max">
+                            <Chip
+                              variant="ghost"
+                              size="sm"
+                              value={status ? "Approved" : "offline"}
+                              color={status ? "Pending" : "blue-gray"}
+                            />
+                          </div>
+                        </td>
+
                         <td className={classes}>
                           <Tooltip content="View">
                             <IconButton
                               onClick={() => {
-                                ViewDetails(id);
+                                ViewDetails3(id);
                                 console.log(id);
                               }}
                               variant="text"
@@ -765,8 +836,9 @@ export default function Applications() {
               </tbody>
             </table>
           </CardBody>
+        ) : (
+          ""
         )}
-
 
         <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
           <Typography variant="small" color="blue-gray" className="font-normal">
@@ -783,6 +855,7 @@ export default function Applications() {
         </CardFooter>
       </Card>
 
+      {/* diamond */}
       <Dialog
         size="md"
         open={open}
@@ -807,117 +880,397 @@ export default function Applications() {
                 size="lg"
                 disabled
                 value={
-                  data && data[0] && data[0].email ? data[0].name : "Pending"
+                  data && data[0] && data[0].full_name
+                    ? data[0].full_name
+                    : "Pending"
                 }
               />
             </div>
             <div>
               <label>Location</label>
               <Input
-                label="Email"
+                label="Location"
                 size="lg"
                 disabled
                 value={
-                  data && data[0] && data[0].email
-                    ? data[0].location
+                  data && data[0] && data[0].residential_address
+                    ? data[0].residential_address
                     : "Pending"
                 }
               />
             </div>
             <div>
-              <label>Contact Details</label>
+              <label>Occupation</label>
+              <Input
+                label="Occupation"
+                size="lg"
+                disabled
+                value={
+                  data && data[0] && data[0].occupation
+                    ? data[0].occupation
+                    : "Pending"
+                }
+              />
+            </div>
+            <div>
+              <label>Cutters to be Employed</label>
+              <Input
+                label="Number to be Employed Cutters"
+                size="lg"
+                disabled
+                value={
+                  data && data[0] && data[0].number_to_be_employed_cutters
+                    ? data[0].number_to_be_employed_cutters
+                    : "Pending"
+                }
+              />
+            </div>
+            <div>
+              <label>Polishers to be Employed</label>
+              <Input
+                label="Number to be employed polishers"
+                size="lg"
+                disabled
+                value={
+                  data && data[0] && data[0].number_to_be_employed_polishers
+                    ? data[0].number_to_be_employed_polishers
+                    : "Pending"
+                }
+              />
+            </div>
+            <div>
+              <label>Sawyers to be Employed</label>
+              <Input
+                label="Number_to_be_employed_sawyers"
+                size="lg"
+                disabled
+                value={
+                  data && data[0] && data[0].number_to_be_employed_sawyers
+                    ? data[0].number_to_be_employed_sawyers
+                    : "7"
+                }
+              />
+            </div>
+
+            <div>
+              <label>Nationality</label>
+              <Input
+                label="Number_to_be_employed_sawyers"
+                size="lg"
+                disabled
+                value={
+                  data && data[0] && data[0].nationality
+                    ? data[0].nationality
+                    : "7"
+                }
+              />
+            </div>
+
+            <div>
+              <label>License Applied For</label>
+              <Input
+                label="Number_to_be_employed_sawyers"
+                size="lg"
+                disabled
+                value={
+                  data && data[0] && data[0].license_applied_for
+                    ? data[0].license_applied_for
+                    : "7"
+                }
+              />
+            </div>
+
+            <div>
+              <label>Applicant Email</label>
+              <Input
+                label="Number_to_be_employed_sawyers"
+                size="lg"
+                disabled
+                value={data && data[0] && data[0].email ? data[0].email : "7"}
+              />
+            </div>
+          </CardBody>
+          <CardFooter className="pt-0 grid grid-cols-2 gap-2">
+            <Button className="bg-[#005e25]" onClick={Approve} fullWidth>
+              Approve Application
+            </Button>{" "}
+            <Button className="bg-[#c02323]" onClick={Decline} fullWidth>
+              Decline Application
+            </Button>
+          </CardFooter>
+        </Card>
+      </Dialog>
+
+      {/* stones */}
+      <Dialog
+        size="md"
+        open={open3}
+        handler={handleOpen3}
+        className="bg-transparent shadow-none"
+      >
+        <Card className="mx-auto w-full">
+          <CardHeader
+            variant="gradient"
+            // color="blue"
+            className="mb-4  grid h-28 place-items-center bg-[#45518d]"
+          >
+            <Typography variant="h3" color="white">
+              Application Details
+            </Typography>
+          </CardHeader>
+          <CardBody className="grid grid-cols-3 gap-4">
+            <div>
+              <label>Applicante Name</label>
               <Input
                 label="Email"
                 size="lg"
                 disabled
                 value={
-                  data && data[0] && data[0].email ? data[0].email : "Pending"
+                  data && data[0] && data[0].applicant_name
+                    ? data[0].applicant_name
+                    : "Pending"
                 }
               />
             </div>
             <div>
-              <label>Source of Funds</label>
+              <label>Address</label>
               <Input
-                label="Email"
+                label="Address"
                 size="lg"
                 disabled
                 value={
-                  data && data[0] && data[0].email ? data[0].name : "Pending"
+                  data && data[0] && data[0].address
+                    ? data[0].address
+                    : "Pending"
                 }
               />
             </div>
             <div>
-              <label>Name</label>
+              <label>Directors Names</label>
               <Input
-                label="Email"
+                label="Directors Names"
                 size="lg"
                 disabled
                 value={
-                  data && data[0] && data[0].email ? data[0].name : "Pending"
+                  data && data[0] && data[0].director_fullnames
+                    ? data[0].director_fullnames
+                    : "Pending"
                 }
               />
             </div>
             <div>
-              <label>Name</label>
+              <label>Source_of_stones</label>
               <Input
-                label="Email"
+                label="Source_of_stones"
                 size="lg"
                 disabled
-                value={data && data[0] && data[0].email ? data[0].name : "7"}
+                value={
+                  data && data[0] && data[0].source_of_stones
+                    ? data[0].source_of_stones
+                    : "Pending"
+                }
               />
             </div>
             <div>
-              <label>Name</label>
+              <label>Location_of_operations</label>
               <Input
-                label="Email"
+                label="location_of_operations"
                 size="lg"
                 disabled
-                value={data && data[0] && data[0].email ? data[0].name : "7"}
+                value={
+                  data && data[0] && data[0].location_of_operations
+                    ? data[0].location_of_operations
+                    : "Pending"
+                }
               />
             </div>
             <div>
-              <label>Name</label>
+              <label>Number to employee</label>
               <Input
-                label="Email"
+                label="Number_to_employee"
                 size="lg"
                 disabled
-                value={data && data[0] && data[0].email ? data[0].name : "7"}
+                value={
+                  data && data[0] && data[0].number_to_employed
+                    ? data[0].number_to_employed
+                    : "7"
+                }
+              />
+            </div>
+
+            <div>
+              <label>Share Capital</label>
+              <Input
+                label="Share capital"
+                size="lg"
+                disabled
+                value={
+                  data && data[0] && data[0].share_capital
+                    ? data[0].share_capital
+                    : "7"
+                }
+              />
+            </div>
+
+            <div>
+              <label>Intended_operations</label>
+              <Input
+                label="intended_operations"
+                size="lg"
+                disabled
+                value={
+                  data && data[0] && data[0].intended_operations
+                    ? data[0].intended_operations
+                    : "7"
+                }
+              />
+            </div>
+
+            <div>
+              <label>Applicant Email</label>
+              <Input
+                label="Number_to_be_employed_sawyers"
+                size="lg"
+                disabled
+                value={data && data[0] && data[0].email ? data[0].email : "7"}
+              />
+            </div>
+          </CardBody>
+          <CardFooter className="pt-0 grid grid-cols-2 gap-2">
+            <Button className="bg-[#005e25]" onClick={Approve} fullWidth>
+              Approve Application
+            </Button>{" "}
+            <Button className="bg-[#c02323]" onClick={Decline} fullWidth>
+              Decline Application
+            </Button>
+          </CardFooter>
+        </Card>
+      </Dialog>
+
+      {/* kim */}
+      <Dialog
+        size="md"
+        open={open2}
+        handler={handleOpen2}
+        className="bg-transparent shadow-none"
+      >
+        <Card className="mx-auto w-full">
+          <CardHeader
+            variant="gradient"
+            // color="blue"
+            className="mb-4  grid h-28 place-items-center bg-[#45518d]"
+          >
+            <Typography variant="h3" color="white">
+              Application Details
+            </Typography>
+          </CardHeader>
+          <CardBody className="grid grid-cols-3 gap-4">
+            <div>
+              <label>Country_of_origin</label>
+              <Input
+                label="country_of_origin"
+                size="lg"
+                disabled
+                value={
+                  data && data[0] && data[0].country_of_origin
+                    ? data[0].country_of_origin
+                    : "Pending"
+                }
               />
             </div>
             <div>
-              <label>Name</label>
+              <label>Number_of_parcels</label>
               <Input
-                label="Email"
+                label="number_of_parcels"
                 size="lg"
                 disabled
-                value={data && data[0] && data[0].email ? data[0].name : "7"}
+                value={
+                  data && data[0] && data[0].number_of_parcels
+                    ? data[0].number_of_parcels
+                    : "Pending"
+                }
               />
             </div>
             <div>
-              <label>Name</label>
+              <label>Name_of_exporter</label>
               <Input
-                label="Email"
+                label="Name_of_exporter"
                 size="lg"
                 disabled
-                value={data && data[0] && data[0].email ? data[0].name : "7"}
+                value={
+                  data && data[0] && data[0].name_of_exporter
+                    ? data[0].name_of_exporter
+                    : "Pending"
+                }
               />
             </div>
             <div>
-              <label>Name</label>
+              <label>Address_of_exporter</label>
               <Input
-                label="Email"
+                label="address_of_exporter"
                 size="lg"
                 disabled
-                value={data && data[0] && data[0].email ? data[0].name : "7"}
+                value={
+                  data && data[0] && data[0].address_of_exporter
+                    ? data[0].address_of_exporter
+                    : "Pending"
+                }
               />
             </div>
             <div>
-              <label>Name</label>
+              <label>Name_of_importer</label>
               <Input
-                label="Email"
+                label="Name_of_importer"
                 size="lg"
                 disabled
-                value={data && data[0] && data[0].email ? data[0].name : "7"}
+                value={
+                  data && data[0] && data[0].name_of_importer
+                    ? data[0].name_of_importer
+                    : "Pending"
+                }
+              />
+            </div>
+            <div>
+              <label>Address_of_importer</label>
+              <Input
+                label="Address_of_importer"
+                size="lg"
+                disabled
+                value={
+                  data && data[0] && data[0].address_of_importer
+                    ? data[0].address_of_importer
+                    : "7"
+                }
+              />
+            </div>
+
+            <div>
+              <label>Place</label>
+              <Input
+                label="Share capital"
+                size="lg"
+                disabled
+                value={data && data[0] && data[0].place ? data[0].place : "7"}
+              />
+            </div>
+
+            <div>
+              <label>Date</label>
+              <Input
+                label="date"
+                size="lg"
+                disabled
+                value={data && data[0] && data[0].date ? data[0].date : "7"}
+              />
+            </div>
+
+            <div>
+              <label>Applicant Email</label>
+              <Input
+                label="Number_to_be_employed_sawyers"
+                size="lg"
+                disabled
+                value={data && data[0] && data[0].email ? data[0].email : "7"}
               />
             </div>
           </CardBody>
