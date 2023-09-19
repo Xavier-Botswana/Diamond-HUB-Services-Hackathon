@@ -34,14 +34,14 @@ function PaypalButton() {
                             // alert('Transaction completed by ' + details.payer.name.given_name);
                             // Call your server to save the transaction
 
-                            NotificationDialog({
-                                title: "Payment Successful",
-                                message: "Thank you for your payment",
-                                confirmText: "OK",
-                                onConfirm: () => {
-                                    window.location.href = "/";
-                                }
-                            });
+                            // NotificationDialog({
+                            //     title: "Payment Successful",
+                            //     message: "Thank you for your payment",
+                            //     confirmText: "OK",
+                            //     onConfirm: () => {
+                            //         window.location.href = "/";
+                            //     }
+                            // });
                         });
                     },
                     onDecline: (err) => {
