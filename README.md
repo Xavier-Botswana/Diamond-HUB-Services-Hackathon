@@ -106,7 +106,6 @@ During information and data collection processes, the researchers found people s
 
 </p>
  
- <!-- <a href="https://docs.google.com/presentation/d/1q1V6qgiDrBObpEXmhjADp2QHiK-3EmuLFjKhTeyLwk0/edit?usp=sharing"> ➤ Design Thinking</a> -->
  
 </p>
 
@@ -142,7 +141,7 @@ _Please refer to the [Link](https://github.com/Xavier-Botswana/Diamond-HUB-Servi
   Portal Screens [Admin]
   
 <p align="center"> 
-  <img src="dash.jpg" alt="smbots" width="70%" height="70%">
+  <img src="dash.png" alt="smbots" width="70%" height="70%">
 </p>
 <p align="center"> 
   <img src="intention.jpg" alt="smbots" width="70%" height="70%">
