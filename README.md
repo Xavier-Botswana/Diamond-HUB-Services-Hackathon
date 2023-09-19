@@ -95,14 +95,14 @@ _Web link. Please refer to the [Link] (​https://marriage-registration-1e7e8.we
   
 <p align="justify"> 
 How Others Have Solved the Problem
-In relation to South Africa, accessibility of Verification of Marriage Status forms has been made available online for filling and submission. In addition, the SMS platform is also being used to check the verification of marriage status along with phone-call enquiry. This reduces the public having to go to government offices to complete the different processes. 
+In relation to South Africa, accessibility of Verification of Licenses and certificate Status forms has been made available online for filling and submission. In addition, the QR codes  platform is also being used to check the verification of different certificate and permit status along with phone-call enquiry. This reduces the public having to go to government offices to complete the different diamond hub services. 
 
 <h4>Our Solution</h4>
-The API built within our solution, this will allow for online marriage registration through the availability of online forms, the upload of support documents, execution of online payment processing, remote management of objections and applications in real-time which will consequently ensure a faster and seamless experience for both the client and administrative officer. The solution features a modular architecture and thus can provide services on mobile applications, web applications, Facebook and WhatsApp chatbot and lastly IOT devices, making it more accessible and allowing for ease of use with both a web and mobile usage.
+The API built within our solution, this will allow for online license,permit,certificate registration through the availability of online forms, the upload of support documents, execution of online payment processing, remote management of objections and applications in real-time which will consequently ensure a faster and seamless experience for both the client and administrative officer. The solution features a modular architecture and thus can provide services on mobile applications, web applications, making it more accessible and allowing for ease of use with both a web and mobile usage.
 
 
 <h4>Lessons Learnt</h4>
-During information and data collection processes, the researchers found that the interviewees seek more convenience and time are a top priority for them as they have daily tasks to be completed, such as going to work. In addition, with Covid, more now would like to limit their movement. This has led to the need for services to be accessed online and reduce the need for physical attendance. With the increase in digitization of other services such as banking and retail, the preference for accessing and completing tasks and services online has increased the appetite for online services by the public.
+During information and data collection processes, the researchers found people seek more convenience and time are a top priority for them . In addition, with Covid, more now would like to limit their movement. This has led to the need for services to be accessed online and reduce the need for physical attendance. With the increase in digitization of other services such as banking and retail, the preference for accessing and completing tasks and services online has increased the appetite for online services by the public.
 
 </p>
  
