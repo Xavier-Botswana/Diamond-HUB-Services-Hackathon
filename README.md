@@ -23,11 +23,11 @@
 
 <h1  id="#introduction" align="center">Diamond Hub Services Portal-Hackathon Submission</h1>
 <h3 align="center"> 
-The process of Marriage Registration is both a tedious and long process entailing a lot of administrative tasks such as filling numerous forms, countless visits to various government offices to make registration payments and long registration queues. As a result, the client often has to do the aforementioned along with their prior obligations during government office hours. 
+The Diamond Hub faces a significant challenge with its manual registration process, countless visits to various government offices to make registration payments and long registration queues. As a result, the client often has to do the aforementioned along with their prior obligations during government office hours. 
 </br>
-Moreover, government officials are tasked with their own manual administrative work such as verification of applications, payment processing and updating the marriage registration notice board. In addition, this process has been prolonged further by the current COVID-19 pandemic.
+Moreover, government officials are tasked with their own manual administrative work such as verification of applications, payment processing and updating the diamond hub reports.
 </br>
-Henceforth, the need for a solution that provides a seamless process that enables stakeholders such as clients (those who are filling for registration) and Marriage Officers to carry out their respective obligations in a timely and cost-effective manner on one platform.
+Henceforth, the need for a solution that provides a seamless process that enables stakeholders such as clients (those who are filling for registration) and Diamond Hub Officers to carry out their respective obligations in a timely and cost-effective manner on one platform.
 </h3>  
 
 </br>
@@ -98,7 +98,7 @@ How Others Have Solved the Problem
 In relation to South Africa, accessibility of Verification of Licenses and certificate Status forms has been made available online for filling and submission. In addition, the QR codes  platform is also being used to check the verification of different certificate and permit status along with phone-call enquiry. This reduces the public having to go to government offices to complete the different diamond hub services. 
 
 <h4>Our Solution</h4>
-The API built within our solution, this will allow for online license,permit,certificate registration through the availability of online forms, the upload of support documents, execution of online payment processing, remote management of objections and applications in real-time which will consequently ensure a faster and seamless experience for both the client and administrative officer. The solution features a modular architecture and thus can provide services on mobile applications, web applications, making it more accessible and allowing for ease of use with both a web and mobile usage.
+The solution, this will allow for online license,permit,certificate registration through the availability of online forms, the upload of support documents, execution of online payment processing, remote management of objections and applications in real-time which will consequently ensure a faster and seamless experience for both the client and administrative officer. The solution features a modular architecture and thus can provide services on mobile applications, web applications, making it more accessible and allowing for ease of use with both a web and mobile usage.
 
 
 <h4>Lessons Learnt</h4>
@@ -155,7 +155,6 @@ _Please refer to the [Link](https://github.com/Xavier-Botswana/MarriageRegistrat
 _Please refer to the [Link] (​https://marriage-registration-1e7e8.web.app)_ to access the web portal. The credentials are in the <a href="#our-solution">Our Solution</a> section above.
  
  
- <!-- <a href="https://docs.google.com/presentation/d/1q1V6qgiDrBObpEXmhjADp2QHiK-3EmuLFjKhTeyLwk0/edit?usp=sharing"> ➤ Design Thinking</a> -->
 
 
  
@@ -167,7 +166,6 @@ _Please refer to the [Link] (​https://marriage-registration-1e7e8.web.app)_ to
 <!-- analytics-->
 <h2 id="doc"> 📋: Link to the code-base </h2>
 
-<!-- _Developer Documentation. Please refer to the [Link](https://documenter.getpostman.com/view/12221940/UVC3jStF)_ -->
 
 <p> 
   Code-Base
