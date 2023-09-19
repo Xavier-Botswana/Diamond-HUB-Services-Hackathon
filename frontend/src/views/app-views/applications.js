@@ -145,27 +145,40 @@ export default function Applications() {
   const submitApproval = async () => {
     try {
       if (data[0].type === "diamondCutting") {
-        axios.patch(
+        await axios.patch(
           `http://127.0.0.1:8080/api/diamond-cutting-license-applications/${data[0].id}`,
           {
             status:"approved"
           }
         );
       } else if (data[0].type === "kimberly-process") {
-        axios.patch(
+        await axios.patch(
           `http://127.0.0.1:8080/api/kimberly-process-certificates-applications/${data[0].id}`,
           {
             status:"approved"
           }
         );
       } else if (data[0].type === "stonesDealers") {
-        axios.patch(
+        await axios.patch(
           `http://127.0.0.1:8080/api/precious-stones-dealer-license-applications/${data[0].id}`,
           {
             status: "approved"
           }
         );
       }
+
+      await axios.post('http://localhost:8080/api/logs',
+          {
+            "type": "activity",
+            "description": "actioned application",
+            "username": "john doe",
+            "user_id": "user123",
+            "channel": "system"
+          },{
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          });
 
       let categoryparam = "practice";
       let res = [];
