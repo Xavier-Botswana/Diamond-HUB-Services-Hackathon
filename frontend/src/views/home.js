@@ -453,6 +453,8 @@ export function Home() {
                         name="applicant_signature"
                       />
 
+                      
+
                       <Input
                         name="email"
                         size="lg"
@@ -461,12 +463,7 @@ export function Home() {
                         label="Applicant email"
                       />
 
-                      <Input
-                        name="documentLink"
-                        type="file"
-                        onChange={onFileUpload}
-                        accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-                      />
+                    
 
                       <Button
                         onClick={() => {

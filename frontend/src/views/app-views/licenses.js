@@ -32,7 +32,15 @@ import {
 import axios from "axios";
 
 const TABLE_HEAD1 = ["Full name", "Nationality", "Occupation", "Status", ""];
-const TABLE_HEAD2 = ["Full name","Country_of_origin", "Number_of_parcels", "Name_of_exporter","address_of_importers", "Status", ""];
+const TABLE_HEAD2 = [
+  "Full name",
+  "Country_of_origin",
+  "Number_of_parcels",
+  "Name_of_exporter",
+  "address_of_importers",
+  "Status",
+  "",
+];
 const TABLE_HEAD3 = [
   "Full name",
   "Address",
@@ -136,12 +144,7 @@ export default function Applications() {
 
   const submitApproval = async () => {
     try {
-
-
-// axios.put()
-
-
-
+      // axios.put()
 
       let categoryparam = "practice";
       let res = [];
@@ -309,9 +312,11 @@ export default function Applications() {
         );
 
         let response = response1.data.items;
-        response   = response.filter((row) => row.status === true);
+        response = response.filter((row) => row.status === true);
         const results = response.filter((row) => row.id === ID);
-        if(results.length !== 0){setData(results)};
+        if (results.length !== 0) {
+          setData(results);
+        }
         setDataTable1(response);
 
         // kimberly
@@ -319,9 +324,11 @@ export default function Applications() {
           "http://127.0.0.1:8080/api/kimberly-process-certificates-applications"
         );
         let responsekim = response2.data.items;
-        responsekim   = responsekim.filter((row) => row.status === true);
+        responsekim = responsekim.filter((row) => row.status === true);
         const resultskim = responsekim.filter((row) => row.id === ID);
-       if(resultskim .length !== 0) {setData(resultskim)};
+        if (resultskim.length !== 0) {
+          setData(resultskim);
+        }
         setDataTable2(responsekim);
 
         // Stones
@@ -329,9 +336,11 @@ export default function Applications() {
           "http://127.0.0.1:8080/api/precious-stones-dealer-license-applications/"
         );
         let responsePre = response3.data.items;
-        responsePre   = responsePre.filter((row) => row.status === true);
+        responsePre = responsePre.filter((row) => row.status === true);
         const resultsPre = responsePre.filter((row) => row.id === ID);
-       if(resultsPre.length !== 0){ setData(resultsPre);}
+        if (resultsPre.length !== 0) {
+          setData(resultsPre);
+        }
         setDataTable3(responsePre);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -422,7 +431,7 @@ export default function Applications() {
           </div>
           <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
             <Tabs value="1" className="w-full md:w-max">
-            <TabsHeader>
+              <TabsHeader>
                 {headers.map(({ label, value }) => (
                   <Tab
                     key={value}
@@ -498,6 +507,14 @@ export default function Applications() {
                       <tr key={full_name}>
                         <td className={classes}>
                           <div className="flex items-center gap-3">
+                            <Avatar
+                              src={
+                                "https://smartbots.gov.bw/sites/default/files/logo-with-tagline.png"
+                              }
+                            
+                              size="md"
+                              className="border border-blue-gray-50 bg-blue-gray-50/50 object-contain p-1"
+                            />
                             <div className="flex flex-col">
                               <Typography
                                 variant="small"
@@ -596,7 +613,22 @@ export default function Applications() {
               </thead>
               <tbody>
                 {TABLE_ROWS2.map(
-                  ({ img, number_of_parcels,name, email, name_of_exporter,country_of_origin, address_of_exporter, name_of_importer,status,address_of_importer, id }, index) => {
+                  (
+                    {
+                      img,
+                      number_of_parcels,
+                      name,
+                      email,
+                      name_of_exporter,
+                      country_of_origin,
+                      address_of_exporter,
+                      name_of_importer,
+                      status,
+                      address_of_importer,
+                      id,
+                    },
+                    index
+                  ) => {
                     const isLast = index === TABLE_ROWS2.length - 1;
                     const classes = isLast
                       ? "p-4"
@@ -606,7 +638,14 @@ export default function Applications() {
                       <tr key={name}>
                         <td className={classes}>
                           <div className="flex items-center gap-3">
-                            <Avatar src={img} alt={name} size="sm" />
+                            <Avatar
+                              src={
+                                "https://smartbots.gov.bw/sites/default/files/logo-with-tagline.png"
+                              }
+                            
+                              size="md"
+                              className="border border-blue-gray-50 bg-blue-gray-50/50 object-contain p-1"
+                            />
                             <div className="flex flex-col">
                               <Typography
                                 variant="small"
@@ -626,26 +665,24 @@ export default function Applications() {
                           </div>
                         </td>
                         <td className={classes}>
-                            <Typography
-                              variant="small"
-                              color="blue-gray"
-                              className="font-normal"
-                            >
-                              {country_of_origin}
-                            </Typography>
-                           
+                          <Typography
+                            variant="small"
+                            color="blue-gray"
+                            className="font-normal"
+                          >
+                            {country_of_origin}
+                          </Typography>
                         </td>
                         <td className={classes}>
-                            <Typography
-                              variant="small"
-                              color="blue-gray"
-                              className="font-normal"
-                            >
-                              {number_of_parcels}
-                            </Typography>
-                           
+                          <Typography
+                            variant="small"
+                            color="blue-gray"
+                            className="font-normal"
+                          >
+                            {number_of_parcels}
+                          </Typography>
                         </td>
-                       
+
                         <td className={classes}>
                           <Typography
                             variant="small"
@@ -727,6 +764,13 @@ export default function Applications() {
                       <tr key={applicant_name}>
                         <td className={classes}>
                           <div className="flex items-center gap-3">
+                            <Avatar
+                              src={
+                                "https://smartbots.gov.bw/sites/default/files/logo-with-tagline.png"
+                              }
+                              size="md"
+                              className="border border-blue-gray-50 bg-blue-gray-50/50 object-contain p-1"
+                            />
                             <div className="flex flex-col">
                               <Typography
                                 variant="small"
@@ -755,7 +799,6 @@ export default function Applications() {
                           </Typography>
                         </td>
 
-                       
                         <td className={classes}>
                           <Typography
                             variant="small"
