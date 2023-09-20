@@ -1,21 +1,33 @@
 const catch_async = require("../utils/catch_async");
 const axios = require("axios");
 const {BASE_URL} = require("../utils/base_endpoints");
-
+const FormData = require("form-data");
 
 exports.create_application = catch_async(async (req,res, next) => {
-    const config = {
-        method: "post",
-        url: `${BASE_URL}/api/collections/diamond_cutting_license_application/records`,
-        headers: {
-            "Content-Type": "application/json",
-        },
-        data: req.body,
-    }
+    const form_data_to_send = new FormData();
+    const files = req.files;
+    const form_data = req.body;
 
-    await axios(config).then(function (response) {
-        res.status(200).json(response.data);
+    //preparing the multipart/form-data to send to the database
+    Object.entries(form_data).forEach(([key,value]) => {
+        form_data_to_send.append(key, value);
     });
+
+    files.forEach((file) => {
+        form_data_to_send.append(file.fieldname, file.buffer, {
+            filename: file.originalname,
+            contentType: file.mimetype,
+        });
+    })
+
+    await axios
+        .post(`${BASE_URL}/api/collections/diamond_cutting_license_application/records`, form_data_to_send, {
+            headers: form_data_to_send.getHeaders(),
+        })
+        .then(function (response) {
+            res.status(200).json(response.data);
+        });
+
 });
 
 exports.update_application = catch_async(async (req, res, next) => {
