@@ -7,7 +7,6 @@ import {
   IconButton,
   Card,
   Input,
-  Checkbox,
   Timeline,
   TimelineItem,
   TimelineConnector,
@@ -19,20 +18,14 @@ import {
   Dialog,
   CardHeader,
   CardBody,
-  CardFooter,
   Tab,
-  Select,
-  Option,
   TabPanel,
 } from "@material-tailwind/react";
 import axios from "axios";
 import {
   BellIcon,
-  ArchiveBoxIcon,
   CurrencyDollarIcon,
   BanknotesIcon,
-  CreditCardIcon,
-  LockClosedIcon,
 } from "@heroicons/react/24/solid";
 import { PiWarningThin } from "react-icons/pi";
 import { Link } from "react-router-dom";
@@ -53,6 +46,7 @@ export function Home() {
     shareholder_names: "",
     shareholders_nationality: "",
     experience: "",
+    phone:"",
     type: "stonesDealers",
     intended_operations: "",
     particulars_of_plant: "",
@@ -75,6 +69,7 @@ export function Home() {
     date: "2023-01-01 10:00:00.123Z",
     type: "kimberly-process",
     place: "",
+    phone:"",
     status: "pending",
   });
 
@@ -86,6 +81,7 @@ export function Home() {
     nationality: "",
     residential_address: "",
     occupation: "",
+    phone:"",
     license_applied_for: "",
     number_to_be_employed_cutters: 0,
     number_to_be_employed_polishers: 0,
@@ -99,6 +95,7 @@ export function Home() {
     goods_exported_to: "",
     reason_for_exporting: "",
     weight_of_goods: "",
+    phone:"",
     value_of_goods: "",
     goods_to_be_returned: "",
     returned_in_carats: "",
@@ -303,7 +300,7 @@ export function Home() {
         <Typography variant="h4" className="mb-2 text-[#0097c9] font-medium">
           Licensing and Permits
         </Typography>
-        {/*<Typography color="gray" className="font-normal "></Typography>*/}
+        <Typography  className="font-normal ">The Diamond Hub is made up of two units; the Business Development Office and Diamond Administration Office. The diamond administration office manages and regulates diamond imports and exports, whereas the business development is responsible for developing business value proposition for diamond sector in Botswana. Some of the services that are offered by the Diamond hub are automated while other are manual or/and semi automated. The services that are offered are;</Typography>
       </div>
 
       <div className="container px-10 md:px-0 mx-auto">
@@ -447,13 +444,15 @@ export function Home() {
                         value={form1.market_of_products}
                       />
 
-                      <Input
-                        size="lg"
-                        label="Signature"
-                        name="applicant_signature"
-                      />
 
-                      
+
+                       <Input
+                        name="phone"
+                        size="lg"
+                        onChange={handleForm1}
+                        value={form1.phone}
+                        label="Applicant Number"
+                      />
 
                       <Input
                         name="email"
@@ -463,7 +462,7 @@ export function Home() {
                         label="Applicant email"
                       />
 
-                    
+
 
                       <Button
                         onClick={() => {
@@ -621,9 +620,11 @@ export function Home() {
                         value={form2.date}
                       />
                       <Input
-                        type="Signature"
+                        type="number"
                         size="lg"
-                        label="Signature"
+                        name="phone"
+                        value={form2.phone}
+                        label="Applicant Number"
                         onChange={handleForm2}
                       />
                       <Input
@@ -778,11 +779,12 @@ export function Home() {
                         value={form3.address_of_importer}
                       />
                       <Input
+                        type="number"
                         size="lg"
-                        label="Date"
-                        name="date"
+                        name="phone"
+                        value={form3.phone}
+                        label="Applicant Number"
                         onChange={handleForm3}
-                        value={form3.date}
                       />
                       <Input
                         type="text"
