@@ -39,7 +39,7 @@ const TABS = [
   },
 ];
 
-const TABLE_HEAD = ["Member", "Function", "Status", "Employed", ""];
+const TABLE_HEAD = ["Member", "Position", "Phone Number", "Employed"];
 
 const TABLE_ROWS = [
   {
@@ -102,7 +102,7 @@ export default function SortableTable() {
       try {
         // Replace with your actual axios API call
         const response1 = await axios.get(
-            `${BASEURL}/api/diamond-cutting-license-applications/`
+            `${BASEURL}/api/users`
         );
         let response_dia = response1.data.items;
         setDataTable1(response_dia);
@@ -272,7 +272,7 @@ export default function SortableTable() {
             </thead>
             <tbody>
               {TABLE_ROWS.map(
-                ({ img, name, email, job, org, online, date }, index) => {
+                ({ img, name, email, position,number, org, online, date }, index) => {
                   const isLast = index === TABLE_ROWS.length - 1;
                   const classes = isLast
                     ? "p-4"
@@ -282,7 +282,14 @@ export default function SortableTable() {
                     <tr key={name}>
                       <td className={classes}>
                         <div className="flex items-center gap-3">
-                          <Avatar src={img} alt={name} size="sm" />
+                        <Avatar
+                              src={
+                                "https://smartbots.gov.bw/sites/default/files/logo-with-tagline.png"
+                              }
+                              alt={name}
+                              size="md"
+                              className="border border-blue-gray-50 bg-blue-gray-50/50 object-contain p-1"
+                            />
                           <div className="flex flex-col">
                             <Typography
                               variant="small"
@@ -308,27 +315,18 @@ export default function SortableTable() {
                             color="blue-gray"
                             className="font-normal"
                           >
-                            {job}
+                            {position}
                           </Typography>
                           <Typography
                             variant="small"
                             color="blue-gray"
                             className="font-normal opacity-70"
                           >
-                            {org}
+                            {number}
                           </Typography>
                         </div>
                       </td>
-                      <td className={classes}>
-                        <div className="w-max">
-                          <Chip
-                            variant="ghost"
-                            size="sm"
-                            value={online ? "online" : "offline"}
-                            color={online ? "green" : "blue-gray"}
-                          />
-                        </div>
-                      </td>
+                     
                       <td className={classes}>
                         <Typography
                           variant="small"

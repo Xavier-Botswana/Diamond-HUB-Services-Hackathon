@@ -492,7 +492,7 @@ export default function Applications() {
                     key={value}
                     value={value}
                     onClick={() => setTab(value)}
-                    className="flex w-fit"
+                    className="flex w-fit text-[#607d8b]"
                   >
                     {label}
                   </Tab>
