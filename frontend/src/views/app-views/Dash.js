@@ -145,8 +145,10 @@ export default function SortableTable() {
       <Typography variant="paragraph" className="w-92">
         Welcome to the Diamond Hub Service
       </Typography>
-      <div className="grid  lg:grid-cols-4 md:grid-cols-4 justify-evenly">
-        <Card className="mt-6 w-80">
+      <div className="grid  lg:grid-cols-4 gap-4 md:grid-cols-4 justify-evenly">
+       
+       
+        <Card className="mt-6 w-70">
           <CardBody>
             <Typography variant="h5" color="#bfbfbf" className="mb-2">
              
@@ -166,7 +168,7 @@ export default function SortableTable() {
           </CardBody>
         </Card>
 
-        <Card className="mt-6 w-80">
+        <Card className="mt-6 w-70">
           <CardBody>
             <Typography variant="h5" color="#bfbfbf" className="mb-2">
               {" "}
@@ -186,7 +188,7 @@ export default function SortableTable() {
           </CardBody>
         </Card>
 
-        <Card className="mt-6 w-80">
+        <Card className="mt-6 w-70">
           <CardBody>
             <Typography variant="h5
             
@@ -211,7 +213,7 @@ export default function SortableTable() {
           </CardBody>
         </Card>
 
-        <Card className="mt-6 w-80">
+        <Card className="mt-6 w-70">
           <CardBody>
             <Typography variant="h5" color="#bfbfbf" className="mb-2">
               {" "}
