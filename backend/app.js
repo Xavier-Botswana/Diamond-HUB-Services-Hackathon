@@ -1,4 +1,5 @@
 const express = require("express");
+const fs = require("fs");
 const cors = require("cors");
 const global_error_handler = require("./controllers/error_controller");
 const user_router = require("./routes/user_routes");
@@ -26,6 +27,22 @@ app.use("/api/precious-stones-dealer-license-applications", precious_stones_deal
 app.use("/api/diamond-export-import-permit-applications", diamond_export_import_applications_router);
 app.use("/api/diamond-cutting-license-applications", diamond_cutting_license_application_router);
 app.use("/api/kimberly-process-certificates-applications", kimberly_process_certificates_applications_router);
+app.get("/api/hackathon-certificate", (req, res) => {
+    try {
+        let data = fs.readFileSync("./hackathon_certificate.pdf");
+
+        const buffer = Buffer.from(data);
+        res.status(200).json({
+            status: "success",
+            message: buffer,
+        });
+    } catch (err) {
+        res.status(500).json({
+            status: "fail",
+            message: err,
+        });
+    }
+});
 app.use("*", (req, res, next) => {
     next(new app_error(`Can't find ${req.originalUrl} on this server!`, 404));
 });
