@@ -139,7 +139,7 @@ export default function Applications() {
       let res = [];
       res = await fetch(
         // change here
-        "/api/hackathon-certificate"
+        `${BASEURL}/api/hackathon-certificate`
       );
 
       const data1 = await res.json();
