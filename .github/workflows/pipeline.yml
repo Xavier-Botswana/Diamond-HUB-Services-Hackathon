@@ -1,0 +1,36 @@
+name: Push-to-Diamond-Hub-VM
+
+# Trigger deployment only on push to main branch
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: Deploy to Diamond on master branch push
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the files
+        uses: actions/checkout@v2
+
+      - name: Deploy to Test Deployment Server
+        uses: easingthemes/ssh-deploy@main
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.DIAMOND_HUB_SSH_KEY }}
+          REMOTE_HOST: ${{ secrets.DIAMOND_HUB_VM }}
+          REMOTE_USER: ${{ secrets.DIAMOND_HUB_USERNAME }}
+          TARGET: ${{ secrets.DIAMOND_HUB_TARGET_DIR }}
+
+      - name: Run docker compose build
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.DIAMOND_HUB_VM }}
+          username: ${{ secrets.DIAMOND_HUB_USERNAME }}
+          key: ${{ secrets.DIAMOND_HUB_SSH_KEY }}
+          script: |
+            sudo apt update
+            git pull
+            docker compose up -d --force-recreate --build
+
