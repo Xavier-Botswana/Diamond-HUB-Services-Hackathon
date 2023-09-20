@@ -17,10 +17,8 @@ import {
   Chip,
   Tabs,
   Dialog,
-
   TabsHeader,
   Tab,
-
   Avatar,
   IconButton,
   Tooltip,
@@ -35,91 +33,59 @@ const TABLE_HEAD3 = ["Transaction3", "Amount", "Date", "Status", "Account", ""];
 
 const TABLE_ROWS = [
   {
-    id:"1",
+    id: "1",
     img: "/img/logos/logo-spotify.svg",
-    name: "Spotify",
-    amount: "$2,500",
+    name: "Diamond Cutting License",
+    amount: "P500",
     date: "Wed 3:00pm",
     status: "paid",
     account: "visa",
     accountNumber: "1234",
     expiry: "06/2026",
   },
-  { id:"2",
+  {
+    id: "2",
     img: "/img/logos/logo-amazon.svg",
-    name: "Amazon",
-    amount: "$5,000",
+    name: "Kimberly Process",
+    amount: "P500",
     date: "Wed 1:00pm",
-    status: "paid",
+    status: "pending",
     account: "master-card",
     accountNumber: "1234",
     expiry: "06/2026",
   },
-  { id:"3",
+  {
+    id: "3",
     img: "/img/logos/logo-pinterest.svg",
-    name: "Pinterest",
-    amount: "$3,400",
+    name: "Diamond Cutting License",
+    amount: "P700",
     date: "Mon 7:40pm",
     status: "pending",
     account: "master-card",
     accountNumber: "1234",
     expiry: "06/2026",
   },
-  { id:"4",
+  {
+    id: "4",
     img: "/img/logos/logo-google.svg",
-    name: "Google",
-    amount: "$1,000",
+    name: "Kimberly Process",
+    amount: "P1000",
     date: "Wed 5:00pm",
     status: "paid",
     account: "visa",
     accountNumber: "1234",
     expiry: "06/2026",
   },
-  { id:"5",
+  {
+    id: "5",
     img: "/img/logos/logo-netflix.svg",
-    name: "netflix",
-    amount: "$14,000",
+    name: "Diamond Cutting License",
+    amount: "P500",
     date: "Wed 3:30am",
     status: "cancelled",
     account: "visa",
     accountNumber: "1234",
     expiry: "06/2026",
-  },
-];
-
-const data = [
-  {
-    label: "HTML",
-    value: "html",
-    desc: `It really matters and then like it really doesn't matter.
-    What matters is the people who are sparked by it. And the people 
-    who are like offended by it, it doesn't matter.`,
-  },
-  {
-    label: "React",
-    value: "react",
-    desc: `Because it's about motivating the doers. Because I'm here
-    to follow my dreams and inspire other people to follow their dreams, too.`,
-  },
-  {
-    label: "Vue",
-    value: "vue",
-    desc: `We're not always in the position that we want to be at.
-    We're constantly growing. We're constantly making mistakes. We're
-    constantly trying to express ourselves and actualize our dreams.`,
-  },
-  {
-    label: "Angular",
-    value: "angular",
-    desc: `Because it's about motivating the doers. Because I'm here
-    to follow my dreams and inspire other people to follow their dreams, too.`,
-  },
-  {
-    label: "Svelte",
-    value: "svelte",
-    desc: `We're not always in the position that we want to be at.
-    We're constantly growing. We're constantly making mistakes. We're
-    constantly trying to express ourselves and actualize our dreams.`,
   },
 ];
 
@@ -134,8 +100,6 @@ export default function Payments() {
 
   return (
     <div className="px-20 pt-[105px] flex flex-col">
-
-
       <Card className="h-full w-full  mt-10 mb-20">
         <CardHeader floated={false} shadow={false} className="rounded-none">
           <div className="mb-8 flex items-center justify-between gap-8">
@@ -666,7 +630,6 @@ export default function Payments() {
             <Button className="bg-[#f0d4d4]" onClick={handleOpen} fullWidth>
               Decline Payment
             </Button>
-           
           </CardFooter>
         </Card>
       </Dialog>

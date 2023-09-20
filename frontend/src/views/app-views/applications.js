@@ -139,7 +139,7 @@ export default function Applications() {
       let res = [];
       res = await fetch(
         // change here
-        "https://certificates.erb.org.bw/api/files/" + categoryparam
+        "/api/hackathon-certificate"
       );
 
       const data1 = await res.json();
@@ -161,7 +161,7 @@ export default function Applications() {
         const firstPage = pages[0];
         const { width, height } = firstPage.getSize();
 
-        const names = "firstname";
+        const names = data[0].name;
         const textWidth = helveticaFont.widthOfTextAtSize(names, 15);
         const centerX = (width - textWidth) / 2;
         firstPage.drawText(names, {
@@ -172,7 +172,7 @@ export default function Applications() {
           color: rgb(0.29, 0.337, 0.408),
         });
 
-        const practices = "practice";
+        const practices = data[0].license_applied_for;
         const textWidth01 = helveticaFont.widthOfTextAtSize(practices, 11);
         const centerX01 = (width - textWidth01) / 2;
         firstPage.drawText(practices, {
@@ -183,7 +183,7 @@ export default function Applications() {
           color: rgb(0.29, 0.337, 0.408),
         });
 
-        const disciplines = " discipline";
+        const disciplines = data[0].occupation;
         const textWidth02 = helveticaFont.widthOfTextAtSize(disciplines, 11);
         const centerX02 = (width - textWidth02) / 2;
         firstPage.drawText(disciplines, {
@@ -194,7 +194,7 @@ export default function Applications() {
           color: rgb(0.29, 0.337, 0.408),
         });
 
-        firstPage.drawText("registrationNumber", {
+        firstPage.drawText(data[0].location, {
           x: width / 1.4,
           y: height / 3 + 50,
           size: 9,
@@ -202,7 +202,7 @@ export default function Applications() {
           color: rgb(0.29, 0.337, 0.408),
         });
 
-        firstPage.drawText("certificateNumber", {
+        firstPage.drawText(data[0].id, {
           x: width / 5.5 - 9,
           y: height / 3 + 50,
           size: 9,
@@ -210,7 +210,7 @@ export default function Applications() {
           color: rgb(0.29, 0.337, 0.408),
         });
 
-        firstPage.drawText(`currentDate`, {
+        firstPage.drawText(data[0].name, {
           x: width / 6.3,
           y: height / 3 + 19,
           size: 9,
@@ -218,7 +218,7 @@ export default function Applications() {
           color: rgb(0.29, 0.337, 0.408),
         });
 
-        firstPage.drawText(`certificate_Number`, {
+        firstPage.drawText(data[0].name, {
           x: width / 4.3,
           y: height / 4 - 109,
           size: 9,
@@ -226,7 +226,7 @@ export default function Applications() {
           color: rgb(1, 1, 1),
         });
 
-        firstPage.drawText(`expiryDate`, {
+        firstPage.drawText(data[0].name, {
           x: width / 1.51,
           y: height / 3 + 19,
           size: 9,
@@ -899,7 +899,7 @@ export default function Applications() {
           <CardHeader
             variant="gradient"
             // color="blue"
-            className="mb-4  grid h-28 place-items-center bg-[#45518d]"
+            className="mb-4  grid  h-20 place-items-center bg-[#bfbfc0]"
           >
             <Typography variant="h3" color="white">
               Application Details
@@ -1045,7 +1045,7 @@ export default function Applications() {
           <CardHeader
             variant="gradient"
             // color="blue"
-            className="mb-4  grid h-28 place-items-center bg-[#dcdcdd]"
+            className="mb-4  grid  h-20 place-items-center bg-[#bfbfc0]"
           >
             <Typography variant="h3" color="white">
               Application Details
@@ -1191,7 +1191,7 @@ export default function Applications() {
           <CardHeader
             variant="gradient"
             // color="blue"
-            className="mb-4  grid h-28 place-items-center bg-[#d6d7d8]"
+            className="mb-4  grid  h-20 place-items-center bg-[#bfbfc0]"
           >
             <Typography variant="h3" color="white">
               Application Details
@@ -1335,8 +1335,19 @@ export default function Applications() {
             </Typography>
           </CardHeader>
           <CardBody className="flex flex-col gap-4">
-            <Input label="Reason" size="lg" onChange={handleForm} name="reason" value={form.reason}/>
-            <Textarea label="Description"   onChange={handleForm} name="description" value={form.description}/>
+            <Input
+              label="Reason"
+              size="lg"
+              onChange={handleForm}
+              name="reason"
+              value={form.reason}
+            />
+            <Textarea
+              label="Description"
+              onChange={handleForm}
+              name="description"
+              value={form.description}
+            />
           </CardBody>
           <CardFooter className="pt-0">
             <Button

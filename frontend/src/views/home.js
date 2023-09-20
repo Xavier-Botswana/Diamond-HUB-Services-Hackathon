@@ -37,7 +37,7 @@ import {
 import { PiWarningThin } from "react-icons/pi";
 import { Link } from "react-router-dom";
 import PaypalButton from "./components/paypalButton";
-import {BASEURL} from "../utils/baseEndpoints";
+import { BASEURL } from "../utils/baseEndpoints";
 export function Home() {
   const [openNav, setOpenNav] = useState(false);
   const [fields, setFields] = useState(false);
@@ -106,6 +106,11 @@ export function Home() {
     date: "2022-01-01 10:00:00.123Z",
   });
 
+  const onFileUpload = (e) => {
+  
+  
+  };
+
   const handleForm1 = (e) => {
     setForm1({ ...form1, [e.target.name]: e.target.value });
   };
@@ -124,10 +129,7 @@ export function Home() {
 
   const submitForm1 = async () => {
     axios
-      .post(
-        `${BASEURL}/api/precious-stones-dealer-license-applications`,
-        form1
-      )
+      .post(`${BASEURL}/api/precious-stones-dealer-license-applications`, form1)
       .then((response) => {
         // open payment dialog
         handleOpen();
@@ -136,10 +138,7 @@ export function Home() {
 
   const submitForm2 = async () => {
     axios
-      .post(
-        `${BASEURL}/api/diamond-export-import-permit-applications`,
-        form2
-      )
+      .post(`${BASEURL}/api/diamond-export-import-permit-applications`, form2)
       .then((response) => {
         alert("done");
         console.log(response);
@@ -148,10 +147,7 @@ export function Home() {
 
   const submitForm3 = async () => {
     axios
-      .post(
-        `${BASEURL}/api/kimberly-process-certificates-applications`,
-        form3
-      )
+      .post(`${BASEURL}/api/kimberly-process-certificates-applications`, form3)
       .then((response) => {
         alert("done");
       });
@@ -159,10 +155,7 @@ export function Home() {
 
   const submitForm4 = async () => {
     axios
-      .post(
-        `${BASEURL}/api/diamond-cutting-license-applications`,
-        form4
-      )
+      .post(`${BASEURL}/api/diamond-cutting-license-applications`, form4)
       .then((response) => {
         alert("done");
       });
@@ -468,6 +461,13 @@ export function Home() {
                         label="Applicant email"
                       />
 
+                      <Input
+                        name="documentLink"
+                        type="file"
+                        onChange={onFileUpload}
+                        accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                      />
+
                       <Button
                         onClick={() => {
                           submitForm1();
@@ -636,6 +636,8 @@ export function Home() {
                         value={form2.email}
                         label="Applicant email"
                       />
+
+                      
                       <Button
                         onClick={() => {
                           submitForm2();
@@ -793,6 +795,7 @@ export function Home() {
                         onChange={handleForm3}
                         value={form3.place}
                       />
+                     
                       <Button
                         className="mt-6 hover:bg-[#0097c9]"
                         fullWidth
@@ -955,6 +958,17 @@ export function Home() {
                         label="Email Address"
                         name="email"
                       />
+
+                      {/* heeeeeeerrrrreeeeeeeeee */}
+                       <Input
+                        type="file"
+                        size="lg"
+                        onChange={handleForm4}
+                        value={form4.document}
+                       
+                        name="document"
+                      />
+
                       <Input
                         type="text"
                         size="lg"
@@ -963,14 +977,8 @@ export function Home() {
                         hidden
                         name="email"
                       />{" "}
-                      <Input
-                        type="text"
-                        size="lg"
-                        onChange={handleForm4}
-                        value={form4.email}
-                        hidden
-                        name="email"
-                      />{" "}
+
+
                       <Button
                         className="mt-6 hover:bg-[#0097c9]"
                         fullWidth
