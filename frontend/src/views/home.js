@@ -134,8 +134,7 @@ export function Home() {
     axios
       .post(`${BASEURL}/api/diamond-export-import-permit-applications`, form2)
       .then((response) => {
-        alert("done");
-        console.log(response);
+        handleOpen();
       });
   };
 
@@ -143,7 +142,7 @@ export function Home() {
     axios
       .post(`${BASEURL}/api/kimberly-process-certificates-applications`, form3)
       .then((response) => {
-        alert("done");
+        handleOpen();
       });
   };
 
@@ -151,7 +150,7 @@ export function Home() {
     axios
       .post(`${BASEURL}/api/diamond-cutting-license-applications`, form4)
       .then((response) => {
-        alert("done");
+        handleOpen();
       });
   };
 
