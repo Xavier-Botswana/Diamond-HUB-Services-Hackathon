@@ -109,7 +109,7 @@ import {BASEURL} from "../../utils/baseEndpoints";
           console.log(logs_response);
 
           let response = logs_response.data.items;
-          response   = response.filter((row) => row.status === true);
+          // response   = response.filter((row) => row.status === true);
           const results = response.filter((row) => row.id === ID);
           if(results.length !== 0){setData(results)}
           setDataTable(response);
@@ -125,6 +125,8 @@ import {BASEURL} from "../../utils/baseEndpoints";
       };
       fetchDataIfNeeded().then(r => {});
     }, [ID]);
+
+
     return (
       <div className="px-20 pt-[125px]">
         <Card className="h-full w-full  mt-10 mb-20">
@@ -195,9 +197,6 @@ import {BASEURL} from "../../utils/baseEndpoints";
                     return (
                       <tr key={id}>
                         <td className={classes}>
-                          <div className="flex items-center gap-3">
-                            {/*<Avatar src={img} alt={id} size="sm" />*/}
-                            <div className="flex flex-col">
                               <Typography
                                 variant="small"
                                 color="blue-gray"
@@ -205,6 +204,9 @@ import {BASEURL} from "../../utils/baseEndpoints";
                               >
                                 {id}
                               </Typography>
+                              </td>
+                           <td className={classes}>
+
                               <Typography
                                 variant="small"
                                 color="blue-gray"
@@ -212,11 +214,9 @@ import {BASEURL} from "../../utils/baseEndpoints";
                               >
                                 {type}
                               </Typography>
-                            </div>
-                          </div>
+                          
                         </td>
                         <td className={classes}>
-                          <div className="flex flex-col">
                             <Typography
                               variant="small"
                               color="blue-gray"
@@ -224,6 +224,9 @@ import {BASEURL} from "../../utils/baseEndpoints";
                             >
                               {description}
                             </Typography>
+                            </td>
+                        <td className={classes}>
+
                             <Typography
                               variant="small"
                               color="blue-gray"
@@ -231,18 +234,9 @@ import {BASEURL} from "../../utils/baseEndpoints";
                             >
                               {username}
                             </Typography>
-                          </div>
+                       
                         </td>
-                        {/*<td className={classes}>*/}
-                        {/*  <div className="w-max">*/}
-                        {/*    <Chip*/}
-                        {/*      variant="ghost"*/}
-                        {/*      size="sm"*/}
-                        {/*      value={online ? "online" : "offline"}*/}
-                        {/*      color={online ? "green" : "blue-gray"}*/}
-                        {/*    />*/}
-                        {/*  </div>*/}
-                        {/*</td>*/}
+                       
                         <td className={classes}>
                           <Typography
                             variant="small"
@@ -252,13 +246,7 @@ import {BASEURL} from "../../utils/baseEndpoints";
                             {user_id}
                           </Typography>
                         </td>
-                        <td className={classes}>
-                          <Tooltip content="Edit User">
-                            <IconButton variant="text">
-                              <PencilIcon className="h-4 w-4" />
-                            </IconButton>
-                          </Tooltip>
-                        </td>
+                    
                       </tr>
                     );
                   }

@@ -391,7 +391,20 @@ export default function Applications() {
     setID(id);
     setOpen3(true);
   };
-
+  const headers = [
+    {
+      label: "Diamond Cutting License",
+      value: "1",
+    },
+    {
+      label: "Kimberly Process Certificate",
+      value: "2",
+    },
+    {
+      label: "Stones Dealers Licence",
+      value: "3",
+    },
+  ];
   return (
     <div className="px-20 pt-[125px]">
       <Card className="h-full w-full  mt-10 mb-20">
@@ -409,39 +422,17 @@ export default function Applications() {
           </div>
           <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
             <Tabs value="1" className="w-full md:w-max">
-              <TabsHeader>
-                <Tab
-                  className="w-[400px]"
-                  key={1}
-                  value="1"
-                  onClick={() => {
-                    setTab("1");
-                  }}
-                >
-                  Diamond Cutting Licence
-                </Tab>
-
-                <Tab
-                  className="w-[400px]"
-                  key={2}
-                  value="2"
-                  onClick={() => {
-                    setTab("2");
-                  }}
-                >
-                  Kimberly Process Certificate
-                </Tab>
-
-                <Tab
-                  className="md:w-[300px]"
-                  key={3}
-                  value="3"
-                  onClick={() => {
-                    setTab("3");
-                  }}
-                >
-                  Stones Dealers Licence
-                </Tab>
+            <TabsHeader>
+                {headers.map(({ label, value }) => (
+                  <Tab
+                    key={value}
+                    value={value}
+                    onClick={() => setTab(value)}
+                    className="flex w-fit"
+                  >
+                    {label}
+                  </Tab>
+                ))}
               </TabsHeader>
             </Tabs>
             <div className="w-full md:w-72">

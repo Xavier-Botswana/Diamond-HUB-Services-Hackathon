@@ -28,7 +28,7 @@ app.post("/send", async (req, res) => {
     const message = req.body.message;
     const base64String = req.body.base64String;
 
-    await sendEmail(message, base64String,email);
+    await sendEmail(message, base64String, email);
 
     return res.status(200);
   } catch (error) {

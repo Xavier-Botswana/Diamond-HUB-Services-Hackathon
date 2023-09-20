@@ -31,7 +31,7 @@ import {
 } from "@material-tailwind/react";
 import axios from "axios";
 
-const TABLE_HEAD1 = ["Full name", "Nationality", "Occupation", "Status", ""];
+const TABLE_HEAD = ["Full name", "Nationality", "Occupation", "Status", ""];
 
 
 export default function CompanyKYC() {
@@ -65,7 +65,7 @@ export default function CompanyKYC() {
         .post("http://127.0.0.1:8080/api/companies", company)
         .then((response) => {
           console.log("Response:", response.data);
-          alert("done")
+          alert("Company added")
         })
         .catch((error) => {
           console.error("Error:", error);
@@ -82,14 +82,14 @@ export default function CompanyKYC() {
       try {
         // Replace with your actual axios API call
         let response = await axios.get(
-          "http://127.0.0.1:8080/api/diamond-cutting-license-applications/"
+          "http://127.0.0.1:8080/api/companies"
         );
         response = response.data.items;
-        response = response.filter((row) => row.status === true);
+        console.log(response)
         const results = response.filter((row) => row.id === ID);
-        if (results.length !== 0) {
-          setData(results);
-        }
+        // if (results.length !== 0) {
+        //   setData(results);
+        // }
         setDataTable(response);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -152,7 +152,7 @@ export default function CompanyKYC() {
                 Company Profiles
               </Typography>
               <Typography color="gray" className="mt-1 font-normal">
-                See information about all Permits and certificates
+                See information about company
               </Typography>
             </div>
             <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
@@ -183,7 +183,7 @@ export default function CompanyKYC() {
           <table className="mt-4 w-full min-w-max table-auto text-left">
             <thead>
               <tr>
-                {TABLE_HEAD1.map((head, index) => (
+                {TABLE_HEAD.map((head, index) => (
                   <th
                     key={head}
                     className="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50"
@@ -194,7 +194,7 @@ export default function CompanyKYC() {
                       className="flex items-center justify-between gap-2 font-normal leading-none opacity-70"
                     >
                       {head}{" "}
-                      {index !== TABLE_HEAD1.length - 1 && (
+                      {index !== TABLE_HEAD.length - 1 && (
                         <ChevronUpDownIcon
                           strokeWidth={2}
                           className="h-4 w-4"
@@ -209,13 +209,11 @@ export default function CompanyKYC() {
               {TABLE_ROWS.map(
                 (
                   {
-                    img,
-                    full_name,
-                    email,
-                    occupation,
-                    nationality,
-                    status,
-                    residential_address,
+                    name,
+                    number_of_employees,
+                    physical_address,
+                    email_address,
+                    phone,
                     id,
                   },
                   index
@@ -226,7 +224,7 @@ export default function CompanyKYC() {
                     : "p-4 border-b border-blue-gray-50";
 
                   return (
-                    <tr key={full_name}>
+                    <tr key={name}>
                       <td className={classes}>
                         <div className="flex items-center gap-3">
                           <div className="flex flex-col">
@@ -235,14 +233,14 @@ export default function CompanyKYC() {
                               color="blue-gray"
                               className="font-normal"
                             >
-                              {full_name}
+                              {name}
                             </Typography>
                             <Typography
                               variant="small"
                               color="blue-gray"
                               className="font-normal opacity-70"
                             >
-                              {email}
+                              {email_address}
                             </Typography>
                           </div>
                         </div>
@@ -255,7 +253,7 @@ export default function CompanyKYC() {
                             color="blue-gray"
                             className="font-normal"
                           >
-                            {nationality}
+                            {number_of_employees}
                           </Typography>
                         </div>
                       </td>
@@ -265,19 +263,8 @@ export default function CompanyKYC() {
                           color="blue-gray"
                           className="font-normal"
                         >
-                          {occupation}
+                          {physical_address}
                         </Typography>
-                      </td>
-
-                      <td className={classes}>
-                        <div className="w-max">
-                          <Chip
-                            variant="ghost"
-                            size="sm"
-                            value={!status ? "Pending" : "Approved"}
-                            color={!status ? "red" : "green"}
-                          />
-                        </div>
                       </td>
                       <td className={classes}>
                         <Tooltip content="View">
@@ -301,7 +288,7 @@ export default function CompanyKYC() {
 
         <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
           <Typography variant="small" color="blue-gray" className="font-normal">
-            Page 1 of {TABLE_ROWS.length}
+            Page 1 of 3
           </Typography>
           <div className="flex gap-2">
             <Button variant="outlined" size="sm">
@@ -393,8 +380,6 @@ export default function CompanyKYC() {
               />
             </div>
 
-           
-
             <div>
               <label>Phone</label>
               <Input
@@ -402,7 +387,7 @@ export default function CompanyKYC() {
                 size="lg"
                 name="phone"
                 onChange={handleForm}
-                value={company.phone}              />
+                value={company.phone} />
             </div>
           </CardBody>
           <CardFooter className="pt-0 grid grid-cols-2 gap-2">

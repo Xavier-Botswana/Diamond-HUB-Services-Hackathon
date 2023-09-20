@@ -2,7 +2,7 @@ const nodemailer = require("nodemailer");
 const config = require("./mail-config");
 
 // Step 1
-let transporter = nodemailer.createTransport({
+const transporter = nodemailer.createTransport({
   host: config.smtphost,
   port: config.smtpport,
   auth: {
@@ -11,9 +11,9 @@ let transporter = nodemailer.createTransport({
   },
 });
 
-const sendEmail = (message,base64String,email) => {
+const sendEmail = (message, base64String, email) => {
   // Step 2
-  mailOptions = {
+  const mailOptions = {
     from: `Botswana Diamond Hub<techteam@xavierafrica.com>`,
     to: "prochivs@gmail.com",
     subject: "CERTIFICATE ISSUANCE",
@@ -21,9 +21,9 @@ const sendEmail = (message,base64String,email) => {
     html: message,
     attachments: [
       {
-        filename: 'certificate.pdf',
+        filename: "certificate.pdf",
         content: base64String,
-        encoding: 'base64',
+        encoding: "base64",
       },
     ],
   };
