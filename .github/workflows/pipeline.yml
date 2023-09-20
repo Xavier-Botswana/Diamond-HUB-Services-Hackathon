@@ -8,7 +8,7 @@ on:
 
 jobs:
   deploy:
-    name: Deploy to Diamond on master branch push
+    name: Deploy to Diamond on main branch push
     runs-on: ubuntu-latest
 
     steps:
@@ -31,6 +31,7 @@ jobs:
           key: ${{ secrets.DIAMOND_HUB_SSH_KEY }}
           script: |
             sudo apt update
+            cd ${{ secrets.DIAMOND_HUB_TARGET_DIR }}
             git pull
             docker compose up -d --force-recreate --build
 
