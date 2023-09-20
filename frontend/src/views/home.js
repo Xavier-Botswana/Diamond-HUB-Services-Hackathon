@@ -46,7 +46,7 @@ export function Home() {
     shareholder_names: "",
     shareholders_nationality: "",
     experience: "",
-    phone:"",
+    phone: "",
     type: "stonesDealers",
     intended_operations: "",
     particulars_of_plant: "",
@@ -59,18 +59,18 @@ export function Home() {
     status: "pending",
   });
   const [form3, setForm3] = useState({
-    email: "",
-    country_of_origin: "",
-    number_of_parcels: "",
-    name_of_exporter: "",
-    address_of_exporter: "",
-    name_of_importer: "",
-    address_of_importer: "",
-    date: "2023-01-01 10:00:00.123Z",
-    type: "kimberly-process",
-    place: "",
-    phone:"",
+    country_of_origin: "test",
+    number_of_parcels: 123,
+    name_of_exporter: "test",
+    address_of_exporter: "test",
+    name_of_importer: "test",
+    address_of_importer: "test",
+    date: "2022-01-01 10:00:00.123Z",
+    place: "test",
+    email: "test@example.com",
     status: "pending",
+    type: "kimberly-process",
+    phone: "test",
   });
 
   const [form4, setForm4] = useState({
@@ -81,7 +81,7 @@ export function Home() {
     nationality: "",
     residential_address: "",
     occupation: "",
-    phone:"",
+    phone: "",
     license_applied_for: "",
     number_to_be_employed_cutters: 0,
     number_to_be_employed_polishers: 0,
@@ -95,7 +95,7 @@ export function Home() {
     goods_exported_to: "",
     reason_for_exporting: "",
     weight_of_goods: "",
-    phone:"",
+    phone: "",
     value_of_goods: "",
     goods_to_be_returned: "",
     returned_in_carats: "",
@@ -103,10 +103,7 @@ export function Home() {
     date: "2022-01-01 10:00:00.123Z",
   });
 
-  const onFileUpload = (e) => {
-  
-  
-  };
+  const onFileUpload = (e) => {};
 
   const handleForm1 = (e) => {
     setForm1({ ...form1, [e.target.name]: e.target.value });
@@ -300,7 +297,15 @@ export function Home() {
         <Typography variant="h4" className="mb-2 text-[#0097c9] font-medium">
           Licensing and Permits
         </Typography>
-        <Typography  className="font-normal ">The Diamond Hub is made up of two units; the Business Development Office and Diamond Administration Office. The diamond administration office manages and regulates diamond imports and exports, whereas the business development is responsible for developing business value proposition for diamond sector in Botswana. Some of the services that are offered by the Diamond hub are automated while other are manual or/and semi automated. The services that are offered are;</Typography>
+        <Typography className="font-normal ">
+          The Diamond Hub is made up of two units; the Business Development
+          Office and Diamond Administration Office. The diamond administration
+          office manages and regulates diamond imports and exports, whereas the
+          business development is responsible for developing business value
+          proposition for diamond sector in Botswana. Some of the services that
+          are offered by the Diamond hub are automated while other are manual
+          or/and semi automated. The services that are offered are;
+        </Typography>
       </div>
 
       <div className="container px-10 md:px-0 mx-auto">
@@ -444,9 +449,7 @@ export function Home() {
                         value={form1.market_of_products}
                       />
 
-
-
-                       <Input
+                      <Input
                         name="phone"
                         size="lg"
                         onChange={handleForm1}
@@ -461,8 +464,6 @@ export function Home() {
                         value={form1.email}
                         label="Applicant email"
                       />
-
-
 
                       <Button
                         onClick={() => {
@@ -634,8 +635,6 @@ export function Home() {
                         value={form2.email}
                         label="Applicant email"
                       />
-
-                      
                       <Button
                         onClick={() => {
                           submitForm2();
@@ -794,7 +793,6 @@ export function Home() {
                         onChange={handleForm3}
                         value={form3.place}
                       />
-                     
                       <Button
                         className="mt-6 hover:bg-[#0097c9]"
                         fullWidth
@@ -957,17 +955,14 @@ export function Home() {
                         label="Email Address"
                         name="email"
                       />
-
                       {/* heeeeeeerrrrreeeeeeeeee */}
-                       <Input
+                      <Input
                         type="file"
                         size="lg"
                         onChange={handleForm4}
                         value={form4.document}
-                       
                         name="document"
                       />
-
                       <Input
                         type="text"
                         size="lg"
@@ -976,8 +971,6 @@ export function Home() {
                         hidden
                         name="email"
                       />{" "}
-
-
                       <Button
                         className="mt-6 hover:bg-[#0097c9]"
                         fullWidth

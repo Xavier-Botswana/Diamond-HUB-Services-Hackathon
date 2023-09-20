@@ -102,6 +102,8 @@ export default function Applications() {
           {
             status: "approved",
           }
+
+
         );
       } else if (data[0].type === "kimberly-process") {
         await axios.patch(
@@ -119,6 +121,21 @@ export default function Applications() {
         );
       }
 
+      let to = `+267${data[0].phone}`;
+      let body =
+        "Good day,This is to inform you that your application has been approved.(Botswana Diamond Hub)";
+      axios
+        .post(
+          "https://us-central1-avemaria-webapp.cloudfunctions.net/app/sms",
+          {
+            to: to,
+            body: body,
+          }
+        )
+        .catch((error) => {
+          console.log(error);
+        });
+
       await axios.post(
         `${BASEURL}/api/logs`,
         {
@@ -126,6 +143,22 @@ export default function Applications() {
           description: "actioned application",
           username: "john doe",
           user_id: "user123",
+          channel: "system",
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      await axios.post(
+        `${BASEURL}/api/logs`,
+        {
+          type: "activity",
+          description: "Application approval sms notification",
+          username: "John doe",
+          user_id: "User123",
           channel: "system",
         },
         {
@@ -237,51 +270,40 @@ export default function Applications() {
         // Embed the QR code image
 
         // change here to vercel
-        let qCodeText = `https://certificates.erb.org.bw/certificateQr/?id=`;
-        let qCodeDataURL = await QRCode.toDataURL(qCodeText);
-        let qCodeImage = await pdfDoc.embedPng(
-          Uint8Array.from(atob(qCodeDataURL.split(",")[1]), (c) =>
-            c.charCodeAt(0)
-          )
-        );
+        // let qCodeText = `https://certificates.erb.org.bw/certificateQr/?id=`;
+        // let qCodeDataURL = await QRCode.toDataURL(qCodeText);
+        // let qCodeImage = await pdfDoc.embedPng(
+        //   Uint8Array.from(atob(qCodeDataURL.split(",")[1]), (c) =>
+        //     c.charCodeAt(0)
+        //   )
+        // );
 
-        firstPage.drawImage(qCodeImage, {
-          x: width / 2 + 150,
-          y: height / 70,
-          width: 45,
-          height: 45,
-          color: rgb(0, 0, 0),
-        });
+        // firstPage.drawImage(qCodeImage, {
+        //   x: width / 2 + 150,
+        //   y: height / 70,
+        //   width: 45,
+        //   height: 45,
+        //   color: rgb(0, 0, 0),
+        // });
 
         const pdfBytes = await pdfDoc.save();
         const base64String = await pdfDoc.saveAsBase64();
+
+     
+
+        //TODO add functionality that will update the license application
+        // TODO add logging functionality
 
         const data = {
           email: `{data[0].email}`,
           message: `<h4>Good day</h4><p>This is to inform you that your certificate has been created successfully.\n Thank you</p>`,
           base64String: base64String,
         };
-
-        let to = `${data[0].phone}`;
-        let body =
-          "Good day,This is to inform you that your application has been approved.";
+      
+        
         axios
           .post(
-            "https://us-central1-avemaria-webapp.cloudfunctions.net/app/sms",
-            {
-              to: to,
-              body: body,
-            }
-          )
-          .catch((error) => {
-            console.log(error);
-          });
-
-        //TODO add functionality that will update the license application
-        // TODO add logging functionality
-        axios
-          .post(
-            "http://localhost:5000/diamond-hub-e2534/us-central1/api/send",
+            "https://us-central1-diamond-hub-e2534.cloudfunctions.net/api/send",
             data
           )
           .then((response) => {
