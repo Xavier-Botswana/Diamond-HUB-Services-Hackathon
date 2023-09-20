@@ -7,7 +7,6 @@ import {
   IconButton,
   Card,
   Input,
-  Checkbox,
   Timeline,
   TimelineItem,
   TimelineConnector,
@@ -19,25 +18,19 @@ import {
   Dialog,
   CardHeader,
   CardBody,
-  CardFooter,
   Tab,
-  Select,
-  Option,
   TabPanel,
 } from "@material-tailwind/react";
 import axios from "axios";
 import {
   BellIcon,
-  ArchiveBoxIcon,
   CurrencyDollarIcon,
   BanknotesIcon,
-  CreditCardIcon,
-  LockClosedIcon,
 } from "@heroicons/react/24/solid";
 import { PiWarningThin } from "react-icons/pi";
 import { Link } from "react-router-dom";
 import PaypalButton from "./components/paypalButton";
-import {BASEURL} from "../utils/baseEndpoints";
+import { BASEURL } from "../utils/baseEndpoints";
 export function Home() {
   const [openNav, setOpenNav] = useState(false);
   const [fields, setFields] = useState(false);
@@ -53,6 +46,7 @@ export function Home() {
     shareholder_names: "",
     shareholders_nationality: "",
     experience: "",
+    phone: "",
     type: "stonesDealers",
     intended_operations: "",
     particulars_of_plant: "",
@@ -65,17 +59,18 @@ export function Home() {
     status: "pending",
   });
   const [form3, setForm3] = useState({
-    email: "",
-    country_of_origin: "",
-    number_of_parcels: "",
-    name_of_exporter: "",
-    address_of_exporter: "",
-    name_of_importer: "",
-    address_of_importer: "",
-    date: "2023-01-01 10:00:00.123Z",
-    type: "kimberly-process",
-    place: "",
+    country_of_origin: "test",
+    number_of_parcels: 123,
+    name_of_exporter: "test",
+    address_of_exporter: "test",
+    name_of_importer: "test",
+    address_of_importer: "test",
+    date: "2022-01-01 10:00:00.123Z",
+    place: "test",
+    email: "test@example.com",
     status: "pending",
+    type: "kimberly-process",
+    phone: "test",
   });
 
   const [form4, setForm4] = useState({
@@ -86,6 +81,7 @@ export function Home() {
     nationality: "",
     residential_address: "",
     occupation: "",
+    phone: "",
     license_applied_for: "",
     number_to_be_employed_cutters: 0,
     number_to_be_employed_polishers: 0,
@@ -99,12 +95,15 @@ export function Home() {
     goods_exported_to: "",
     reason_for_exporting: "",
     weight_of_goods: "",
+    phone: "",
     value_of_goods: "",
     goods_to_be_returned: "",
     returned_in_carats: "",
     not_returned_in_carats: "",
     date: "2022-01-01 10:00:00.123Z",
   });
+
+  const onFileUpload = (e) => {};
 
   const handleForm1 = (e) => {
     setForm1({ ...form1, [e.target.name]: e.target.value });
@@ -124,10 +123,7 @@ export function Home() {
 
   const submitForm1 = async () => {
     axios
-      .post(
-        `${BASEURL}/api/precious-stones-dealer-license-applications`,
-        form1
-      )
+      .post(`${BASEURL}/api/precious-stones-dealer-license-applications`, form1)
       .then((response) => {
         // open payment dialog
         handleOpen();
@@ -136,10 +132,7 @@ export function Home() {
 
   const submitForm2 = async () => {
     axios
-      .post(
-        `${BASEURL}/api/diamond-export-import-permit-applications`,
-        form2
-      )
+      .post(`${BASEURL}/api/diamond-export-import-permit-applications`, form2)
       .then((response) => {
         alert("done");
         console.log(response);
@@ -148,10 +141,7 @@ export function Home() {
 
   const submitForm3 = async () => {
     axios
-      .post(
-        `${BASEURL}/api/kimberly-process-certificates-applications`,
-        form3
-      )
+      .post(`${BASEURL}/api/kimberly-process-certificates-applications`, form3)
       .then((response) => {
         alert("done");
       });
@@ -159,10 +149,7 @@ export function Home() {
 
   const submitForm4 = async () => {
     axios
-      .post(
-        `${BASEURL}/api/diamond-cutting-license-applications`,
-        form4
-      )
+      .post(`${BASEURL}/api/diamond-cutting-license-applications`, form4)
       .then((response) => {
         alert("done");
       });
@@ -310,13 +297,14 @@ export function Home() {
         <Typography variant="h4" className="mb-2 text-[#0097c9] font-medium">
           Licensing and Permits
         </Typography>
-        <Typography color="gray" className="font-normal ">
-          Can you help me out? you will get a lot of free exposure doing this
-          can my website be in english?. There is too much white space do less
-          with more, so that will be a conversation piece can you rework to make
-          the pizza look more delicious other agencies charge much lesser can
-          you make the blue bluer?. I think we need to start from scratch can my
-          website be in english?, yet make it sexy i&apos;ll pay you in a week
+        <Typography className="font-normal ">
+          The Diamond Hub is made up of two units; the Business Development
+          Office and Diamond Administration Office. The diamond administration
+          office manages and regulates diamond imports and exports, whereas the
+          business development is responsible for developing business value
+          proposition for diamond sector in Botswana. Some of the services that
+          are offered by the Diamond hub are automated while other are manual
+          or/and semi automated. The services that are offered are;
         </Typography>
       </div>
 
@@ -462,9 +450,11 @@ export function Home() {
                       />
 
                       <Input
+                        name="phone"
                         size="lg"
-                        label="Signature"
-                        name="applicant_signature"
+                        onChange={handleForm1}
+                        value={form1.phone}
+                        label="Applicant Number"
                       />
 
                       <Input
@@ -631,9 +621,11 @@ export function Home() {
                         value={form2.date}
                       />
                       <Input
-                        type="Signature"
+                        type="number"
                         size="lg"
-                        label="Signature"
+                        name="phone"
+                        value={form2.phone}
+                        label="Applicant Number"
                         onChange={handleForm2}
                       />
                       <Input
@@ -786,11 +778,12 @@ export function Home() {
                         value={form3.address_of_importer}
                       />
                       <Input
+                        type="number"
                         size="lg"
-                        label="Date"
-                        name="date"
+                        name="phone"
+                        value={form3.phone}
+                        label="Applicant Number"
                         onChange={handleForm3}
-                        value={form3.date}
                       />
                       <Input
                         type="text"
@@ -962,14 +955,14 @@ export function Home() {
                         label="Email Address"
                         name="email"
                       />
+                      {/* heeeeeeerrrrreeeeeeeeee */}
                       <Input
-                        type="text"
+                        type="file"
                         size="lg"
                         onChange={handleForm4}
-                        value={form4.email}
-                        hidden
-                        name="email"
-                      />{" "}
+                        value={form4.document}
+                        name="document"
+                      />
                       <Input
                         type="text"
                         size="lg"

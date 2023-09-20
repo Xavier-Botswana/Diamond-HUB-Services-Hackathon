@@ -20,6 +20,9 @@ import {
   IconButton,
   Tooltip,
 } from "@material-tailwind/react";
+import axios from "axios";
+import {useEffect, useState} from "react";
+import {BASEURL} from "../../utils/baseEndpoints";
 
 const TABS = [
   {
@@ -87,6 +90,53 @@ const TABLE_ROWS = [
 ];
 
 export default function SortableTable() {
+  const [data, setData] = useState({});
+  const [TABLE_ROWS, setDataTable1] = useState([]);
+  const [TABLE_ROWS2, setDataTable2] = useState([]);
+  const [TABLE_ROWS3, setDataTable3] = useState([]);
+  const [ID, setID] = useState("1");
+  const [all_elements, set_all_elements] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // Replace with your actual axios API call
+        const response1 = await axios.get(
+            `${BASEURL}/api/diamond-cutting-license-applications/`
+        );
+        let response_dia = response1.data.items;
+        setDataTable1(response_dia);
+
+        // kimberly
+        const response2 = await axios.get(
+            `${BASEURL}/api/kimberly-process-certificates-applications`
+        );
+        let response_kim = response2.data.items;
+
+        setDataTable2(response_kim);
+
+
+        // Stones
+        const response3 = await axios.get(
+            `${BASEURL}/api/precious-stones-dealer-license-applications/`
+        );
+        let response_pre = response3.data.items;
+        setDataTable3(response_pre);
+        set_all_elements([...TABLE_ROWS,...TABLE_ROWS2,...TABLE_ROWS3]);
+
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    const fetchDataIfNeeded = async () => {
+      if (ID) {
+        await fetchData();
+      }
+    };
+    fetchDataIfNeeded();
+  }, [all_elements]);
+
   return (
     <div className="px-20 pt-[105px]">
       <Typography variant="h5" color="blue-gray">
@@ -108,10 +158,10 @@ export default function SortableTable() {
                   Completed
                 </Typography>
                 <Typography color="#79b5c9" variant="h6">
-                  50%
+                   {all_elements.length > 0 ? Math.round((all_elements.filter((element) => element.status === "approved").length/ all_elements.length) * 100) : 0}%
                 </Typography>
               </div>
-              <Progress value={50} color="orange" />
+              <Progress value={Math.round((all_elements.filter((element) => element.status === "approved").length/ all_elements.length) * 100)} color="orange" />
             </div>
           </CardBody>
         </Card>
@@ -128,17 +178,23 @@ export default function SortableTable() {
                   Completed
                 </Typography>
                 <Typography color="#79b5c9" variant="h6">
-                  50%
+                  {all_elements.length > 0 ? Math.round((all_elements.filter((element) => element.status === "pending").length/ all_elements.length) * 100) : 0 }%
                 </Typography>
               </div>
-              <Progress value={50} color="green" />
+              <Progress value={Math.round((all_elements.filter((element) => element.status === "pending").length/ all_elements.length) * 100)} color="green" />
             </div>
           </CardBody>
         </Card>
 
         <Card className="mt-6 w-80">
           <CardBody>
-            <Typography variant="h5" color="#bfbfbf" className="mb-2">
+            <Typography variant="h5
+            
+            
+            
+            
+            
+            " color="#bfbfbf" className="mb-2">
               Approved Payments
             </Typography>
             <div className="w-full">
@@ -167,10 +223,10 @@ export default function SortableTable() {
                   Completed
                 </Typography>
                 <Typography color="#79b5c9" variant="h6">
-                  50%
+                  {all_elements.length > 0 ? Math.round((all_elements.filter((element) => element.status === "approved").length/ all_elements.length) * 100) : 0 }%
                 </Typography>
               </div>
-              <Progress value={50} color="yellow" />
+              <Progress value={Math.round((all_elements.filter((element) => element.status === "approved").length/ all_elements.length) * 100)} color="yellow" />
             </div>
           </CardBody>
         </Card>

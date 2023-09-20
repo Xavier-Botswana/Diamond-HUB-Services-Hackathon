@@ -42,56 +42,9 @@ import {BASEURL} from "../../utils/baseEndpoints";
     },
   ];
   
-  const TABLE_HEAD = ["Member", "Function", "Status", "Employed", ""];
+  const TABLE_HEAD = [ "ID","Activity", "Employee_Responsible", "Channel"];
   
-  // const TABLE_ROWS = [
-  //   {
-  //     img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-3.jpg",
-  //     name: "John Michael",
-  //     email: "john@creative-tim.com",
-  //     job: "Manager",
-  //     org: "Organization",
-  //     online: true,
-  //     date: "23/04/18",
-  //   },
-  //   {
-  //     img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-2.jpg",
-  //     name: "Alexa Liras",
-  //     email: "alexa@creative-tim.com",
-  //     job: "Programator",
-  //     org: "Developer",
-  //     online: false,
-  //     date: "23/04/18",
-  //   },
-  //   {
-  //     img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-1.jpg",
-  //     name: "Laurent Perrier",
-  //     email: "laurent@creative-tim.com",
-  //     job: "Executive",
-  //     org: "Projects",
-  //     online: false,
-  //     date: "19/09/17",
-  //   },
-  //   {
-  //     img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-4.jpg",
-  //     name: "Michael Levi",
-  //     email: "michael@creative-tim.com",
-  //     job: "Programator",
-  //     org: "Developer",
-  //     online: true,
-  //     date: "24/12/08",
-  //   },
-  //   {
-  //     img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-5.jpg",
-  //     name: "Richard Gran",
-  //     email: "richard@creative-tim.com",
-  //     job: "Manager",
-  //     org: "Executive",
-  //     online: false,
-  //     date: "04/10/21",
-  //   },
-  // ];
-  
+
   export default function Logs() {
 
     const [data, setData] = useState({});
@@ -109,7 +62,7 @@ import {BASEURL} from "../../utils/baseEndpoints";
           console.log(logs_response);
 
           let response = logs_response.data.items;
-          response   = response.filter((row) => row.status === true);
+          // response   = response.filter((row) => row.status === true);
           const results = response.filter((row) => row.id === ID);
           if(results.length !== 0){setData(results)}
           setDataTable(response);
@@ -125,6 +78,8 @@ import {BASEURL} from "../../utils/baseEndpoints";
       };
       fetchDataIfNeeded().then(r => {});
     }, [ID]);
+
+
     return (
       <div className="px-20 pt-[125px]">
         <Card className="h-full w-full  mt-10 mb-20">
@@ -194,29 +149,19 @@ import {BASEURL} from "../../utils/baseEndpoints";
   
                     return (
                       <tr key={id}>
-                        <td className={classes}>
-                          <div className="flex items-center gap-3">
-                            {/*<Avatar src={img} alt={id} size="sm" />*/}
-                            <div className="flex flex-col">
-                              <Typography
-                                variant="small"
-                                color="blue-gray"
-                                className="font-normal"
-                              >
-                                {id}
-                              </Typography>
+                       
+                           <td className={classes}>
+
                               <Typography
                                 variant="small"
                                 color="blue-gray"
                                 className="font-normal opacity-70"
                               >
-                                {type}
+                                {user_id}
                               </Typography>
-                            </div>
-                          </div>
+                          
                         </td>
                         <td className={classes}>
-                          <div className="flex flex-col">
                             <Typography
                               variant="small"
                               color="blue-gray"
@@ -224,6 +169,9 @@ import {BASEURL} from "../../utils/baseEndpoints";
                             >
                               {description}
                             </Typography>
+                            </td>
+                        <td className={classes}>
+
                             <Typography
                               variant="small"
                               color="blue-gray"
@@ -231,34 +179,19 @@ import {BASEURL} from "../../utils/baseEndpoints";
                             >
                               {username}
                             </Typography>
-                          </div>
+                       
                         </td>
-                        {/*<td className={classes}>*/}
-                        {/*  <div className="w-max">*/}
-                        {/*    <Chip*/}
-                        {/*      variant="ghost"*/}
-                        {/*      size="sm"*/}
-                        {/*      value={online ? "online" : "offline"}*/}
-                        {/*      color={online ? "green" : "blue-gray"}*/}
-                        {/*    />*/}
-                        {/*  </div>*/}
-                        {/*</td>*/}
+                       
                         <td className={classes}>
                           <Typography
                             variant="small"
                             color="blue-gray"
                             className="font-normal"
                           >
-                            {user_id}
+                            {channel}
                           </Typography>
                         </td>
-                        <td className={classes}>
-                          <Tooltip content="Edit User">
-                            <IconButton variant="text">
-                              <PencilIcon className="h-4 w-4" />
-                            </IconButton>
-                          </Tooltip>
-                        </td>
+                    
                       </tr>
                     );
                   }

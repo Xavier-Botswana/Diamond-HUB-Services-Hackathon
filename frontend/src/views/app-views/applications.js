@@ -7,7 +7,7 @@ import { PDFDocument, rgb, StandardFonts } from "pdf-lib";
 import { Viewer, Worker, SpecialZoomLevel } from "@react-pdf-viewer/core";
 import "@react-pdf-viewer/core/lib/styles/index.css";
 import "@react-pdf-viewer/default-layout/lib/styles/index.css";
-
+import QRCode from "qrcode";
 import { UserPlusIcon } from "@heroicons/react/24/solid";
 import { PiEyeThin } from "react-icons/pi";
 import {
@@ -30,7 +30,7 @@ import {
   Tooltip,
 } from "@material-tailwind/react";
 import axios from "axios";
-import {BASEURL} from "../../utils/baseEndpoints";
+import { BASEURL } from "../../utils/baseEndpoints";
 
 const TABLE_HEAD1 = ["Full name", "Nationality", "Occupation", "Status", ""];
 const TABLE_HEAD2 = [
@@ -45,64 +45,10 @@ const TABLE_HEAD2 = [
 const TABLE_HEAD3 = [
   "Full name",
   "Address",
-  // "Directors Names",
   "Location of Operations",
   "Stones Source",
   "Status",
   "",
-];
-
-const TABLE = [
-  {
-    id: "1",
-    img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-3.jpg",
-    name: "John Michael",
-    email: "prochivs@gmail.com",
-    job: "Manager",
-    org: "Organization",
-    online: true,
-    date: "23/04/18",
-  },
-  {
-    id: "12",
-    img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-2.jpg",
-    name: "Alexa Liras",
-    email: "alexa@creative-tim.com",
-    job: "Programator",
-    org: "Developer",
-    online: false,
-    date: "23/04/18",
-  },
-  {
-    id: "154",
-    img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-1.jpg",
-    name: "Laurent Perrier",
-    email: "laurent@creative-tim.com",
-    job: "Executive",
-    org: "Projects",
-    online: false,
-    date: "19/09/17",
-  },
-  {
-    id: "1524",
-    img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-4.jpg",
-    name: "Michael Levi",
-    email: "michael@creative-tim.com",
-    job: "Programator",
-    org: "Developer",
-    online: true,
-    date: "24/12/08",
-  },
-  {
-    id: "1514",
-    img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-5.jpg",
-    name: "Richard Gran",
-    email: "richard@creative-tim.com",
-    job: "Manager",
-    org: "Executive",
-    online: false,
-    date: "04/10/21",
-  },
 ];
 
 export default function Applications() {
@@ -115,17 +61,22 @@ export default function Applications() {
   const [openApp, setOpenApp] = useState(false);
   const [ID, setID] = useState("1");
   const [data, setData] = useState({});
-  const [PDFDATA, setPdfdata] = useState(null);
-  const [pdfnum, setPdfnum] = useState(null);
-  const [pdfbs, setPdfbs] = useState(null);
   const [TABLE_ROWS, setDataTable1] = useState([]);
   const [TABLE_ROWS2, setDataTable2] = useState([]);
   const [TABLE_ROWS3, setDataTable3] = useState([]);
+  const [form, setFormData] = useState({
+    reason: "",
+    description: "",
+  });
 
   const [search, setSearch] = useState("");
 
   const handleOpen = (results) => {
     setOpen((cur) => !cur);
+  };
+
+  const handleForm = (e) => {
+    setFormData({ ...form, [e.target.name]: e.target.value });
   };
 
   const handleOpen2 = (results) => {
@@ -149,42 +100,79 @@ export default function Applications() {
         await axios.patch(
           `${BASEURL}/api/diamond-cutting-license-applications/${data[0].id}`,
           {
-            status:"approved"
+            status: "approved",
           }
+
+
         );
       } else if (data[0].type === "kimberly-process") {
         await axios.patch(
           `${BASEURL}/api/kimberly-process-certificates-applications/${data[0].id}`,
           {
-            status:"approved"
+            status: "approved",
           }
         );
       } else if (data[0].type === "stonesDealers") {
         await axios.patch(
           `${BASEURL}/api/precious-stones-dealer-license-applications/${data[0].id}`,
           {
-            status: "approved"
+            status: "approved",
           }
         );
       }
 
-      await axios.post(`${BASEURL}/api/logs`,
+      let to = `+267${data[0].phone}`;
+      let body =
+        "Good day,This is to inform you that your application has been approved.(Botswana Diamond Hub)";
+      axios
+        .post(
+          "https://us-central1-avemaria-webapp.cloudfunctions.net/app/sms",
           {
-            "type": "activity",
-            "description": "actioned application",
-            "username": "john doe",
-            "user_id": "user123",
-            "channel": "system"
-          },{
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          });
+            to: to,
+            body: body,
+          }
+        )
+        .catch((error) => {
+          console.log(error);
+        });
+
+      await axios.post(
+        `${BASEURL}/api/logs`,
+        {
+          type: "activity",
+          description: "actioned application",
+          username: "john doe",
+          user_id: "user123",
+          channel: "system",
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      await axios.post(
+        `${BASEURL}/api/logs`,
+        {
+          type: "activity",
+          description: "Application approval sms notification",
+          username: "John doe",
+          user_id: "User123",
+          channel: "system",
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       let categoryparam = "practice";
       let res = [];
       res = await fetch(
-        "https://certificates.erb.org.bw/api/files/" + categoryparam
+        // change here
+        `${BASEURL}/api/hackathon-certificate`
       );
 
       const data1 = await res.json();
@@ -206,7 +194,7 @@ export default function Applications() {
         const firstPage = pages[0];
         const { width, height } = firstPage.getSize();
 
-        const names = "firstname";
+        const names = data[0].name;
         const textWidth = helveticaFont.widthOfTextAtSize(names, 15);
         const centerX = (width - textWidth) / 2;
         firstPage.drawText(names, {
@@ -217,7 +205,7 @@ export default function Applications() {
           color: rgb(0.29, 0.337, 0.408),
         });
 
-        const practices = "practice";
+        const practices = data[0].license_applied_for;
         const textWidth01 = helveticaFont.widthOfTextAtSize(practices, 11);
         const centerX01 = (width - textWidth01) / 2;
         firstPage.drawText(practices, {
@@ -228,7 +216,7 @@ export default function Applications() {
           color: rgb(0.29, 0.337, 0.408),
         });
 
-        const disciplines = " discipline";
+        const disciplines = data[0].occupation;
         const textWidth02 = helveticaFont.widthOfTextAtSize(disciplines, 11);
         const centerX02 = (width - textWidth02) / 2;
         firstPage.drawText(disciplines, {
@@ -239,7 +227,7 @@ export default function Applications() {
           color: rgb(0.29, 0.337, 0.408),
         });
 
-        firstPage.drawText("registrationNumber", {
+        firstPage.drawText(data[0].location, {
           x: width / 1.4,
           y: height / 3 + 50,
           size: 9,
@@ -247,7 +235,7 @@ export default function Applications() {
           color: rgb(0.29, 0.337, 0.408),
         });
 
-        firstPage.drawText("certificateNumber", {
+        firstPage.drawText(data[0].id, {
           x: width / 5.5 - 9,
           y: height / 3 + 50,
           size: 9,
@@ -255,7 +243,7 @@ export default function Applications() {
           color: rgb(0.29, 0.337, 0.408),
         });
 
-        firstPage.drawText(`currentDate`, {
+        firstPage.drawText(data[0].name, {
           x: width / 6.3,
           y: height / 3 + 19,
           size: 9,
@@ -263,7 +251,7 @@ export default function Applications() {
           color: rgb(0.29, 0.337, 0.408),
         });
 
-        firstPage.drawText(`certificate_Number`, {
+        firstPage.drawText(data[0].name, {
           x: width / 4.3,
           y: height / 4 - 109,
           size: 9,
@@ -271,7 +259,7 @@ export default function Applications() {
           color: rgb(1, 1, 1),
         });
 
-        firstPage.drawText(`expiryDate`, {
+        firstPage.drawText(data[0].name, {
           x: width / 1.51,
           y: height / 3 + 19,
           size: 9,
@@ -279,11 +267,15 @@ export default function Applications() {
           color: rgb(0.29, 0.337, 0.408),
         });
 
-        // // Embed the QR code image
-        // let qCodeText = `https://certificates.erb.org.bw/certificateQr/?id=${response.data.id}`;
+        // Embed the QR code image
+
+        // change here to vercel
+        // let qCodeText = `https://certificates.erb.org.bw/certificateQr/?id=`;
         // let qCodeDataURL = await QRCode.toDataURL(qCodeText);
         // let qCodeImage = await pdfDoc.embedPng(
-        //   Uint8Array.from(atob(qCodeDataURL.split(',')[1]), (c) => c.charCodeAt(0))
+        //   Uint8Array.from(atob(qCodeDataURL.split(",")[1]), (c) =>
+        //     c.charCodeAt(0)
+        //   )
         // );
 
         // firstPage.drawImage(qCodeImage, {
@@ -296,20 +288,22 @@ export default function Applications() {
 
         const pdfBytes = await pdfDoc.save();
         const base64String = await pdfDoc.saveAsBase64();
-        setPdfnum(pdfBytes);
-        setPdfbs(base64String);
+
+     
+
+        //TODO add functionality that will update the license application
+        // TODO add logging functionality
 
         const data = {
           email: `{data[0].email}`,
           message: `<h4>Good day</h4><p>This is to inform you that your certificate has been created successfully.\n Thank you</p>`,
           base64String: base64String,
         };
-
-        //TODO add functionality that will update the license application
-        // TODO add logging functionality
+      
+        
         axios
           .post(
-            "http://localhost:5000/diamond-hub-e2534/us-central1/api/send",
+            "https://us-central1-diamond-hub-e2534.cloudfunctions.net/api/send",
             data
           )
           .then((response) => {
@@ -326,6 +320,35 @@ export default function Applications() {
 
   const sendDecline = async () => {
     try {
+      let to = `${data[0].phone}`;
+      let body = form.reason;
+      axios
+        .post(
+          "https://us-central1-avemaria-webapp.cloudfunctions.net/app/sms",
+          {
+            to: to,
+            body: body,
+          }
+        )
+        .catch((error) => {
+          console.log(error);
+        });
+
+      const data = {
+        email: `${data[0].email}`,
+        message: `<h4>Good day</h4><p>This is to inform you that your application has been declined.${form.description}\n Thank you</p>`,
+      };
+
+      //TODO add functionality that will update the license application
+      // TODO add logging functionality
+      axios
+        .post(
+          "http://localhost:5000/diamond-hub-e2534/us-central1/api/send",
+          data
+        )
+        .then((response) => {
+          console.log("Response:", response.data);
+        });
     } catch (error) {
       console.log(error);
     }
@@ -438,6 +461,21 @@ export default function Applications() {
     setOpen3(true);
   };
 
+  const headers = [
+    {
+      label: "Diamond Cutting License",
+      value: "1",
+    },
+    {
+      label: "Kimberly Process Certificate",
+      value: "2",
+    },
+    {
+      label: "Stones Dealers Licence",
+      value: "3",
+    },
+  ];
+
   return (
     <div className="px-20 pt-[125px]">
       <Card className="h-full w-full  mt-10 mb-20">
@@ -456,40 +494,19 @@ export default function Applications() {
           <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
             <Tabs value="1" className="w-full md:w-max">
               <TabsHeader>
-                <Tab
-                  className="w-[400px]"
-                  key={1}
-                  value="1"
-                  onClick={() => {
-                    setTab("1");
-                  }}
-                >
-                  Diamond Cutting Licence
-                </Tab>
-
-                <Tab
-                  className="w-[400px]"
-                  key={2}
-                  value="2"
-                  onClick={() => {
-                    setTab("2");
-                  }}
-                >
-                  Kimberly Process Certificate
-                </Tab>
-
-                <Tab
-                  className="md:w-[300px]"
-                  key={3}
-                  value="3"
-                  onClick={() => {
-                    setTab("3");
-                  }}
-                >
-                  Stones Dealers Licence
-                </Tab>
+                {headers.map(({ label, value }) => (
+                  <Tab
+                    key={value}
+                    value={value}
+                    onClick={() => setTab(value)}
+                    className="flex w-fit"
+                  >
+                    {label}
+                  </Tab>
+                ))}
               </TabsHeader>
             </Tabs>
+
             <div className="w-full md:w-72">
               <Input
                 label="Search"
@@ -502,6 +519,7 @@ export default function Applications() {
             </div>
           </div>
         </CardHeader>
+
         {tab === "1" ? (
           <CardBody className="overflow-scroll px-0">
             <table className="mt-4 w-full min-w-max table-auto text-left">
@@ -553,6 +571,14 @@ export default function Applications() {
                       <tr key={full_name}>
                         <td className={classes}>
                           <div className="flex items-center gap-3">
+                            <Avatar
+                              src={
+                                "https://smartbots.gov.bw/sites/default/files/logo-with-tagline.png"
+                              }
+                              alt={full_name}
+                              size="md"
+                              className="border border-blue-gray-50 bg-blue-gray-50/50 object-contain p-1"
+                            />
                             <div className="flex flex-col">
                               <Typography
                                 variant="small"
@@ -598,8 +624,10 @@ export default function Applications() {
                             <Chip
                               variant="ghost"
                               size="sm"
-                              value={!status ? "Pending" : "Approved"}
-                              color={!status ? "red" : "green"}
+                              value={
+                                status === "pending" ? "Pending" : "Approved"
+                              }
+                              color={status === "pending" ? "red" : "green"}
                             />
                           </div>
                         </td>
@@ -676,7 +704,13 @@ export default function Applications() {
                       <tr key={name}>
                         <td className={classes}>
                           <div className="flex items-center gap-3">
-                            <Avatar src={img} alt={name} size="sm" />
+                            <Avatar
+                              src={
+                                "https://smartbots.gov.bw/sites/default/files/logo-with-tagline.png"
+                              }
+                              size="md"
+                              className="border border-blue-gray-50 bg-blue-gray-50/50 object-contain p-1"
+                            />
                             <div className="flex flex-col">
                               <Typography
                                 variant="small"
@@ -742,7 +776,7 @@ export default function Applications() {
               </tbody>
             </table>
           </CardBody>
-        ) : tab === "3" ? (
+        ) : (
           <CardBody className="overflow-scroll px-0">
             <table className="mt-4 w-full min-w-max table-auto text-left">
               <thead>
@@ -775,13 +809,10 @@ export default function Applications() {
                     {
                       source_of_stones,
                       applicant_name,
-                      number_to_employed,
                       email,
                       address,
                       location_of_operations,
-                      director_fullnames,
                       status,
-                      date,
                       id,
                     },
                     index
@@ -795,6 +826,13 @@ export default function Applications() {
                       <tr key={applicant_name}>
                         <td className={classes}>
                           <div className="flex items-center gap-3">
+                            <Avatar
+                              src={
+                                "https://smartbots.gov.bw/sites/default/files/logo-with-tagline.png"
+                              }
+                              size="md"
+                              className="border border-blue-gray-50 bg-blue-gray-50/50 object-contain p-1"
+                            />
                             <div className="flex flex-col">
                               <Typography
                                 variant="small"
@@ -847,8 +885,10 @@ export default function Applications() {
                             <Chip
                               variant="ghost"
                               size="sm"
-                              value={status ? "Approved" : "offline"}
-                              color={status ? "Pending" : "blue-gray"}
+                              value={
+                                status === "approved" ? "Approved" : "Pending"
+                              }
+                              color={status === "pending" ? "red" : "green"}
                             />
                           </div>
                         </td>
@@ -873,13 +913,11 @@ export default function Applications() {
               </tbody>
             </table>
           </CardBody>
-        ) : (
-          ""
         )}
 
         <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
           <Typography variant="small" color="blue-gray" className="font-normal">
-            Page 1 of {TABLE_ROWS.length}
+            Page 1 of 1
           </Typography>
           <div className="flex gap-2">
             <Button variant="outlined" size="sm">
@@ -893,6 +931,7 @@ export default function Applications() {
       </Card>
 
       {/* diamond */}
+
       <Dialog
         size="md"
         open={open}
@@ -903,7 +942,7 @@ export default function Applications() {
           <CardHeader
             variant="gradient"
             // color="blue"
-            className="mb-4  grid h-28 place-items-center bg-[#45518d]"
+            className="mb-4  grid  h-20 place-items-center bg-[#bfbfc0]"
           >
             <Typography variant="h3" color="white">
               Application Details
@@ -1049,7 +1088,7 @@ export default function Applications() {
           <CardHeader
             variant="gradient"
             // color="blue"
-            className="mb-4  grid h-28 place-items-center bg-[#45518d]"
+            className="mb-4  grid  h-20 place-items-center bg-[#bfbfc0]"
           >
             <Typography variant="h3" color="white">
               Application Details
@@ -1195,7 +1234,7 @@ export default function Applications() {
           <CardHeader
             variant="gradient"
             // color="blue"
-            className="mb-4  grid h-28 place-items-center bg-[#45518d]"
+            className="mb-4  grid  h-20 place-items-center bg-[#bfbfc0]"
           >
             <Typography variant="h3" color="white">
               Application Details
@@ -1339,8 +1378,19 @@ export default function Applications() {
             </Typography>
           </CardHeader>
           <CardBody className="flex flex-col gap-4">
-            <Input label="Reason" size="lg" />
-            <Textarea label="Description" />
+            <Input
+              label="Reason"
+              size="lg"
+              onChange={handleForm}
+              name="reason"
+              value={form.reason}
+            />
+            <Textarea
+              label="Description"
+              onChange={handleForm}
+              name="description"
+              value={form.description}
+            />
           </CardBody>
           <CardFooter className="pt-0">
             <Button
@@ -1381,7 +1431,7 @@ export default function Applications() {
           </CardBody>
           <CardFooter className="pt-0">
             <Button
-              className="hover:bg-[#3c95d2]"
+              className="hover:bg-[#e8e8e9]"
               onClick={() => {
                 handleOpenApp();
                 submitApproval();
