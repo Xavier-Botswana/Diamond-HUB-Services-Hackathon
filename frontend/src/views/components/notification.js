@@ -8,7 +8,7 @@ import {
   Typography,
 } from "@material-tailwind/react";
  
-export function NotificationDialog() {
+export default function NotificationDialog() {
   const [open, setOpen] = React.useState(false);
  
   const handleOpen = () => setOpen(!open);
