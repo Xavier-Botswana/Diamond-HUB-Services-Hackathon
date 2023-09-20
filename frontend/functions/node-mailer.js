@@ -15,7 +15,7 @@ const sendEmail = (message, base64String, email) => {
   // Step 2
   const mailOptions = {
     from: `Botswana Diamond Hub<techteam@xavierafrica.com>`,
-    to: "prochivs@gmail.com",
+    to: email,
     subject: "CERTIFICATE ISSUANCE",
     text: "Your new  certificate has been created",
     html: message,
