@@ -437,7 +437,7 @@ export function Home() {
                       <Input
                         size="lg"
                         label="Location of Operations"
-                        name="location_of_ops"
+                        name="location_of_operations"
                         onChange={handleForm1}
                         value={form1.location_of_operations}
                       />
@@ -475,7 +475,7 @@ export function Home() {
                         Apply
                       </Button>
                     </div>
-
+    
                     <div className="w-[25rem]">
                       <Timeline>
                         <TimelineItem className="h-28">

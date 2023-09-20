@@ -42,6 +42,7 @@ function PaypalButton() {
                             //         window.location.href = "/";
                             //     }
                             // });
+                        
                         });
                     },
                     onDecline: (err) => {
