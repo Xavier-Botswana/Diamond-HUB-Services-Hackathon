@@ -319,7 +319,7 @@ export function Home() {
           <Tabs id="custom-animation" value="1">
             <TabsHeader>
               {data.map(({ label, value }) => (
-                <Tab key={value} value={value}>
+                <Tab key={value} value={value} className="text-[#607d8b]">
                   {label}
                 </Tab>
               ))}
