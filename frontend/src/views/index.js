@@ -13,7 +13,7 @@ export default function Views() {
   return (
     <Switch>
       <Route exact path="/">
-        <Redirect to="/auth/login" />
+        <Redirect to="/home" />
       </Route>
       <Route path="/auth">
         <AuthLayout />

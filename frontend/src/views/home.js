@@ -475,7 +475,7 @@ export function Home() {
                         Apply
                       </Button>
                     </div>
-    
+
                     <div className="w-[25rem]">
                       <Timeline>
                         <TimelineItem className="h-28">
@@ -1080,7 +1080,10 @@ export function Home() {
               </Typography>
             </CardHeader>
             <CardBody className="shadow-none overflow-auto h-[400px]">
-              <PaypalButton />
+              <div onClick={() => setOpen(false)}>
+                {" "}
+                <PaypalButton />
+              </div>
             </CardBody>
           </Card>
         </Dialog>
