@@ -94,28 +94,28 @@ export default function Applications() {
 
   const submitApproval = async () => {
     try {
-      if (data[0].type === "diamondCutting") {
-        await axios.patch(
-          `${BASEURL}/api/diamond-cutting-license-applications/${data[0].id}`,
-          {
-            status: "approved",
-          }
-        );
-      } else if (data[0].type === "kimberly-process") {
-        await axios.patch(
-          `${BASEURL}/api/kimberly-process-certificates-applications/${data[0].id}`,
-          {
-            status: "approved",
-          }
-        );
-      } else if (data[0].type === "stonesDealers") {
-        await axios.patch(
-          `${BASEURL}/api/precious-stones-dealer-license-applications/${data[0].id}`,
-          {
-            status: "approved",
-          }
-        );
-      }
+      // if (data[0].type === "diamondCutting") {
+      //   await axios.patch(
+      //     `${BASEURL}/api/diamond-cutting-license-applications/${data[0].id}`,
+      //     {
+      //       status: "approved",
+      //     }
+      //   );
+      // } else if (data[0].type === "kimberly-process") {
+      //   await axios.patch(
+      //     `${BASEURL}/api/kimberly-process-certificates-applications/${data[0].id}`,
+      //     {
+      //       status: "approved",
+      //     }
+      //   );
+      // } else if (data[0].type === "stonesDealers") {
+      //   await axios.patch(
+      //     `${BASEURL}/api/precious-stones-dealer-license-applications/${data[0].id}`,
+      //     {
+      //       status: "approved",
+      //     }
+      //   );
+      // }
 
       let to = `+267${data[0].phone}`;
       let body =
@@ -163,12 +163,13 @@ export default function Applications() {
           },
         }
       );
-
+      console.log(data);
       let categoryparam = "practice";
       let res = [];
       res = await fetch(
         // change here
-        `${BASEURL}/api/hackathon-certificate`
+        
+        "https://certificates.erb.org.bw/api/files/" + categoryparam
       );
 
       const data1 = await res.json();
@@ -190,7 +191,7 @@ export default function Applications() {
         const firstPage = pages[0];
         const { width, height } = firstPage.getSize();
 
-        const names = data[0].name;
+        const names = "data[0].full_name";
         const textWidth = helveticaFont.widthOfTextAtSize(names, 15);
         const centerX = (width - textWidth) / 2;
         firstPage.drawText(names, {
@@ -201,7 +202,7 @@ export default function Applications() {
           color: rgb(0.29, 0.337, 0.408),
         });
 
-        const practices = data[0].license_applied_for;
+        const practices = "data[0].license_applied_for";
         const textWidth01 = helveticaFont.widthOfTextAtSize(practices, 11);
         const centerX01 = (width - textWidth01) / 2;
         firstPage.drawText(practices, {
@@ -212,7 +213,7 @@ export default function Applications() {
           color: rgb(0.29, 0.337, 0.408),
         });
 
-        const disciplines = data[0].occupation;
+        const disciplines = "data[0].occupation";
         const textWidth02 = helveticaFont.widthOfTextAtSize(disciplines, 11);
         const centerX02 = (width - textWidth02) / 2;
         firstPage.drawText(disciplines, {
@@ -223,7 +224,7 @@ export default function Applications() {
           color: rgb(0.29, 0.337, 0.408),
         });
 
-        firstPage.drawText(data[0].location, {
+        firstPage.drawText("data[0].nationality", {
           x: width / 1.4,
           y: height / 3 + 50,
           size: 9,
@@ -231,7 +232,7 @@ export default function Applications() {
           color: rgb(0.29, 0.337, 0.408),
         });
 
-        firstPage.drawText(data[0].id, {
+        firstPage.drawText("data[0].id", {
           x: width / 5.5 - 9,
           y: height / 3 + 50,
           size: 9,
@@ -239,7 +240,7 @@ export default function Applications() {
           color: rgb(0.29, 0.337, 0.408),
         });
 
-        firstPage.drawText(data[0].name, {
+        firstPage.drawText("data[0].full_name", {
           x: width / 6.3,
           y: height / 3 + 19,
           size: 9,
@@ -247,7 +248,7 @@ export default function Applications() {
           color: rgb(0.29, 0.337, 0.408),
         });
 
-        firstPage.drawText(data[0].name, {
+        firstPage.drawText("data[0].full_name", {
           x: width / 4.3,
           y: height / 4 - 109,
           size: 9,
@@ -255,7 +256,7 @@ export default function Applications() {
           color: rgb(1, 1, 1),
         });
 
-        firstPage.drawText(data[0].name, {
+        firstPage.drawText("data[0].full_name", {
           x: width / 1.51,
           y: height / 3 + 19,
           size: 9,
@@ -287,11 +288,11 @@ export default function Applications() {
 
         //TODO add functionality that will update the license application
         // TODO add logging functionality
-
+      alert("hello")
         const data = {
-          email: `{data[0].email}`,
+          email: data[0].email,
           message: `<h4>Good day</h4><p>This is to inform you that your certificate has been created successfully.\n Thank you</p>`,
-          base64String: base64String,
+          // base64String: base64String,
         };
 
         axios
@@ -336,7 +337,7 @@ export default function Applications() {
       // TODO add logging functionality
       axios
         .post(
-          "http://localhost:5000/diamond-hub-e2534/us-central1/api/send",
+          "https://us-central1-diamond-hub-e2534.cloudfunctions.net/api/send",
           data
         )
         .then((response) => {
@@ -680,10 +681,7 @@ export default function Applications() {
                       email,
                       name_of_exporter,
                       country_of_origin,
-                      address_of_exporter,
-                      name_of_importer,
                       status,
-                      address_of_importer,
                       id,
                     },
                     index

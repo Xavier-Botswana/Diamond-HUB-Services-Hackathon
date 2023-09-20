@@ -36,72 +36,16 @@ const TABLE_HEAD2 = [
   "Full name",
   "Country_of_origin",
   "Number_of_parcels",
-  "Name_of_exporter",
-  "address_of_importers",
   "Status",
   "",
 ];
 const TABLE_HEAD3 = [
   "Full name",
   "Address",
-  // "Directors Names",
   "Location of Operations",
   "Stones Source",
   "Status",
   "",
-];
-
-const TABLE = [
-  {
-    id: "1",
-    img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-3.jpg",
-    name: "John Michael",
-    email: "prochivs@gmail.com",
-    job: "Manager",
-    org: "Organization",
-    online: true,
-    date: "23/04/18",
-  },
-  {
-    id: "12",
-    img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-2.jpg",
-    name: "Alexa Liras",
-    email: "alexa@creative-tim.com",
-    job: "Programator",
-    org: "Developer",
-    online: false,
-    date: "23/04/18",
-  },
-  {
-    id: "154",
-    img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-1.jpg",
-    name: "Laurent Perrier",
-    email: "laurent@creative-tim.com",
-    job: "Executive",
-    org: "Projects",
-    online: false,
-    date: "19/09/17",
-  },
-  {
-    id: "1524",
-    img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-4.jpg",
-    name: "Michael Levi",
-    email: "michael@creative-tim.com",
-    job: "Programator",
-    org: "Developer",
-    online: true,
-    date: "24/12/08",
-  },
-  {
-    id: "1514",
-    img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-5.jpg",
-    name: "Richard Gran",
-    email: "richard@creative-tim.com",
-    job: "Manager",
-    org: "Executive",
-    online: false,
-    date: "04/10/21",
-  },
 ];
 
 export default function Applications() {
@@ -312,7 +256,7 @@ export default function Applications() {
         );
 
         let response = response1.data.items;
-        response = response.filter((row) => row.status ===  "approved");
+        response = response.filter((row) => row.status === "approved");
         const results = response.filter((row) => row.id === ID);
         if (results.length !== 0) {
           setData(results);
@@ -336,7 +280,7 @@ export default function Applications() {
           "http://127.0.0.1:8080/api/precious-stones-dealer-license-applications/"
         );
         let responsePre = response3.data.items;
-        responsePre = responsePre.filter((row) => row.status ===  "approved");
+        responsePre = responsePre.filter((row) => row.status === "approved");
         const resultsPre = responsePre.filter((row) => row.id === ID);
         if (resultsPre.length !== 0) {
           setData(resultsPre);
@@ -511,7 +455,6 @@ export default function Applications() {
                               src={
                                 "https://smartbots.gov.bw/sites/default/files/logo-with-tagline.png"
                               }
-                            
                               size="md"
                               className="border border-blue-gray-50 bg-blue-gray-50/50 object-contain p-1"
                             />
@@ -621,10 +564,7 @@ export default function Applications() {
                       email,
                       name_of_exporter,
                       country_of_origin,
-                      address_of_exporter,
-                      name_of_importer,
                       status,
-                      address_of_importer,
                       id,
                     },
                     index
@@ -642,7 +582,6 @@ export default function Applications() {
                               src={
                                 "https://smartbots.gov.bw/sites/default/files/logo-with-tagline.png"
                               }
-                            
                               size="md"
                               className="border border-blue-gray-50 bg-blue-gray-50/50 object-contain p-1"
                             />
@@ -652,7 +591,7 @@ export default function Applications() {
                                 color="blue-gray"
                                 className="font-normal"
                               >
-                                {name}
+                                {name_of_exporter}
                               </Typography>
                               <Typography
                                 variant="small"
@@ -684,13 +623,16 @@ export default function Applications() {
                         </td>
 
                         <td className={classes}>
-                          <Typography
-                            variant="small"
-                            color="blue-gray"
-                            className="font-normal"
-                          >
-                            {name_of_exporter}
-                          </Typography>
+                          <div className="w-max">
+                            <Chip
+                              variant="ghost"
+                              size="sm"
+                              value={
+                                status === "approved" ? "Approved" : "Pending"
+                              }
+                              color={status === "pending" ? "red" : "green"}
+                            />
+                          </div>
                         </td>
                         <td className={classes}>
                           <Tooltip content="View">
@@ -1004,10 +946,10 @@ export default function Applications() {
             </div>
           </CardBody>
           <CardFooter className="pt-0 grid grid-cols-2 gap-2">
-            <Button className="bg-[#005e25]" onClick={Approve} fullWidth>
+            <Button className="bg-[#c2d1c8]" onClick={Approve} fullWidth>
               Approve Application
             </Button>{" "}
-            <Button className="bg-[#c02323]" onClick={Decline} fullWidth>
+            <Button className="bg-[#c09f9f]" onClick={Decline} fullWidth>
               Decline Application
             </Button>
           </CardFooter>
@@ -1150,10 +1092,10 @@ export default function Applications() {
             </div>
           </CardBody>
           <CardFooter className="pt-0 grid grid-cols-2 gap-2">
-            <Button className="bg-[#005e25]" onClick={Approve} fullWidth>
+            <Button className="bg-[#c2d1c8]" onClick={Approve} fullWidth>
               Approve Application
             </Button>{" "}
-            <Button className="bg-[#c02323]" onClick={Decline} fullWidth>
+            <Button className="bg-[#c09f9f]" onClick={Decline} fullWidth>
               Decline Application
             </Button>
           </CardFooter>
