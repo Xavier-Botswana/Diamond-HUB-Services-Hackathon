@@ -35,6 +35,7 @@ export function Home() {
   const [openNav, setOpenNav] = useState(false);
   const [fields, setFields] = useState(false);
   const [files, setFiles] = useState([]);
+  const [docs, setDocs] = useState([]);
   const [open, setOpen] = React.useState(false);
   const [form1, setForm1] = useState({
     applicant_name: "",
@@ -103,6 +104,11 @@ export function Home() {
     date: "2022-01-01 10:00:00.123Z",
   });
 
+
+  const handleDocChange = (event) => {
+    setDocs((prevDocs) => [...prevDocs, ...event.target.files]);
+  };
+
   const onFileUpload = (e) => {};
 
   const handleForm1 = (e) => {
@@ -147,11 +153,31 @@ export function Home() {
   };
 
   const submitForm4 = async () => {
-    axios
-      .post(`${BASEURL}/api/diamond-cutting-license-applications`, form4)
-      .then((response) => {
-        handleOpen();
-      });
+    const form_data = new FormData();
+    // console.log(form4)
+    //preparing the multipart/form-data to send to the database
+    Object.entries(form4).forEach(([key,value]) => {
+      // console.log(key, value);
+      form_data.append(`${key}`, `${value}`);
+    });
+    console.log(docs[0])
+    form_data.append("report", docs[0], `${docs[0].name}`);
+    // form_data.append("report", docs[0], `${docs[0].name}`);
+
+    console.log(form_data);
+
+    const response3 = await axios.post(
+        `${BASEURL}/api/diamond-cutting-license-applications`,
+        form_data,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+    ).then((response) => {
+          // open payment dialog
+          handleOpen();
+        });
   };
 
   const data = [
@@ -958,8 +984,9 @@ export function Home() {
                       <Input
                         type="file"
                         size="lg"
-                        onChange={handleForm4}
-                        value={form4.document}
+                        // onChange={handleForm4}
+                        onChange={handleDocChange}
+                        // value={form4.document}
                         name="document"
                       />
                       <Input
