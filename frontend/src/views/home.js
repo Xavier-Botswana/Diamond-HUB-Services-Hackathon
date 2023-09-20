@@ -7,7 +7,6 @@ import {
   IconButton,
   Card,
   Input,
-  Checkbox,
   Timeline,
   TimelineItem,
   TimelineConnector,
@@ -19,20 +18,14 @@ import {
   Dialog,
   CardHeader,
   CardBody,
-  CardFooter,
   Tab,
-  Select,
-  Option,
   TabPanel,
 } from "@material-tailwind/react";
 import axios from "axios";
 import {
   BellIcon,
-  ArchiveBoxIcon,
   CurrencyDollarIcon,
   BanknotesIcon,
-  CreditCardIcon,
-  LockClosedIcon,
 } from "@heroicons/react/24/solid";
 import { PiWarningThin } from "react-icons/pi";
 import { Link } from "react-router-dom";
@@ -42,6 +35,7 @@ export function Home() {
   const [openNav, setOpenNav] = useState(false);
   const [fields, setFields] = useState(false);
   const [files, setFiles] = useState([]);
+  const [docs, setDocs] = useState([]);
   const [open, setOpen] = React.useState(false);
   const [form1, setForm1] = useState({
     applicant_name: "",
@@ -53,6 +47,7 @@ export function Home() {
     shareholder_names: "",
     shareholders_nationality: "",
     experience: "",
+    phone: "",
     type: "stonesDealers",
     intended_operations: "",
     particulars_of_plant: "",
@@ -65,17 +60,18 @@ export function Home() {
     status: "pending",
   });
   const [form3, setForm3] = useState({
-    email: "",
-    country_of_origin: "",
-    number_of_parcels: "",
-    name_of_exporter: "",
-    address_of_exporter: "",
-    name_of_importer: "",
-    address_of_importer: "",
-    date: "2023-01-01 10:00:00.123Z",
-    type: "kimberly-process",
-    place: "",
+    country_of_origin: "test",
+    number_of_parcels: 123,
+    name_of_exporter: "test",
+    address_of_exporter: "test",
+    name_of_importer: "test",
+    address_of_importer: "test",
+    date: "2022-01-01 10:00:00.123Z",
+    place: "test",
+    email: "test@example.com",
     status: "pending",
+    type: "kimberly-process",
+    phone: "test",
   });
 
   const [form4, setForm4] = useState({
@@ -86,6 +82,7 @@ export function Home() {
     nationality: "",
     residential_address: "",
     occupation: "",
+    phone: "",
     license_applied_for: "",
     number_to_be_employed_cutters: 0,
     number_to_be_employed_polishers: 0,
@@ -99,6 +96,7 @@ export function Home() {
     goods_exported_to: "",
     reason_for_exporting: "",
     weight_of_goods: "",
+    phone: "",
     value_of_goods: "",
     goods_to_be_returned: "",
     returned_in_carats: "",
@@ -106,10 +104,12 @@ export function Home() {
     date: "2022-01-01 10:00:00.123Z",
   });
 
-  const onFileUpload = (e) => {
-  
-  
+
+  const handleDocChange = (event) => {
+    setDocs((prevDocs) => [...prevDocs, ...event.target.files]);
   };
+
+  const onFileUpload = (e) => {};
 
   const handleForm1 = (e) => {
     setForm1({ ...form1, [e.target.name]: e.target.value });
@@ -140,8 +140,7 @@ export function Home() {
     axios
       .post(`${BASEURL}/api/diamond-export-import-permit-applications`, form2)
       .then((response) => {
-        alert("done");
-        console.log(response);
+        handleOpen();
       });
   };
 
@@ -149,16 +148,36 @@ export function Home() {
     axios
       .post(`${BASEURL}/api/kimberly-process-certificates-applications`, form3)
       .then((response) => {
-        alert("done");
+        handleOpen();
       });
   };
 
   const submitForm4 = async () => {
-    axios
-      .post(`${BASEURL}/api/diamond-cutting-license-applications`, form4)
-      .then((response) => {
-        alert("done");
-      });
+    const form_data = new FormData();
+    // console.log(form4)
+    //preparing the multipart/form-data to send to the database
+    Object.entries(form4).forEach(([key,value]) => {
+      // console.log(key, value);
+      form_data.append(`${key}`, `${value}`);
+    });
+    console.log(docs[0])
+    form_data.append("report", docs[0], `${docs[0].name}`);
+    // form_data.append("report", docs[0], `${docs[0].name}`);
+
+    console.log(form_data);
+
+    const response3 = await axios.post(
+        `${BASEURL}/api/diamond-cutting-license-applications`,
+        form_data,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+    ).then((response) => {
+          // open payment dialog
+          handleOpen();
+        });
   };
 
   const data = [
@@ -303,7 +322,15 @@ export function Home() {
         <Typography variant="h4" className="mb-2 text-[#0097c9] font-medium">
           Licensing and Permits
         </Typography>
-        {/*<Typography color="gray" className="font-normal "></Typography>*/}
+        <Typography className="font-normal ">
+          The Diamond Hub is made up of two units; the Business Development
+          Office and Diamond Administration Office. The diamond administration
+          office manages and regulates diamond imports and exports, whereas the
+          business development is responsible for developing business value
+          proposition for diamond sector in Botswana. Some of the services that
+          are offered by the Diamond hub are automated while other are manual
+          or/and semi automated. The services that are offered are;
+        </Typography>
       </div>
 
       <div className="container px-10 md:px-0 mx-auto">
@@ -318,7 +345,7 @@ export function Home() {
           <Tabs id="custom-animation" value="1">
             <TabsHeader>
               {data.map(({ label, value }) => (
-                <Tab key={value} value={value}>
+                <Tab key={value} value={value} className="text-[#607d8b]">
                   {label}
                 </Tab>
               ))}
@@ -435,7 +462,7 @@ export function Home() {
                       <Input
                         size="lg"
                         label="Location of Operations"
-                        name="location_of_ops"
+                        name="location_of_operations"
                         onChange={handleForm1}
                         value={form1.location_of_operations}
                       />
@@ -448,9 +475,11 @@ export function Home() {
                       />
 
                       <Input
+                        name="phone"
                         size="lg"
-                        label="Signature"
-                        name="applicant_signature"
+                        onChange={handleForm1}
+                        value={form1.phone}
+                        label="Applicant Number"
                       />
 
                       <Input
@@ -459,13 +488,6 @@ export function Home() {
                         onChange={handleForm1}
                         value={form1.email}
                         label="Applicant email"
-                      />
-
-                      <Input
-                        name="documentLink"
-                        type="file"
-                        onChange={onFileUpload}
-                        accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
                       />
 
                       <Button
@@ -624,9 +646,11 @@ export function Home() {
                         value={form2.date}
                       />
                       <Input
-                        type="Signature"
+                        type="number"
                         size="lg"
-                        label="Signature"
+                        name="phone"
+                        value={form2.phone}
+                        label="Applicant Number"
                         onChange={handleForm2}
                       />
                       <Input
@@ -636,8 +660,6 @@ export function Home() {
                         value={form2.email}
                         label="Applicant email"
                       />
-
-                      
                       <Button
                         onClick={() => {
                           submitForm2();
@@ -781,11 +803,12 @@ export function Home() {
                         value={form3.address_of_importer}
                       />
                       <Input
+                        type="number"
                         size="lg"
-                        label="Date"
-                        name="date"
+                        name="phone"
+                        value={form3.phone}
+                        label="Applicant Number"
                         onChange={handleForm3}
-                        value={form3.date}
                       />
                       <Input
                         type="text"
@@ -795,7 +818,6 @@ export function Home() {
                         onChange={handleForm3}
                         value={form3.place}
                       />
-                     
                       <Button
                         className="mt-6 hover:bg-[#0097c9]"
                         fullWidth
@@ -958,17 +980,15 @@ export function Home() {
                         label="Email Address"
                         name="email"
                       />
-
                       {/* heeeeeeerrrrreeeeeeeeee */}
-                       <Input
+                      <Input
                         type="file"
                         size="lg"
-                        onChange={handleForm4}
-                        value={form4.document}
-                       
+                        // onChange={handleForm4}
+                        onChange={handleDocChange}
+                        // value={form4.document}
                         name="document"
                       />
-
                       <Input
                         type="text"
                         size="lg"
@@ -977,8 +997,6 @@ export function Home() {
                         hidden
                         name="email"
                       />{" "}
-
-
                       <Button
                         className="mt-6 hover:bg-[#0097c9]"
                         fullWidth
@@ -1088,7 +1106,10 @@ export function Home() {
               </Typography>
             </CardHeader>
             <CardBody className="shadow-none overflow-auto h-[400px]">
-              <PaypalButton />
+              <div onClick={() => setOpen(false)}>
+                {" "}
+                <PaypalButton />
+              </div>
             </CardBody>
           </Card>
         </Dialog>

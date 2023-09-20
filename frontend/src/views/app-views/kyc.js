@@ -236,8 +236,14 @@ export default function CompanyKYC() {
                   return (
                     <tr key={name}>
                       <td className={classes}>
-                        <div className="flex items-center">
-                         
+                        <div className="flex items-center gap-2">
+                        <Avatar
+                              src={
+                                "https://smartbots.gov.bw/sites/default/files/logo-with-tagline.png"
+                              }
+                              size="md"
+                              className="border border-blue-gray-50 bg-blue-gray-50/50 object-contain p-1"
+                            />
                             <Typography
                               variant="small"
                               color="blue-gray"

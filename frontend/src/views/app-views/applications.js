@@ -37,8 +37,6 @@ const TABLE_HEAD2 = [
   "Full name",
   "Country_of_origin",
   "Number_of_parcels",
-  "Name_of_exporter",
-  "address_of_importers",
   "Status",
   "",
 ];
@@ -119,6 +117,21 @@ export default function Applications() {
         );
       }
 
+      let to = `+267${data[0].phone}`;
+      let body =
+        "Good day,This is to inform you that your application has been approved.(Botswana Diamond Hub)";
+      axios
+        .post(
+          "https://us-central1-avemaria-webapp.cloudfunctions.net/app/sms",
+          {
+            to: to,
+            body: body,
+          }
+        )
+        .catch((error) => {
+          console.log(error);
+        });
+
       await axios.post(
         `${BASEURL}/api/logs`,
         {
@@ -135,11 +148,27 @@ export default function Applications() {
         }
       );
 
+      await axios.post(
+        `${BASEURL}/api/logs`,
+        {
+          type: "activity",
+          description: "Application approval sms notification",
+          username: "John doe",
+          user_id: "User123",
+          channel: "system",
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
       let categoryparam = "practice";
       let res = [];
       res = await fetch(
         // change here
-        "/api/hackathon-certificate"
+        `${BASEURL}/api/hackathon-certificate`
       );
 
       const data1 = await res.json();
@@ -237,24 +266,27 @@ export default function Applications() {
         // Embed the QR code image
 
         // change here to vercel
-        let qCodeText = `https://certificates.erb.org.bw/certificateQr/?id=`;
-        let qCodeDataURL = await QRCode.toDataURL(qCodeText);
-        let qCodeImage = await pdfDoc.embedPng(
-          Uint8Array.from(atob(qCodeDataURL.split(",")[1]), (c) =>
-            c.charCodeAt(0)
-          )
-        );
+        // let qCodeText = `https://certificates.erb.org.bw/certificateQr/?id=`;
+        // let qCodeDataURL = await QRCode.toDataURL(qCodeText);
+        // let qCodeImage = await pdfDoc.embedPng(
+        //   Uint8Array.from(atob(qCodeDataURL.split(",")[1]), (c) =>
+        //     c.charCodeAt(0)
+        //   )
+        // );
 
-        firstPage.drawImage(qCodeImage, {
-          x: width / 2 + 150,
-          y: height / 70,
-          width: 45,
-          height: 45,
-          color: rgb(0, 0, 0),
-        });
+        // firstPage.drawImage(qCodeImage, {
+        //   x: width / 2 + 150,
+        //   y: height / 70,
+        //   width: 45,
+        //   height: 45,
+        //   color: rgb(0, 0, 0),
+        // });
 
         const pdfBytes = await pdfDoc.save();
         const base64String = await pdfDoc.saveAsBase64();
+
+        //TODO add functionality that will update the license application
+        // TODO add logging functionality
 
         const data = {
           email: `{data[0].email}`,
@@ -262,26 +294,9 @@ export default function Applications() {
           base64String: base64String,
         };
 
-        let to = `${data[0].phone}`;
-        let body =
-          "Good day,This is to inform you that your application has been approved.";
         axios
           .post(
-            "https://us-central1-avemaria-webapp.cloudfunctions.net/app/sms",
-            {
-              to: to,
-              body: body,
-            }
-          )
-          .catch((error) => {
-            console.log(error);
-          });
-
-        //TODO add functionality that will update the license application
-        // TODO add logging functionality
-        axios
-          .post(
-            "http://localhost:5000/diamond-hub-e2534/us-central1/api/send",
+            "https://us-central1-diamond-hub-e2534.cloudfunctions.net/api/send",
             data
           )
           .then((response) => {
@@ -477,7 +492,7 @@ export default function Applications() {
                     key={value}
                     value={value}
                     onClick={() => setTab(value)}
-                    className="flex w-fit"
+                    className="flex w-fit text-[#607d8b]"
                   >
                     {label}
                   </Tab>
@@ -549,6 +564,14 @@ export default function Applications() {
                       <tr key={full_name}>
                         <td className={classes}>
                           <div className="flex items-center gap-3">
+                            <Avatar
+                              src={
+                                "https://smartbots.gov.bw/sites/default/files/logo-with-tagline.png"
+                              }
+                              alt={full_name}
+                              size="md"
+                              className="border border-blue-gray-50 bg-blue-gray-50/50 object-contain p-1"
+                            />
                             <div className="flex flex-col">
                               <Typography
                                 variant="small"
@@ -674,14 +697,20 @@ export default function Applications() {
                       <tr key={name}>
                         <td className={classes}>
                           <div className="flex items-center gap-3">
-                            <Avatar src={img} alt={name} size="sm" />
+                            <Avatar
+                              src={
+                                "https://smartbots.gov.bw/sites/default/files/logo-with-tagline.png"
+                              }
+                              size="md"
+                              className="border border-blue-gray-50 bg-blue-gray-50/50 object-contain p-1"
+                            />
                             <div className="flex flex-col">
                               <Typography
                                 variant="small"
                                 color="blue-gray"
                                 className="font-normal"
                               >
-                                {name}
+                                {name_of_exporter}
                               </Typography>
                               <Typography
                                 variant="small"
@@ -713,13 +742,16 @@ export default function Applications() {
                         </td>
 
                         <td className={classes}>
-                          <Typography
-                            variant="small"
-                            color="blue-gray"
-                            className="font-normal"
-                          >
-                            {name_of_exporter}
-                          </Typography>
+                          <div className="w-max">
+                            <Chip
+                              variant="ghost"
+                              size="sm"
+                              value={
+                                status === "approved" ? "Approved" : "Pending"
+                              }
+                              color={status === "pending" ? "red" : "green"}
+                            />
+                          </div>
                         </td>
                         <td className={classes}>
                           <Tooltip content="View">
@@ -790,6 +822,13 @@ export default function Applications() {
                       <tr key={applicant_name}>
                         <td className={classes}>
                           <div className="flex items-center gap-3">
+                            <Avatar
+                              src={
+                                "https://smartbots.gov.bw/sites/default/files/logo-with-tagline.png"
+                              }
+                              size="md"
+                              className="border border-blue-gray-50 bg-blue-gray-50/50 object-contain p-1"
+                            />
                             <div className="flex flex-col">
                               <Typography
                                 variant="small"

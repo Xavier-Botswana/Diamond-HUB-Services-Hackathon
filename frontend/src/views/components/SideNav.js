@@ -64,7 +64,7 @@ export default function SideNav() {
             )}
           </div>
 
-          <div className="links flex flex-col mt-[40px]  w-full gap-4 text-[14px] font-medium  text-[#000000]">
+          <div className="links flex flex-col mt-[40px]  w-full gap-4 text-[14px] font-medium  text-[#212121]">
             <ul className="mx-4">
               <Link to={`${APP_PREFIX_PATH}/dashboard`} className="btn">
                 <li
@@ -136,7 +136,7 @@ export default function SideNav() {
           </div>
         </div>
 
-        <div className="links w-full gap-2.5 text-[13px] text-[#000000] ">
+        <div className="links w-full gap-2.5 text-[13px] text-[#212121] ">
           <Link to={`${APP_PREFIX_PATH}/logs`} className="btn">
             <div className="flex pl-8 mx-4 bg-[#f2f2f2] p-2 hover:bg-[#ffffff]  mb-2 rounded-lg items-center">
               <SiSimpleanalytics size={20} />
@@ -147,7 +147,7 @@ export default function SideNav() {
           <Link to={`${APP_PREFIX_PATH}/logout`} className="btn">
             <div className=" flex  mx-4 bg-[#f2f2f2] border   mb-2 rounded-xl items-center pl-6 px-4 py-3 hover:bg-[#ffffff]">
               <div className="flex items-center justify-between container">
-                <span className="text-[14px] text-[#000000]">User</span>
+                <span className="text-[14px] text-[#212121]">Diamond Hub</span>
 
                 <span className="text-[11px] text-white bg-gradient-to-r from-[#0d022d] via-[#525151] to-[#252525] rounded-lg px-3 py-1.5 ">
                   Professional Plan
@@ -254,7 +254,7 @@ const Section = styled.section`
           &:hover {
             background-color: #f2f2f2;
             a {
-              color: #000000;
+              color: #212121;
             }
           }
           a {
@@ -262,13 +262,13 @@ const Section = styled.section`
             display: flex;
             gap: 1rem;
             align-text: center;
-            color: #000000;
+            color: #212121;
           }
         }
         .active {
           border: 1px solid #f2f2f2;
           a {
-            color: #000000;
+            color: #212121;
           }
         }
       }
@@ -283,7 +283,7 @@ const Section = styled.section`
       display: flex;
       align-items: center;
       justify-content: flex-start;
-      color: #000000;
+      color: #212121;
     }
   }
 

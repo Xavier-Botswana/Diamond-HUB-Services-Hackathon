@@ -27,63 +27,179 @@ import {
 import { Progress as Progresss } from "react-sweet-progress";
 import "react-sweet-progress/lib/style.css";
 
-const TABLE_HEAD1 = ["Transaction1", "Amount", "Date", "Status", "Account", ""];
-const TABLE_HEAD2 = ["Transaction2", "Amount", "Date", "Status", "Account", ""];
-const TABLE_HEAD3 = ["Transaction3", "Amount", "Date", "Status", "Account", ""];
+const TABLE_HEAD1 = ["Transaction1", "Amount", "Date","Employee_Responsible", "Status", "Account", ""];
+const TABLE_HEAD2 = ["Transaction2", "Amount", "Date","Employee_Responsible" ,"Status", "Account", ];
+const TABLE_HEAD3 = ["Transaction3", "Amount", "Date","Employee_Responsible", "Status", "Account", ];
 
 const TABLE_ROWS = [
   {
     id: "1",
-    img: "/img/logos/logo-spotify.svg",
+    img: "https://www.gov.bw/sites/default/files/Code-of-Arms-colour.png",
     name: "Diamond Cutting License",
     amount: "P500",
     date: "Wed 3:00pm",
     status: "paid",
-    account: "visa",
+    account: "visa", employee:"Amogelang",
     accountNumber: "1234",
     expiry: "06/2026",
   },
   {
     id: "2",
-    img: "/img/logos/logo-amazon.svg",
+    img: "https://www.gov.bw/sites/default/files/Code-of-Arms-colour.png",
     name: "Kimberly Process",
     amount: "P500",
     date: "Wed 1:00pm",
-    status: "pending",
+    status: "pending", employee:"---",
     account: "master-card",
     accountNumber: "1234",
     expiry: "06/2026",
   },
   {
     id: "3",
-    img: "/img/logos/logo-pinterest.svg",
+    img: "https://www.gov.bw/sites/default/files/Code-of-Arms-colour.png",
     name: "Diamond Cutting License",
     amount: "P700",
     date: "Mon 7:40pm",
-    status: "pending",
+    status: "pending", employee:"---",
     account: "master-card",
     accountNumber: "1234",
     expiry: "06/2026",
   },
   {
     id: "4",
-    img: "/img/logos/logo-google.svg",
+    img: "https://www.gov.bw/sites/default/files/Code-of-Arms-colour.png",
     name: "Kimberly Process",
     amount: "P1000",
     date: "Wed 5:00pm",
-    status: "paid",
+    status: "paid", employee:"Amogelang",
     account: "visa",
     accountNumber: "1234",
     expiry: "06/2026",
   },
   {
     id: "5",
-    img: "/img/logos/logo-netflix.svg",
+    img: "https://www.gov.bw/sites/default/files/Code-of-Arms-colour.png",
     name: "Diamond Cutting License",
     amount: "P500",
     date: "Wed 3:30am",
-    status: "cancelled",
+    status: "paid", employee:"Prince",
     account: "visa",
+    accountNumber: "1234",
+    expiry: "06/2026",
+  },
+];
+const TABLE_ROWS2 = [
+  {
+    id: "1",
+    img: "https://www.gov.bw/sites/default/files/Code-of-Arms-colour.png",
+    name: "Diamond Cutting License",
+    amount: "P500",
+    employee:"---",
+    date: "Wed 3:00pm",
+    status: "pending", employee:"---",
+    account: "visa",
+    accountNumber: "1234",
+    expiry: "06/2026",
+  },
+  {
+    id: "2",
+    img: "https://www.gov.bw/sites/default/files/Code-of-Arms-colour.png",
+    name: "Kimberly Process",
+    amount: "P500",
+    date: "Wed 1:00pm",
+    status: "pending", employee:"---",
+    account: "master-card",
+    accountNumber: "1234",
+    expiry: "06/2026",
+  },
+  {
+    id: "3",
+    img: "https://www.gov.bw/sites/default/files/Code-of-Arms-colour.png",
+    name: "Diamond Cutting License",
+    amount: "P700",
+    date: "Mon 7:40pm",
+    status: "pending", employee:"---",
+    account: "master-card",
+    accountNumber: "1234",
+    expiry: "06/2026",
+  },
+  {
+    id: "4",
+    img: "https://www.gov.bw/sites/default/files/Code-of-Arms-colour.png",
+    name: "Kimberly Process",
+    amount: "P1000",
+    date: "Wed 5:00pm",
+    status: "pending", employee:"---",
+    account: "visa",
+    accountNumber: "1234",
+    expiry: "06/2026",
+  },
+  {
+    id: "5",
+    img: "https://www.gov.bw/sites/default/files/Code-of-Arms-colour.png",
+    name: "Diamond Cutting License",
+    amount: "P500",
+    date: "Wed 3:30am",
+    status: "pending", employee:"---",
+    account: "visa",
+    accountNumber: "1234",
+    expiry: "06/2026",
+  },
+];
+
+const TABLE_ROWS3 = [
+  {
+    id: "1",
+    img: "https://www.gov.bw/sites/default/files/Code-of-Arms-colour.png",
+    name: "Diamond Cutting License",
+    amount: "P500",
+    date: "Wed 3:00pm",
+    status: "paid", employee:"Karabo",
+    account: "visa",
+    accountNumber: "1234",
+    expiry: "06/2026",
+  },
+  {
+    id: "2",
+    img: "https://www.gov.bw/sites/default/files/Code-of-Arms-colour.png",
+    name: "Kimberly Process",
+    amount: "P500",
+    date: "Wed 1:00pm",
+    status: "paid", employee:"Karabo",
+    account: "master-card",
+    accountNumber: "1234",
+    expiry: "06/2026",
+  },
+  {
+    id: "3",
+    img: "https://www.gov.bw/sites/default/files/Code-of-Arms-colour.png",
+    name: "Diamond Cutting License",
+    amount: "P700",
+    date: "Mon 7:40pm",
+    status: "paid", employee:"Karabo",
+    account: "master-card",
+    accountNumber: "1234",
+    expiry: "06/2026",
+  },
+  {
+    id: "4",
+    img: "https://www.gov.bw/sites/default/files/Code-of-Arms-colour.png",
+    name: "Kimberly Process",
+    amount: "P1000",
+    date: "Wed 5:00pm",
+    status: "paid", employee:"Prince",
+    account: "visa",
+    accountNumber: "1234",
+    expiry: "06/2026",
+  },
+  {
+    id: "5",
+    img: "https://www.gov.bw/sites/default/files/Code-of-Arms-colour.png",
+    name: "Diamond Cutting License",
+    amount: "P500",
+    date: "Wed 3:30am",
+    status: "paid",
+    account: "visa", employee:"Prince",
     accountNumber: "1234",
     expiry: "06/2026",
   },
@@ -187,7 +303,7 @@ export default function Payments() {
                       img,
                       name,
                       amount,
-                      date,
+                      date,employee,
                       status,
                       account,
                       accountNumber,
@@ -205,7 +321,7 @@ export default function Payments() {
                         <td className={classes}>
                           <div className="flex items-center gap-3">
                             <Avatar
-                              src={img}
+                              src={"https://smartbots.gov.bw/sites/default/files/logo-with-tagline.png"}
                               alt={name}
                               size="md"
                               className="border border-blue-gray-50 bg-blue-gray-50/50 object-contain p-1"
@@ -235,6 +351,15 @@ export default function Payments() {
                             className="font-normal"
                           >
                             {date}
+                          </Typography>
+                        </td>
+                        <td className={classes}>
+                          <Typography
+                            variant="small"
+                            color="blue-gray"
+                            className="font-normal"
+                          >
+                            {employee}
                           </Typography>
                         </td>
                         <td className={classes}>
@@ -322,13 +447,13 @@ export default function Payments() {
                 </tr>
               </thead>
               <tbody>
-                {TABLE_ROWS.map(
+                {TABLE_ROWS2.map(
                   (
                     {
                       img,
                       name,
                       amount,
-                      date,
+                      date,employee,
                       status,
                       account,
                       accountNumber,
@@ -336,7 +461,7 @@ export default function Payments() {
                     },
                     index
                   ) => {
-                    const isLast = index === TABLE_ROWS.length - 1;
+                    const isLast = index === TABLE_ROWS2.length - 1;
                     const classes = isLast
                       ? "p-4"
                       : "p-4 border-b border-blue-gray-50";
@@ -376,6 +501,15 @@ export default function Payments() {
                             className="font-normal"
                           >
                             {date}
+                          </Typography>
+                        </td>
+                        <td className={classes}>
+                          <Typography
+                            variant="small"
+                            color="blue-gray"
+                            className="font-normal"
+                          >
+                            {employee}
                           </Typography>
                         </td>
                         <td className={classes}>
@@ -427,13 +561,7 @@ export default function Payments() {
                             </div>
                           </div>
                         </td>
-                        <td className={classes}>
-                          <Tooltip content="Edit User">
-                            <IconButton variant="text">
-                              <PencilIcon className="h-4 w-4" />
-                            </IconButton>
-                          </Tooltip>
-                        </td>
+                       
                       </tr>
                     );
                   }
@@ -463,12 +591,13 @@ export default function Payments() {
                 </tr>
               </thead>
               <tbody>
-                {TABLE_ROWS.map(
+                {TABLE_ROWS3.map(
                   (
                     {
                       img,
                       name,
                       amount,
+                      employee,
                       date,
                       status,
                       account,
@@ -477,7 +606,7 @@ export default function Payments() {
                     },
                     index
                   ) => {
-                    const isLast = index === TABLE_ROWS.length - 1;
+                    const isLast = index === TABLE_ROWS3.length - 1;
                     const classes = isLast
                       ? "p-4"
                       : "p-4 border-b border-blue-gray-50";
@@ -517,6 +646,15 @@ export default function Payments() {
                             className="font-normal"
                           >
                             {date}
+                          </Typography>
+                        </td>
+                        <td className={classes}>
+                          <Typography
+                            variant="small"
+                            color="blue-gray"
+                            className="font-normal"
+                          >
+                            {employee}
                           </Typography>
                         </td>
                         <td className={classes}>
@@ -568,13 +706,7 @@ export default function Payments() {
                             </div>
                           </div>
                         </td>
-                        <td className={classes}>
-                          <Tooltip content="Edit User">
-                            <IconButton variant="text">
-                              <PencilIcon className="h-4 w-4" />
-                            </IconButton>
-                          </Tooltip>
-                        </td>
+                       
                       </tr>
                     );
                   }
