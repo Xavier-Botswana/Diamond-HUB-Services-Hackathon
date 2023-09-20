@@ -37,8 +37,6 @@ const TABLE_HEAD2 = [
   "Full name",
   "Country_of_origin",
   "Number_of_parcels",
-  "Name_of_exporter",
-  "address_of_importers",
   "Status",
   "",
 ];
@@ -102,8 +100,6 @@ export default function Applications() {
           {
             status: "approved",
           }
-
-
         );
       } else if (data[0].type === "kimberly-process") {
         await axios.patch(
@@ -289,8 +285,6 @@ export default function Applications() {
         const pdfBytes = await pdfDoc.save();
         const base64String = await pdfDoc.saveAsBase64();
 
-     
-
         //TODO add functionality that will update the license application
         // TODO add logging functionality
 
@@ -299,8 +293,7 @@ export default function Applications() {
           message: `<h4>Good day</h4><p>This is to inform you that your certificate has been created successfully.\n Thank you</p>`,
           base64String: base64String,
         };
-      
-        
+
         axios
           .post(
             "https://us-central1-diamond-hub-e2534.cloudfunctions.net/api/send",
@@ -499,7 +492,7 @@ export default function Applications() {
                     key={value}
                     value={value}
                     onClick={() => setTab(value)}
-                    className="flex w-fit"
+                    className="flex w-fit text-[#607d8b]"
                   >
                     {label}
                   </Tab>
@@ -717,7 +710,7 @@ export default function Applications() {
                                 color="blue-gray"
                                 className="font-normal"
                               >
-                                {name}
+                                {name_of_exporter}
                               </Typography>
                               <Typography
                                 variant="small"
@@ -749,13 +742,16 @@ export default function Applications() {
                         </td>
 
                         <td className={classes}>
-                          <Typography
-                            variant="small"
-                            color="blue-gray"
-                            className="font-normal"
-                          >
-                            {name_of_exporter}
-                          </Typography>
+                          <div className="w-max">
+                            <Chip
+                              variant="ghost"
+                              size="sm"
+                              value={
+                                status === "approved" ? "Approved" : "Pending"
+                              }
+                              color={status === "pending" ? "red" : "green"}
+                            />
+                          </div>
                         </td>
                         <td className={classes}>
                           <Tooltip content="View">
