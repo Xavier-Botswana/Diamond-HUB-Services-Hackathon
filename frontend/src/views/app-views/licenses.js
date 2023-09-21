@@ -31,13 +31,13 @@ import {
 } from "@material-tailwind/react";
 import axios from "axios";
 
-const TABLE_HEAD1 = ["Full name", "Nationality", "Occupation", "Status", ""];
+const TABLE_HEAD1 = ["Full name", "Nationality", "Occupation", "Status"];
 const TABLE_HEAD2 = [
   "Full name",
   "Country_of_origin",
   "Number_of_parcels",
   "Status",
-  "",
+ 
 ];
 const TABLE_HEAD3 = [
   "Full name",
@@ -45,7 +45,7 @@ const TABLE_HEAD3 = [
   "Location of Operations",
   "Stones Source",
   "Status",
-  "",
+ 
 ];
 
 export default function Applications() {
@@ -508,18 +508,7 @@ export default function Applications() {
                             />
                           </div>
                         </td>
-                        <td className={classes}>
-                          <Tooltip content="View">
-                            <IconButton
-                              onClick={() => {
-                                ViewDetails(id);
-                              }}
-                              variant="text"
-                            >
-                              <PiEyeThin className="h-4 w-4" />
-                            </IconButton>
-                          </Tooltip>
-                        </td>
+                        
                       </tr>
                     );
                   }
@@ -634,18 +623,7 @@ export default function Applications() {
                             />
                           </div>
                         </td>
-                        <td className={classes}>
-                          <Tooltip content="View">
-                            <IconButton
-                              onClick={() => {
-                                ViewDetails2(id);
-                              }}
-                              variant="text"
-                            >
-                              <PiEyeThin className="h-4 w-4" />
-                            </IconButton>
-                          </Tooltip>
-                        </td>
+                       
                       </tr>
                     );
                   }
@@ -771,19 +749,7 @@ export default function Applications() {
                           </div>
                         </td>
 
-                        <td className={classes}>
-                          <Tooltip content="View">
-                            <IconButton
-                              onClick={() => {
-                                ViewDetails3(id);
-                                console.log(id);
-                              }}
-                              variant="text"
-                            >
-                              <PiEyeThin className="h-4 w-4" />
-                            </IconButton>
-                          </Tooltip>
-                        </td>
+                       
                       </tr>
                     );
                   }

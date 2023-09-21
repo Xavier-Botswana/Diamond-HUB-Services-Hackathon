@@ -94,28 +94,28 @@ export default function Applications() {
 
   const submitApproval = async () => {
     try {
-      // if (data[0].type === "diamondCutting") {
-      //   await axios.patch(
-      //     `${BASEURL}/api/diamond-cutting-license-applications/${data[0].id}`,
-      //     {
-      //       status: "approved",
-      //     }
-      //   );
-      // } else if (data[0].type === "kimberly-process") {
-      //   await axios.patch(
-      //     `${BASEURL}/api/kimberly-process-certificates-applications/${data[0].id}`,
-      //     {
-      //       status: "approved",
-      //     }
-      //   );
-      // } else if (data[0].type === "stonesDealers") {
-      //   await axios.patch(
-      //     `${BASEURL}/api/precious-stones-dealer-license-applications/${data[0].id}`,
-      //     {
-      //       status: "approved",
-      //     }
-      //   );
-      // }
+      if (data[0].type === "diamondCutting") {
+        await axios.patch(
+          `${BASEURL}/api/diamond-cutting-license-applications/${data[0].id}`,
+          {
+            status: "approved",
+          }
+        );
+      } else if (data[0].type === "kimberly-process") {
+        await axios.patch(
+          `${BASEURL}/api/kimberly-process-certificates-applications/${data[0].id}`,
+          {
+            status: "approved",
+          }
+        );
+      } else if (data[0].type === "stonesDealers") {
+        await axios.patch(
+          `${BASEURL}/api/precious-stones-dealer-license-applications/${data[0].id}`,
+          {
+            status: "approved",
+          }
+        );
+      }
 
       let to = `+267${data[0].phone}`;
       let body =
@@ -166,10 +166,7 @@ export default function Applications() {
       console.log(data);
       let categoryparam = "practice";
       let res = [];
-      res = await fetch(
-        // change here
-        
-        "https://certificates.erb.org.bw/api/files/" + categoryparam
+      res = await fetch(`${BASEURL}/api/hackathon-certificate`
       );
 
       const data1 = await res.json();
@@ -191,7 +188,7 @@ export default function Applications() {
         const firstPage = pages[0];
         const { width, height } = firstPage.getSize();
 
-        const names = "data[0].full_name";
+        const names = "Details";
         const textWidth = helveticaFont.widthOfTextAtSize(names, 15);
         const centerX = (width - textWidth) / 2;
         firstPage.drawText(names, {
@@ -202,7 +199,7 @@ export default function Applications() {
           color: rgb(0.29, 0.337, 0.408),
         });
 
-        const practices = "data[0].license_applied_for";
+        const practices = "Details";
         const textWidth01 = helveticaFont.widthOfTextAtSize(practices, 11);
         const centerX01 = (width - textWidth01) / 2;
         firstPage.drawText(practices, {
@@ -213,7 +210,7 @@ export default function Applications() {
           color: rgb(0.29, 0.337, 0.408),
         });
 
-        const disciplines = "data[0].occupation";
+        const disciplines = "Details";
         const textWidth02 = helveticaFont.widthOfTextAtSize(disciplines, 11);
         const centerX02 = (width - textWidth02) / 2;
         firstPage.drawText(disciplines, {
@@ -224,7 +221,7 @@ export default function Applications() {
           color: rgb(0.29, 0.337, 0.408),
         });
 
-        firstPage.drawText("data[0].nationality", {
+        firstPage.drawText("Details", {
           x: width / 1.4,
           y: height / 3 + 50,
           size: 9,
@@ -232,7 +229,7 @@ export default function Applications() {
           color: rgb(0.29, 0.337, 0.408),
         });
 
-        firstPage.drawText("data[0].id", {
+        firstPage.drawText("Details", {
           x: width / 5.5 - 9,
           y: height / 3 + 50,
           size: 9,
@@ -240,7 +237,7 @@ export default function Applications() {
           color: rgb(0.29, 0.337, 0.408),
         });
 
-        firstPage.drawText("data[0].full_name", {
+        firstPage.drawText("Details", {
           x: width / 6.3,
           y: height / 3 + 19,
           size: 9,
@@ -248,7 +245,7 @@ export default function Applications() {
           color: rgb(0.29, 0.337, 0.408),
         });
 
-        firstPage.drawText("data[0].full_name", {
+        firstPage.drawText("Details", {
           x: width / 4.3,
           y: height / 4 - 109,
           size: 9,
@@ -256,7 +253,7 @@ export default function Applications() {
           color: rgb(1, 1, 1),
         });
 
-        firstPage.drawText("data[0].full_name", {
+        firstPage.drawText("Details", {
           x: width / 1.51,
           y: height / 3 + 19,
           size: 9,
@@ -267,32 +264,32 @@ export default function Applications() {
         // Embed the QR code image
 
         // change here to vercel
-        // let qCodeText = `https://certificates.erb.org.bw/certificateQr/?id=`;
-        // let qCodeDataURL = await QRCode.toDataURL(qCodeText);
-        // let qCodeImage = await pdfDoc.embedPng(
-        //   Uint8Array.from(atob(qCodeDataURL.split(",")[1]), (c) =>
-        //     c.charCodeAt(0)
-        //   )
-        // );
+        let qCodeText = `pending pending`;
+        let qCodeDataURL = await QRCode.toDataURL(qCodeText);
+        let qCodeImage = await pdfDoc.embedPng(
+          Uint8Array.from(atob(qCodeDataURL.split(",")[1]), (c) =>
+            c.charCodeAt(0)
+          )
+        );
 
-        // firstPage.drawImage(qCodeImage, {
-        //   x: width / 2 + 150,
-        //   y: height / 70,
-        //   width: 45,
-        //   height: 45,
-        //   color: rgb(0, 0, 0),
-        // });
+        firstPage.drawImage(qCodeImage, {
+          x: width / 2 + 150,
+          y: height / 70,
+          width: 45,
+          height: 45,
+          color: rgb(0, 0, 0),
+        });
 
         const pdfBytes = await pdfDoc.save();
         const base64String = await pdfDoc.saveAsBase64();
 
         //TODO add functionality that will update the license application
         // TODO add logging functionality
-      alert("hello")
+     
         const data = {
           email: data[0].email,
           message: `<h4>Good day</h4><p>This is to inform you that your certificate has been created successfully.\n Thank you</p>`,
-          // base64String: base64String,
+          base64String: base64String,
         };
 
         axios
@@ -409,38 +406,6 @@ export default function Applications() {
     fetchDataIfNeeded();
   }, [ID]);
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       // Replace with your actual axios API call
-  //       // const response = await axios.get("https://api.example.com/data");
-  //       let response = TABLE;
-  //       const results = response.filter((row) => {
-  //         return (
-  //           row.id === search ||
-  //           row.name.includes(search) ||
-  //           row.licenseNo === search
-  //         );
-  //       });
-  //       setDataTable1(results);
-  //       console.log(results);
-  //     } catch (error) {
-  //       console.error("Error fetching data:", error);
-  //     }
-  //   };
-
-  //   const fetchDataIfNeeded = async () => {
-  //     if (search !== "") {
-  //       await fetchData();
-  //     } else {
-  //       setDataTable1(TABLE);
-  //     }
-  //   };
-
-  //   fetchDataIfNeeded();
-  // }, [search]);
-
-  // Ensure useEffect runs whenever ID changes
 
   const ViewDetails = (id) => {
     setID(id);
@@ -1061,10 +1026,10 @@ export default function Applications() {
             </div>
           </CardBody>
           <CardFooter className="pt-0 grid grid-cols-2 gap-2">
-            <Button className="bg-[#005e25]" onClick={Approve} fullWidth>
+            <Button className="bg-[#a2c4b0]" onClick={Approve} fullWidth>
               Approve Application
             </Button>{" "}
-            <Button className="bg-[#c02323]" onClick={Decline} fullWidth>
+            <Button className="bg-[#b38989]" onClick={Decline} fullWidth>
               Decline Application
             </Button>
           </CardFooter>
@@ -1207,10 +1172,10 @@ export default function Applications() {
             </div>
           </CardBody>
           <CardFooter className="pt-0 grid grid-cols-2 gap-2">
-            <Button className="bg-[#005e25]" onClick={Approve} fullWidth>
+            <Button className="bg-[#9cbba8]" onClick={Approve} fullWidth>
               Approve Application
             </Button>{" "}
-            <Button className="bg-[#c02323]" onClick={Decline} fullWidth>
+            <Button className="bg-[#b39090]" onClick={Decline} fullWidth>
               Decline Application
             </Button>
           </CardFooter>
@@ -1345,10 +1310,10 @@ export default function Applications() {
             </div>
           </CardBody>
           <CardFooter className="pt-0 grid grid-cols-2 gap-2">
-            <Button className="bg-[#005e25]" onClick={Approve} fullWidth>
+            <Button className="bg-[#91b6a0]" onClick={Approve} fullWidth>
               Approve Application
             </Button>{" "}
-            <Button className="bg-[#c02323]" onClick={Decline} fullWidth>
+            <Button className="bg-[#b68f8f]" onClick={Decline} fullWidth>
               Decline Application
             </Button>
           </CardFooter>

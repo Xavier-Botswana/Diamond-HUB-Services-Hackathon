@@ -60,18 +60,18 @@ export function Home() {
     status: "pending",
   });
   const [form3, setForm3] = useState({
-    country_of_origin: "test",
-    number_of_parcels: 123,
-    name_of_exporter: "test",
-    address_of_exporter: "test",
-    name_of_importer: "test",
-    address_of_importer: "test",
-    date: "2022-01-01 10:00:00.123Z",
-    place: "test",
-    email: "test@example.com",
+    country_of_origin: "",
+    number_of_parcels: 0,
+    name_of_exporter: "",
+    address_of_exporter: "",
+    name_of_importer: "",
+    address_of_importer: "",
+    date: "",
+    place: "",
+    email: "",
     status: "pending",
-    type: "kimberly-process",
-    phone: "test",
+    type: "",
+    phone: "",
   });
 
   const [form4, setForm4] = useState({

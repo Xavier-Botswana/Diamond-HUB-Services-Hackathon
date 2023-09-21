@@ -27,9 +27,9 @@ import {
 import { Progress as Progresss } from "react-sweet-progress";
 import "react-sweet-progress/lib/style.css";
 
-const TABLE_HEAD1 = ["Transaction1", "Amount", "Date","Employee_Responsible", "Status", "Account", ""];
-const TABLE_HEAD2 = ["Transaction2", "Amount", "Date","Employee_Responsible" ,"Status", "Account", ];
-const TABLE_HEAD3 = ["Transaction3", "Amount", "Date","Employee_Responsible", "Status", "Account", ];
+const TABLE_HEAD1 = ["Service", "Amount", "Date","Employee_Responsible", "Status", "Account", ""];
+const TABLE_HEAD2 = ["Service", "Amount", "Date","Employee_Responsible" ,"Status", "Account", ];
+const TABLE_HEAD3 = ["Service", "Amount", "Date","Employee_Responsible", "Status", "Account", ];
 
 const TABLE_ROWS = [
   {
@@ -741,25 +741,25 @@ export default function Payments() {
           <CardHeader
             variant="gradient"
             // color="blue"
-            className="mb-4 grid h-28 place-items-center bg-[#45518d]"
+            className="mb-4 grid h-28 place-items-center bg-[#f5f7f8]"
           >
-            <Typography variant="h3" color="white">
+            <Typography variant="h3" color="#484747">
               Payments Details
             </Typography>
           </CardHeader>
           <CardBody className="grid grid-cols-2 gap-4">
-            <Input label="Email" size="lg" />
-            <Input label="Password" size="lg" />
-            <Input label="Email" size="lg" />
-            <Input label="Password" size="lg" />
-            <Input label="Email" size="lg" />
-            <Input label="Password" size="lg" />
+           
+            <Input label="Name" size="lg" value={"Amogelang"} disabled />
+            <Input label="Amount" size="lg" value={"P500"} disabled/>
+            <Input label="Application ID" size="lg" value="20230912" disabled/>
+            <Input label="Bank Ref" size="lg" value={"Bfht97"} disabled/>
+           
           </CardBody>
           <CardFooter className="pt-0 grid grid-cols-2 gap-2">
             <Button className="bg-[#595a5a]" onClick={handleOpen} fullWidth>
               Approve Payment
             </Button>{" "}
-            <Button className="bg-[#f0d4d4]" onClick={handleOpen} fullWidth>
+            <Button className="bg-[#b37171]" onClick={handleOpen} fullWidth>
               Decline Payment
             </Button>
           </CardFooter>

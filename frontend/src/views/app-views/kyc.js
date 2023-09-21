@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
-import { MagnifyingGlassIcon,
+import {
+  MagnifyingGlassIcon,
   ArrowDownTrayIcon,
   ChevronUpDownIcon,
 } from "@heroicons/react/24/outline";
@@ -31,25 +32,81 @@ import {
 } from "@material-tailwind/react";
 import axios from "axios";
 
-const TABLE_HEAD = ["Full name", "Nationality", "Occupation", "Status", ""];
-
+const TABLE_HEAD = [
+  "Full name",
+  "Number_of_Employees",
+  "Physical Address",
+  "Phone",
+  "",
+];
+const TABLE_ROWS = [
+  {
+    id: "1",
+    img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-3.jpg",
+    full_name: "John Michael",
+    email: "john@creative-tim.com",
+    physical_address: "Maun",
+    nationality: "Adminstration",
+    number_of_employees: "89",
+    phone: "7699864",
+  },
+  {
+    id: "2",
+    img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-2.jpg",
+    full_name: "DerivMine",
+    email: "alexa@creative-tim.com",
+    physical_address: "Lobatse",
+    nationality: "Admin",
+    number_of_employees: "20",
+    phone: "785425",
+  },
+  {
+    id: "3",
+    img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-1.jpg",
+    full_name: "Okavango",
+    email: "laurent@creative-tim.com",
+    physical_address: "Kasane",
+    nationality: "Adminstration",
+    number_of_employees: "100",
+    phone: "7689542345",
+  },
+  {
+    id: "4",
+    img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-4.jpg",
+    full_name: "Orapa Mine",
+    email: "michael@creative-tim.com",
+    physical_address: "Orapa",
+    nationality: "Administration",
+    number_of_employees: "57",
+    phone: "765329656",
+  },
+  {
+    id: "5",
+    img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-5.jpg",
+    full_name: "Debswana",
+    email: "richard@creative-tim.com",
+    physical_address: "Jwaneng",
+    nationality: "Executive",
+    number_of_employees: "100",
+    phone: "765479536",
+  },
+];
 
 export default function CompanyKYC() {
   const [tab, setTab] = useState("1");
   const [open, setOpen] = useState(false);
   const [openPro, setOpenPro] = useState(false);
 
-
   const [ID, setID] = useState("1");
   const [data, setData] = useState({});
-  const [TABLE_ROWS, setDataTable] = useState([]);
+  const [TABLE_ROWS2, setDataTable] = useState([]);
   const [company, setCompany] = useState({
     name: "",
     physical_address: "",
     number_of_employees: "",
     email_address: "",
     phone: "",
-    directors_names:"",
+    directors_names: "",
   });
 
   const [search, setSearch] = useState("");
@@ -64,13 +121,13 @@ export default function CompanyKYC() {
     setCompany({ ...company, [e.target.name]: e.target.value });
   };
 
- const submitCompany = async () => {
+  const submitCompany = async () => {
     try {
       axios
         .post("http://127.0.0.1:8080/api/companies", company)
         .then((response) => {
           console.log("Response:", response.data);
-          alert("Company added")
+          alert("Company added");
         })
         .catch((error) => {
           console.error("Error:", error);
@@ -80,22 +137,18 @@ export default function CompanyKYC() {
     }
   };
 
- 
-
   useEffect(() => {
     const fetchData = async () => {
       try {
         // Replace with your actual axios API call
-        let response = await axios.get(
-          "http://127.0.0.1:8080/api/companies"
-        );
+        let response = await axios.get("http://127.0.0.1:8080/api/companies");
         response = response.data.items;
-        console.log(response)
+        console.log(response);
         const results = response.filter((row) => row.id === ID);
         if (results.length !== 0) {
           setData(results);
         }
-        setDataTable(response);
+        setDataTable(TABLE_ROWS, ...response);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -219,7 +272,7 @@ export default function CompanyKYC() {
               {TABLE_ROWS.map(
                 (
                   {
-                    name,
+                    full_name,
                     number_of_employees,
                     physical_address,
                     email_address,
@@ -234,28 +287,26 @@ export default function CompanyKYC() {
                     : "p-4 border-b border-blue-gray-50";
 
                   return (
-                    <tr key={name}>
+                    <tr key={id}>
                       <td className={classes}>
                         <div className="flex items-center gap-2">
-                        <Avatar
-                              src={
-                                "https://smartbots.gov.bw/sites/default/files/logo-with-tagline.png"
-                              }
-                              size="md"
-                              className="border border-blue-gray-50 bg-blue-gray-50/50 object-contain p-1"
-                            />
-                            <Typography
-                              variant="small"
-                              color="blue-gray"
-                              className="font-normal"
-                            >
-                              {name}
-                            </Typography>
-                           
-                        
+                          <Avatar
+                            src={
+                              "https://smartbots.gov.bw/sites/default/files/logo-with-tagline.png"
+                            }
+                            size="md"
+                            className="border border-blue-gray-50 bg-blue-gray-50/50 object-contain p-1"
+                          />
+                          <Typography
+                            variant="small"
+                            color="blue-gray"
+                            className="font-normal"
+                          >
+                            {full_name}
+                          </Typography>
                         </div>
                       </td>
-
+                    
                       <td className={classes}>
                         <div className="flex flex-col">
                           <Typography
@@ -266,6 +317,17 @@ export default function CompanyKYC() {
                             {number_of_employees}
                           </Typography>
                         </div>
+                      </td>
+                      <td className={classes}>
+                       
+                          <Typography
+                            variant="small"
+                            color="blue-gray"
+                            className="font-normal"
+                          >
+                            {phone}
+                          </Typography>
+                      
                       </td>
                       <td className={classes}>
                         <Typography
@@ -378,7 +440,7 @@ export default function CompanyKYC() {
                 value={company.number_of_employees}
               />
             </div>
-           
+
             <div>
               <label>Nationality</label>
               <Input
@@ -397,7 +459,8 @@ export default function CompanyKYC() {
                 size="lg"
                 name="phone"
                 onChange={handleForm}
-                value={company.phone} />
+                value={company.phone}
+              />
             </div>
           </CardBody>
           <CardFooter className="pt-0 grid grid-cols-2 gap-2">
@@ -412,7 +475,6 @@ export default function CompanyKYC() {
           </CardFooter>
         </Card>
       </Dialog>
-
 
       <Dialog
         size="xl"
@@ -650,30 +712,50 @@ export default function CompanyKYC() {
                           <div className="flex gap-4">
                             <div>
                               <div>Company Inc.</div>
-                             
                             </div>
-                            <Button className="flex items-center gap-3" size="sm">
-              <ArrowDownTrayIcon strokeWidth={2} className="h-4 w-4" /> Download
-            </Button>
+                            <Button
+                              className="flex items-center gap-3"
+                              size="sm"
+                            >
+                              <ArrowDownTrayIcon
+                                strokeWidth={2}
+                                className="h-4 w-4"
+                              />{" "}
+                              Download
+                            </Button>
                           </div>
 
                           <div className="flex gap-4 mt-2.5">
                             <div>
-                              <Typography class="text-sm">Company Inc.</Typography>
-                             
+                              <Typography class="text-sm">
+                                Company Inc.
+                              </Typography>
                             </div>
-                            <Button className="flex items-center gap-3" size="sm">
-              <ArrowDownTrayIcon strokeWidth={2} className="h-4 w-4" /> Download
-            </Button>
+                            <Button
+                              className="flex items-center gap-3"
+                              size="sm"
+                            >
+                              <ArrowDownTrayIcon
+                                strokeWidth={2}
+                                className="h-4 w-4"
+                              />{" "}
+                              Download
+                            </Button>
                           </div>
                           <div className="flex gap-4 mt-2.5">
                             <div>
-                              <Typography >Company Inc.</Typography>
-                             
+                              <Typography>Company Inc.</Typography>
                             </div>
-                            <Button className="flex items-center gap-3" size="sm">
-              <ArrowDownTrayIcon strokeWidth={2} className="h-4 w-4" /> Download
-            </Button>
+                            <Button
+                              className="flex items-center gap-3"
+                              size="sm"
+                            >
+                              <ArrowDownTrayIcon
+                                strokeWidth={2}
+                                className="h-4 w-4"
+                              />{" "}
+                              Download
+                            </Button>
                           </div>
                         </li>
                       </ul>
@@ -731,19 +813,6 @@ export default function CompanyKYC() {
           </CardBody>
         </card>
       </Dialog>
-
     </div>
   );
 }
-
-
-
-
-
-
-
-
-
-
-
-
