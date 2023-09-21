@@ -69,6 +69,28 @@ export default function Applications() {
 
   const [search, setSearch] = useState("");
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   const handleOpen = (results) => {
     setOpen((cur) => !cur);
   };
@@ -286,7 +308,7 @@ export default function Applications() {
         //TODO add functionality that will update the license application
         // TODO add logging functionality
      
-        const data = {
+        const data23 = {
           email: data[0].email,
           message: `<h4>Good day</h4><p>This is to inform you that your certificate has been created successfully.\n Thank you</p>`,
           base64String: base64String,
@@ -295,7 +317,7 @@ export default function Applications() {
         axios
           .post(
             "https://us-central1-diamond-hub-e2534.cloudfunctions.net/api/send",
-            data
+            data23
           )
           .then((response) => {
             console.log("Response:", response.data);
@@ -325,9 +347,10 @@ export default function Applications() {
           console.log(error);
         });
 
-      const data = {
-        email: `${data[0].email}`,
-        message: `<h4>Good day</h4><p>This is to inform you that your application has been declined.${form.description}\n Thank you</p>`,
+      const data23 = {
+        email: `prochivs@gmail.com`,
+        message: "hello"
+        // `<h4>Good day</h4><p>This is to inform you that your application has been declined.${form.description}\n Thank you</p>`,
       };
 
       //TODO add functionality that will update the license application
@@ -335,7 +358,7 @@ export default function Applications() {
       axios
         .post(
           "https://us-central1-diamond-hub-e2534.cloudfunctions.net/api/send",
-          data
+          data23
         )
         .then((response) => {
           console.log("Response:", response.data);
