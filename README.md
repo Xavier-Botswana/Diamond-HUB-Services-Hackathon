@@ -66,7 +66,7 @@ _Web link. Please refer to the [Link] (​https://diamond-hub.testlive.space/hom
 
 
 <h4>Getting Started As Admin User</h4>
-* Go to (​https://diamond-hub.testlive.space/) platform
+Go to (​https://diamond-hub.testlive.space/) platform
 1. Login to the platform using the following credentials
 - email: `admin@gmail.com`
 - password: `adminpass123`
