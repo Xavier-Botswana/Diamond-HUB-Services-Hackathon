@@ -252,7 +252,7 @@ export default function Applications() {
       try {
         // Replace with your actual axios API call
         const response1 = await axios.get(
-          "http://127.0.0.1:8080/api/diamond-cutting-license-applications/"
+          "http://127.0.0.1:8080/api/diamond-cutting-license-applications"
         );
 
         let response = response1.data.items;
