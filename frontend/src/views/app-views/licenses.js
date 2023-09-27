@@ -252,7 +252,7 @@ export default function Applications() {
       try {
         // Replace with your actual axios API call
         const response1 = await axios.get(
-          "http://127.0.0.1:8080/api/diamond-cutting-license-applications"
+          "https://diamond-hub.testlive.space/backend/api/diamond-cutting-license-applications"
         );
 
         let response = response1.data.items;
@@ -265,7 +265,7 @@ export default function Applications() {
 
         // kimberly
         const response2 = await axios.get(
-          "http://127.0.0.1:8080/api/kimberly-process-certificates-applications"
+          "https://diamond-hub.testlive.space/backend/api/kimberly-process-certificates-applications"
         );
         let responsekim = response2.data.items;
         responsekim = responsekim.filter((row) => row.status === "approved");
@@ -277,7 +277,7 @@ export default function Applications() {
 
         // Stones
         const response3 = await axios.get(
-          "http://127.0.0.1:8080/api/precious-stones-dealer-license-applications"
+          "https://diamond-hub.testlive.space/backend/api/precious-stones-dealer-license-applications"
         );
         let responsePre = response3.data.items;
         responsePre = responsePre.filter((row) => row.status === "approved");
