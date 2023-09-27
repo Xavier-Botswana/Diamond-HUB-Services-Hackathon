@@ -440,7 +440,7 @@ export function Home() {
                       />
                       <Input
                         size="lg"
-                        label="Number to be Employed"
+                        label="Number to be Employed(8 digits)"
                         name="number_to_employed"
                         onChange={handleForm1}
                         value={form1.number_to_employed}
@@ -650,7 +650,7 @@ export function Home() {
                         size="lg"
                         name="phone"
                         value={form2.phone}
-                        label="Applicant Number"
+                        label="Applicant Number (8 digits)"
                         onChange={handleForm2}
                       />
                       <Input
@@ -807,7 +807,7 @@ export function Home() {
                         size="lg"
                         name="phone"
                         value={form3.phone}
-                        label="Applicant Number"
+                        label="Applicant Number (8 digits)"
                         onChange={handleForm3}
                       />
                       <Input
