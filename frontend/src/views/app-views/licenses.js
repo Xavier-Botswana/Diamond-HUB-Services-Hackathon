@@ -216,7 +216,7 @@ export default function Applications() {
 
         axios
           .post(
-            "http://localhost:5000/diamond-hub-e2534/us-central1/api/send",
+            "https://us-central1-diamond-hub-e2534.cloudfunctions.net/api/send",
             data
           )
           .then((response) => {
@@ -277,7 +277,7 @@ export default function Applications() {
 
         // Stones
         const response3 = await axios.get(
-          "http://127.0.0.1:8080/api/precious-stones-dealer-license-applications/"
+          "http://127.0.0.1:8080/api/precious-stones-dealer-license-applications"
         );
         let responsePre = response3.data.items;
         responsePre = responsePre.filter((row) => row.status === "approved");
