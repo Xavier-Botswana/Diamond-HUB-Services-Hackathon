@@ -453,7 +453,7 @@ export default function Applications() {
                           <div className="flex items-center gap-3">
                             <Avatar
                               src={
-                                "https://smartbots.gov.bw/sites/default/files/logo-with-tagline.png"
+                                "https://i.ibb.co/d2dth7D/logo-with-tagline.png"
                               }
                               size="md"
                               className="border border-blue-gray-50 bg-blue-gray-50/50 object-contain p-1"
@@ -569,7 +569,7 @@ export default function Applications() {
                           <div className="flex items-center gap-3">
                             <Avatar
                               src={
-                                "https://smartbots.gov.bw/sites/default/files/logo-with-tagline.png"
+                                "https://i.ibb.co/d2dth7D/logo-with-tagline.png"
                               }
                               size="md"
                               className="border border-blue-gray-50 bg-blue-gray-50/50 object-contain p-1"
@@ -686,7 +686,7 @@ export default function Applications() {
                           <div className="flex items-center gap-3">
                             <Avatar
                               src={
-                                "https://smartbots.gov.bw/sites/default/files/logo-with-tagline.png"
+                                "https://i.ibb.co/d2dth7D/logo-with-tagline.png"
                               }
                               size="md"
                               className="border border-blue-gray-50 bg-blue-gray-50/50 object-contain p-1"
