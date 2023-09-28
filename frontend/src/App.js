@@ -1,7 +1,6 @@
 import "./App.css";
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Views from "./views";
-
 function App() {
   return (
     <Router>
@@ -11,5 +10,4 @@ function App() {
     </Router>
   );
 }
-
 export default App;
